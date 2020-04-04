@@ -8,7 +8,8 @@ const Color decoration_color = Color(0xFF9D9D9D);
 
 // Estilização de fontes
   // Home
-  const TextStyle title_grid = TextStyle(fontFamily: 'Open Sans',fontSize: 20);
+ // const TextStyle title_grid = TextStyle(fontFamily: 'Open Sans',fontSize: 20);
+  TextStyle titleGrid(double height) => TextStyle(fontFamily: 'Open Sans',fontSize: (height*0.025));
 
   // Itens
   const TextStyle title_item = TextStyle(fontFamily: 'Open Sans',fontSize: 24,fontWeight: FontWeight.bold);

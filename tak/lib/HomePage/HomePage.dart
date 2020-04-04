@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tak/theme/theme.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:tak/Objects/GridNavigator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,14 +30,15 @@ class _HomePageState extends State<HomePage> {
           top: (height*0.1),
           right:(width*0.11),
         ),
-        children: List.generate(4, (index){
+        children: List.generate(routes.length, (index){
           return RaisedButton(
             elevation: 0,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(MdiIcons.package, size: (height*0.08), color: primary_color,),
-                Text(index.toString() ,style: title_grid,)
+                Icon(routes[index].icon, size: (height*0.08), color: primary_color,),
+                SizedBox(height: (height*0.01)),
+                Text(routes[index].name ,style: titleGrid(height),)
               ]
             ),
             
