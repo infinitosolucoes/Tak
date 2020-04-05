@@ -17,4 +17,4 @@ const Color decoration_color = Color(0xFF9D9D9D);
 
   // AppBar
   const TextStyle home_app_bar = TextStyle(fontFamily: 'Merienda One',fontSize: 30,color: background_color);
-  const TextStyle app_bar = TextStyle(fontFamily: 'Open Sans',fontSize: 30,color: background_color);
+  const TextStyle app_bar = TextStyle(fontFamily: 'Open Sans',fontSize: 25,color: background_color, fontWeight: FontWeight.normal);

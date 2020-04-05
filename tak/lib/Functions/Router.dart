@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tak/HomePage/HomePage.dart';
+import 'package:tak/Pages/pages.dart';
+
 
 Route<dynamic> generateRoute(RouteSettings settings){
   switch(settings.name){
     case '/':
       return MaterialPageRoute(builder: (_) => HomePage());
 
+    case '/listItems':
+      return MaterialPageRoute(builder: (_) => ItemsPage());
+      
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

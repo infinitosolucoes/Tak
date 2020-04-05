@@ -47,7 +47,9 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(15),
               side: BorderSide( color: decoration_color, width: 1)
             ),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamed(context, routes[index].page);
+            },
           );
         }),
       ),
