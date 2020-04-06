@@ -12,10 +12,8 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage>{
   @override
   Widget build(BuildContext context) {
-    // Tamanho da Tela
+    // Altura da Tela
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primary_color,
@@ -47,6 +45,11 @@ class _ItemsPageState extends State<ItemsPage>{
         },
 
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primary_color,
+        child: Icon(Icons.add, size: (height*0.06)),
+        onPressed: (){}
+      )
     );
   }
 
