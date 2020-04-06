@@ -12,8 +12,8 @@ const Color decoration_color = Color(0xFF9D9D9D);
   TextStyle titleGrid(double height) => TextStyle(fontFamily: 'Open Sans',fontSize: (height*0.025));
 
   // Itens
-  const TextStyle title_item = TextStyle(fontFamily: 'Open Sans',fontSize: 24,fontWeight: FontWeight.bold);
-  const TextStyle subtitle_item = TextStyle(fontFamily: 'Open Sans',fontSize: 24,color: decoration_color);
+  const TextStyle title_item = TextStyle(fontFamily: 'Open Sans',fontSize: 20, fontWeight: FontWeight.bold);
+  const TextStyle subtitle_item = TextStyle(fontFamily: 'Open Sans',fontSize: 18, color: decoration_color);
 
   // AppBar
   const TextStyle home_app_bar = TextStyle(fontFamily: 'Merienda One',fontSize: 30,color: background_color);
