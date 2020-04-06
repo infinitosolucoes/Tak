@@ -9,7 +9,6 @@ const Color decoration_color = Color(0xFF9D9D9D);
 
 // Estilização de fontes
   // Home
- // const TextStyle title_grid = TextStyle(fontFamily: 'Open Sans',fontSize: 20);
   TextStyle titleGrid(double height) => TextStyle(fontFamily: 'Open Sans',fontSize: (height*0.025));
 
   // Itens
@@ -19,3 +18,10 @@ const Color decoration_color = Color(0xFF9D9D9D);
   // AppBar
   const TextStyle home_app_bar = TextStyle(fontFamily: 'Merienda One',fontSize: 30,color: background_color);
   const TextStyle app_bar = TextStyle(fontFamily: 'Open Sans',fontSize: 25,color: background_color, fontWeight: FontWeight.normal);
+
+  // Botões
+  const TextStyle button_text = TextStyle(fontFamily: 'Open Sans',fontSize: 16, fontWeight: FontWeight.bold, color: background_color);
+
+  // Textos Nova venda
+  const TextStyle sale_title = TextStyle(fontFamily: 'Open Sans',fontSize: 25, fontWeight: FontWeight.bold);
+  const TextStyle total_text = TextStyle(fontFamily: 'Open Sans',fontSize: 25, fontWeight: FontWeight.bold, color: primary_color);

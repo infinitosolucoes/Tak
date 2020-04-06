@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tak/Pages/SalePage/SalePage.dart';
 import 'package:tak/Pages/pages.dart';
 
 
@@ -9,6 +10,9 @@ Route<dynamic> generateRoute(RouteSettings settings){
 
     case '/listItems':
       return MaterialPageRoute(builder: (_) => ItemsPage());
+    
+    case '/newSale':
+      return MaterialPageRoute(builder: (_) => SalePage());
       
     default:
       return MaterialPageRoute(

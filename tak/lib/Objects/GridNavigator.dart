@@ -11,7 +11,7 @@ class GridNNavigator{
 
 // Lista de opções do Grid na HomePage
 List<GridNNavigator> routes = [
-  new GridNNavigator(name: 'Vender', icon: MdiIcons.cashUsdOutline),
+  new GridNNavigator(name: 'Vender', icon: MdiIcons.cashUsdOutline, page: '/newSale'),
   new GridNNavigator(name: 'Relatórios', icon: MdiIcons.chartLine),
   new GridNNavigator(name: 'Itens', icon: MdiIcons.packageVariantClosed, page: '/listItems'),
   new GridNNavigator(name: 'Conta', icon: MdiIcons.account),
