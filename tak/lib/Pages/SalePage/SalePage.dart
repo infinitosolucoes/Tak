@@ -22,6 +22,7 @@ class _SalePageState extends State<SalePage> {
         title: Text('Nova Venda', style: app_bar),
       ),
       backgroundColor: background_color,
+      
       bottomNavigationBar: BottomAppBar(
         color: background_color,
         child: Container(
@@ -33,7 +34,7 @@ class _SalePageState extends State<SalePage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text('Total: ', style: sale_title),
-                  Text('R\$ 00,00', style: total_text)
+                  Text('R\$ '+ total.toStringAsFixed(2).replaceAll('.', ','), style: total_text)
                 ],
               ),
               SizedBox(height: 10,),
@@ -84,61 +85,69 @@ class _SalePageState extends State<SalePage> {
     showModalBottomSheet(
       context: context, 
       builder: (BuildContext context){
-        return Container(
-	        padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              RadioListTile(
-                title: const Text('Dinheiro', style: title_item,),
-                groupValue: this.methodPayment,
-                value: 1,
-                onChanged: (int value){
-                  setState((){
-                    this.methodPayment = value;
-                  });
-                },
-              ),
-              RadioListTile(
-                title: const Text('Cartão de Débito', style: title_item,),
-                groupValue: this.methodPayment,
-                value: 2,
-                onChanged: (int value){
-                  setState((){
-                    this.methodPayment = value;
-                  });
-                },
-              ),
-              RadioListTile(
-                title: const Text('Cartão de Crédito', style: title_item,),
-                groupValue: this.methodPayment,
-                value: 3,
-                onChanged: (int value){
-                  setState((){
-                    this.methodPayment = value;
-                  });
-                },
-              ),
-              Row(
+        return StatefulBuilder(
+          builder: (BuildContext context, setState){
+            return Container(
+              padding: EdgeInsets.only(top: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: RaisedButton(
-                        color: success_color,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7),
-                        ),
-                        child: Text('Finalizar', style: button_text),
-                        onPressed: (){ print(this.methodPayment);},
-                      ),
+                  RadioListTile(
+                    title: const Text('Dinheiro', style: title_item,),
+                    groupValue: this.methodPayment,
+                    value: 1,
+                    onChanged: (int value){
+                      setState((){
+                        this.methodPayment = value;
+                      });
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text('Cartão de Débito', style: title_item,),
+                    groupValue: this.methodPayment,
+                    value: 2,
+                    onChanged: (int value){
+                      setState((){
+                        this.methodPayment = value;
+                      });
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text('Cartão de Crédito', style: title_item,),
+                    groupValue: this.methodPayment,
+                    value: 3,
+                    onChanged: (int value){
+                      setState((){
+                        this.methodPayment = value;
+                      });
+                    },
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: RaisedButton(
+                              color: success_color,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                              child: Text('Finalizar', style: button_text),
+                              onPressed: (){ print(this.methodPayment);},
+                            ),
+                          )
+                        )
+                      ],
                     )
-                  )
+                  ),
+                  
+                  
                 ],
               )
-              
-            ],
-          )
+            );
+          }
         );
       }
     );
