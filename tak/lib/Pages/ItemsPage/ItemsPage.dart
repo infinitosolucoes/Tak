@@ -32,7 +32,10 @@ class _ItemsPageState extends State<ItemsPage>{
         itemBuilder: (context, index){
           return ListTile(
             title: Text(items[index].name, style: title_item),
-            subtitle: Text('R\$ ' + items[index].price.toString().replaceAll('.',','), style: subtitle_item),
+            subtitle: Container(
+              padding: EdgeInsets.only(top: 5),
+              child: Text('R\$ ' + items[index].price.toString().replaceAll('.',','), style: subtitle_item),
+            ),
             trailing: IconButton(
               icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
               onPressed: (){

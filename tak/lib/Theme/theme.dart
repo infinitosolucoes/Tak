@@ -13,7 +13,7 @@ const Color decoration_color = Color(0xFF9D9D9D);
 
   // Itens
   const TextStyle title_item = TextStyle(fontFamily: 'Open Sans',fontSize: 20, fontWeight: FontWeight.bold);
-  const TextStyle subtitle_item = TextStyle(fontFamily: 'Open Sans',fontSize: 18, color: decoration_color);
+  const TextStyle subtitle_item = TextStyle(fontFamily: 'Open Sans',fontSize: 17, color: decoration_color);
 
   // AppBar
   const TextStyle home_app_bar = TextStyle(fontFamily: 'Merienda One',fontSize: 30,color: background_color);
@@ -25,3 +25,4 @@ const Color decoration_color = Color(0xFF9D9D9D);
   // Textos Nova venda
   const TextStyle sale_title = TextStyle(fontFamily: 'Open Sans',fontSize: 25, fontWeight: FontWeight.bold);
   const TextStyle total_text = TextStyle(fontFamily: 'Open Sans',fontSize: 25, fontWeight: FontWeight.bold, color: primary_color);
+  const TextStyle subtotal_text = TextStyle(fontFamily: 'Open Sans',fontSize: 18, fontWeight: FontWeight.bold, color: primary_color);
