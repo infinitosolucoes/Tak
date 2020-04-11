@@ -13,6 +13,9 @@ Route<dynamic> generateRoute(RouteSettings settings){
     
     case '/newSale':
       return MaterialPageRoute(builder: (_) => SalePage());
+
+    case '/newSale/addItem':
+      return MaterialPageRoute(builder: (_) => AddItemPage());
       
     default:
       return MaterialPageRoute(

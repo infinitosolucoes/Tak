@@ -107,7 +107,9 @@ class _SalePageState extends State<SalePage> {
                           borderRadius: BorderRadius.circular(7),
                         ),
                         child: Text('Adicionar', style: button_text),
-                        onPressed: (){},
+                        onPressed: (){
+                           Navigator.pushNamed(context, '/newSale/addItem');
+                        },
                       ),
                     )
                   ),
