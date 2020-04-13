@@ -11,10 +11,10 @@ class SalePage extends StatefulWidget {
 
 class _SalePageState extends State<SalePage> {
   List<SaleItem> _l = [
-    new SaleItem(amount: 3, id: 0, item: items[2]),
-    new SaleItem(amount: 3, id: 0, item: items[2]),
-    new SaleItem(amount: 3, id: 0, item: items[2]),
-    new SaleItem(amount: 3, id: 0, item: items[2]),
+    new SaleItem(amount: 3, item: items[2]),
+    new SaleItem(amount: 3, item: items[2]),
+    new SaleItem(amount: 3, item: items[2]),
+    new SaleItem(amount: 3, item: items[2]),
   ];
   double _total = 0;
   int _methodPayment = 1;

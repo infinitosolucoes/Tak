@@ -12,10 +12,10 @@ class Item{
 }
 
 List<Item> items = [
-  new Item(name: 'Lorem Ipsum', price: 5.99),
-  new Item(name: 'Lorem Ipsum', price: 5.99),
-  new Item(name: 'Lorem Ipsum', price: 5.99),
-  new Item(name: 'Lorem Ipsum', price: 5.99),
-  new Item(name: 'Lorem Ipsum', price: 5.99),
-  new Item(name: 'Lorem Ipsum', price: 5.99),
+  new Item(id: '0', name: 'Lorem Ipsum', price: 5.99),
+  new Item(id: '1', name: 'Lorem Ipsum', price: 5.99),
+  new Item(id: '2', name: 'Lorem Ipsum', price: 5.99),
+  new Item(id: '3', name: 'Lorem Ipsum', price: 5.99),
+  new Item(id: '4', name: 'Lorem Ipsum', price: 5.99),
+  new Item(id: '5', name: 'Lorem Ipsum', price: 5.99),
 ];
