@@ -11,7 +11,6 @@ class AddItemController{
 
   List<Item> _items = new List<Item>();
   SaleItem _new = new SaleItem(amount: 0, item: null);
-  int amountView = 0;
 
   // Carrega os itens vindos do BD
   void loadItems(){
@@ -21,24 +20,14 @@ class AddItemController{
 
   void setItem(int index){
     this._new.item = this._items[index];
-    print(this._new.item.id);
-
     this._streamController.add(this._new.item);
   }
 
-  void increaseAmount(){
-    this.amountView = ++this._new.amount;
+  void setAmount(int amount){
+    this._new.amount = amount;
     this._streamController.add(this._new.amount);
-    this._streamController.add(this.amountView);
   }
 
-  void decrementAmount(){
-    if(this._new.amount > 0){
-      this.amountView  = --this._new.amount;
-      this._streamController.add(this._new.amount);
-      this._streamController.add(this.amountView);
-    }
-  }
   int getAmount(){
     return this._new.amount;
   }
@@ -49,6 +38,17 @@ class AddItemController{
 
   Item getItem(int index){
     return this._items[index];
+  }
+
+  bool isNull(){
+    if((this._new.amount != 0) && (this._new.item != null)){
+      return false;
+    }
+    return true;
+  }
+
+  SaleItem getSaleItem(){
+    return this._new;
   }
 
   void dispose(){

@@ -54,6 +54,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         stream: this._counterController.output,
                         builder: (context,snapshot){
                           return Container(
+                            color: background_color,
                             padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -64,30 +65,55 @@ class _AddItemPageState extends State<AddItemPage> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     RaisedButton(
-                                      color: primary_color,
+                                      color: danger_color,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(7),
                                       ),
-                                      child: Icon(Icons.remove),
+                                      child: Icon(Icons.remove, size: 30, color: background_color),
                                       onPressed: this._counterController.decrementAmount,
                                     ),
-                                    Text(this._counterController.amountView.toString()),
+                                    Text(this._counterController.amountView.toString(), style: TextStyle(fontSize: 20),),
                                     RaisedButton(
-                                      color: primary_color,
+                                      color: success_color,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(7),
                                       ),
-                                      child: Icon(Icons.add),
+                                      child: Icon(Icons.add, size: 30, color: background_color),
                                       onPressed: this._counterController.increaseAmount,
                                     ),
+                                    
                                   ],
-                                )
+                                  
+                                ),
+                                SizedBox(height: 5,),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: RaisedButton(
+                                        color: primary_color,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(7),
+                                        ),
+                                        child: Text('Confirmar', style: button_text,),
+                                        onPressed: (){
+                                          this._controller.setAmount(this._counterController.amountView);
+                                          Navigator.pop(context);
+                                          if(!this._controller.isNull()){
+                                            Navigator.pop(context,this._controller.getSaleItem());
+                                          }
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ],
                             )
                           );
                         });
                     }
                   );
+                  
+                  
                 },
               );
             }, 
