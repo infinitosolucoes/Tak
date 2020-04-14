@@ -23,12 +23,7 @@ class _ItemsPageState extends State<ItemsPage>{
       backgroundColor: background_color,
       body: ListView.separated(
         itemCount:  items.length,
-        separatorBuilder: (context, index){
-          return Divider(
-            height: 1,
-            color: decoration_color,
-          );
-        },
+        separatorBuilder: (context, index) => divider,
         itemBuilder: (context, index){
           return ListTile(
             title: Text(items[index].name, style: title_item),

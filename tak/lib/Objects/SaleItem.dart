@@ -5,4 +5,6 @@ class SaleItem{
   int amount;
   
   SaleItem({this.item, this.amount});
+
+  double calculateTotal() => this.item.price * this.amount;
 }

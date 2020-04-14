@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:tak/Objects/Item.dart';
-import 'package:tak/Pages/AddItemPage/AddItemController.dart';
-import 'package:tak/Pages/AddItemPage/CounterController.dart';
+import 'package:tak/Controllers/AddItemPageControllers/AddItemController.dart';
+import 'package:tak/Controllers/AddItemPageControllers/CounterController.dart';
 import 'package:tak/Theme/theme.dart';
 
 
@@ -66,24 +64,20 @@ class _AddItemPageState extends State<AddItemPage> {
                                   children: <Widget>[
                                     RaisedButton(
                                       color: danger_color,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                      ),
+                                      shape: shape,
                                       child: Icon(Icons.remove, size: 30, color: background_color),
                                       onPressed: this._counterController.decrementAmount,
                                     ),
+
                                     Text(this._counterController.amountView.toString(), style: TextStyle(fontSize: 20),),
+                                    
                                     RaisedButton(
                                       color: success_color,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                      ),
+                                      shape: shape,
                                       child: Icon(Icons.add, size: 30, color: background_color),
                                       onPressed: this._counterController.increaseAmount,
-                                    ),
-                                    
-                                  ],
-                                  
+                                    ), 
+                                  ],   
                                 ),
                                 SizedBox(height: 5,),
                                 Row(
@@ -117,12 +111,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 },
               );
             }, 
-            separatorBuilder: (context, index){
-              return Divider(
-                height: 1,
-                color: decoration_color,
-              );
-            },
+            separatorBuilder: (context, index) => divider,
             
           ),          
         );

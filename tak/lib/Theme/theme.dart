@@ -7,6 +7,11 @@ const Color danger_color = Color(0xFFF44236);
 const Color success_color = Color(0xFF00CC66);
 const Color decoration_color = Color(0xFF9D9D9D);
 
+// Forma de botões
+RoundedRectangleBorder shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(7));
+
+Divider divider =  Divider(height: 1, color: decoration_color);
+
 // Estilização de fontes
   // Home
   TextStyle titleGrid(double height) => TextStyle(fontFamily: 'Open Sans',fontSize: (height*0.025));
