@@ -4,7 +4,7 @@ import 'package:tak/Objects/Item.dart';
 import 'package:tak/Objects/SaleItem.dart';
 
 class AddItemController{
-  final StreamController _streamController = new StreamController();
+  final StreamController _streamController = new StreamController.broadcast();
 
   Sink get input => _streamController.sink;
   Stream get output => _streamController.stream;
@@ -52,6 +52,6 @@ class AddItemController{
   }
 
   void dispose(){
-    this._streamController.close();
+    this._streamController.close(); 
   }
 }
