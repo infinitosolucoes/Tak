@@ -16,7 +16,10 @@ Route<dynamic> generateRoute(RouteSettings settings){
 
     case '/newSale/addItem':
       return MaterialPageRoute(builder: (_) => AddItemPage());
-      
+
+    case '/company':
+      return MaterialPageRoute(builder: (_) => CompanyPage());   
+         
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

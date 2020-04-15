@@ -22,7 +22,7 @@ Divider divider =  Divider(height: 1, color: decoration_color);
 
   // AppBar
   const TextStyle home_app_bar = TextStyle(fontFamily: 'Merienda One',fontSize: 30,color: background_color);
-  const TextStyle app_bar = TextStyle(fontFamily: 'Open Sans',fontSize: 25,color: background_color, fontWeight: FontWeight.normal);
+  const TextStyle app_bar = TextStyle(fontFamily: 'Open Sans',fontSize: 22,color: background_color, fontWeight: FontWeight.normal);
 
   // Botões
   const TextStyle button_text = TextStyle(fontFamily: 'Open Sans',fontSize: 16, fontWeight: FontWeight.bold, color: background_color);
