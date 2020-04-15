@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tak/Controllers/SalePageControllers/MethodPaymentController.dart';
 import 'package:tak/Controllers/SalePageControllers/SalePageController.dart';
 import 'package:tak/Objects/SaleItem.dart';
-import 'package:tak/Objects/Item.dart';
 import 'package:tak/Theme/theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -13,6 +13,7 @@ class SalePage extends StatefulWidget {
 class _SalePageState extends State<SalePage> {
  
   final SalePageController _controller = SalePageController();
+  final MethodPaymentController _methodController = MethodPaymentController();
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +98,7 @@ class _SalePageState extends State<SalePage> {
                               color: success_color,
                               shape: shape,
                               child: Text('Continuar', style: button_text),
-                              onPressed: (){},
+                              onPressed: this.showMethodPayment,
                             ),
                           ),
                         )
@@ -114,75 +115,75 @@ class _SalePageState extends State<SalePage> {
   }
   
 
-  // showMethodPayment(){
-  //   showModalBottomSheet(
-  //     context: context, 
-  //     builder: (BuildContext context){
-  //       return StatefulBuilder(
-  //         builder: (BuildContext context, setState){
-  //           return Container(
-  //             padding: EdgeInsets.only(top: 10),
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               children: <Widget>[
-  //                 RadioListTile(
-  //                   title: const Text('Dinheiro', style: title_item,),
-  //                   groupValue: this._methodPayment,
-  //                   value: 1,
-  //                   onChanged: (int value){
-  //                     setState((){
-  //                       this._methodPayment = value;
-  //                     });
-  //                   },
-  //                 ),
-  //                 RadioListTile(
-  //                   title: const Text('Cartão de Débito', style: title_item,),
-  //                   groupValue: this._methodPayment,
-  //                   value: 2,
-  //                   onChanged: (int value){
-  //                     setState((){
-  //                       this._methodPayment = value;
-  //                     });
-  //                   },
-  //                 ),
-  //                 RadioListTile(
-  //                   title: const Text('Cartão de Crédito', style: title_item,),
-  //                   groupValue: this._methodPayment,
-  //                   value: 3,
-  //                   onChanged: (int value){
-  //                     setState((){
-  //                       this._methodPayment = value;
-  //                     });
-  //                   },
-  //                 ),
-  //                 Container(
-  //                   padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
-  //                   child: Row(
-  //                     children: <Widget>[
-  //                       Expanded(
-  //                         child: SizedBox(
-  //                           height: 50,
-  //                           child: RaisedButton(
-  //                             color: success_color,
-  //                             shape: shape,
-  //                             child: Text('Finalizar', style: button_text),
-  //                             onPressed: (){ print(this._methodPayment);},
-  //                           ),
-  //                         )
-  //                       )
-  //                     ],
-  //                   )
-  //                 ),
-                  
-                  
-  //               ],
-  //             )
-  //           );
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
+  showMethodPayment(){
+    showModalBottomSheet(
+      context: context, 
+      builder: (BuildContext context){
+        return StreamBuilder(
+          stream: this._methodController.output,
+          builder: (context,snapshot){
+            return Container(
+              padding: EdgeInsets.only(top: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  RadioListTile(
+                    title: const Text('Dinheiro', style: title_item,),
+                    groupValue: this._methodController.getMethod(),
+                    value: 1,
+                    onChanged: (int value){
+                      this._methodController.setMethod(value);
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text('Cartão de Débito', style: title_item,),
+                    groupValue: this._methodController.getMethod(),
+                    value: 2,
+                    onChanged: (int value){
+                      this._methodController.setMethod(value);
+                    },
+                  ),
+                  RadioListTile(
+                    title: const Text('Cartão de Crédito', style: title_item,),
+                    groupValue: this._methodController.getMethod(),
+                    value: 3,
+                    onChanged: (int value){
+                      this._methodController.setMethod(value);
+                    },
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: RaisedButton(
+                              color: success_color,
+                              shape: shape,
+                              child: Text('Finalizar', style: button_text),
+                              onPressed: (){ 
+                                print(this._methodController.getMethod());
+                                this._controller.setMethod(this._methodController.getMethod());
+                                },
+                            ),
+                          )
+                        )
+                      ],
+                    )
+                  ),
+                ],
+              )
+            );
+          }
+        ); 
+      }
+    );
+  }
 
-  
+  void dispose(){
+    super.dispose();
+    this._controller.dispose();
+    this._methodController.dispose();
+  }
 }

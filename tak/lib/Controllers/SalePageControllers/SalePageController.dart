@@ -16,15 +16,22 @@ class SalePageController {
   );
 
   void incrementTotal(SaleItem saleItem){
-    this.newSale.total += saleItem.calculateTotal();
-    this.newSale.items.add(saleItem);
-    this._streamController.add(this.newSale);
+    if(saleItem != null){
+      this.newSale.total += saleItem.calculateTotal();
+      this.newSale.items.add(saleItem);
+      this._streamController.add(this.newSale);
+    }
   }
 
   void decrementTotal(int index){
     SaleItem saleItem = this.newSale.items[index];
     this.newSale.total -= saleItem.calculateTotal();
     this.newSale.items.removeAt(index);
+    this._streamController.add(this.newSale);
+  }
+
+  void setMethod(int value){
+    this.newSale.methodPayment = value;
     this._streamController.add(this.newSale);
   }
 
