@@ -28,13 +28,6 @@ class Company{
   void removeItem(int index){
     this.items.removeAt(index);
   }
-
-  void editCompany(String cnpj, String name, String email, String phoneNumber){
-    this.cnpj = cnpj;
-    this.name = name;
-    this.email = email;
-    this.phoneNumber = phoneNumber;
-  }
 }
 
 Company company = new Company(

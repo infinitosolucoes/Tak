@@ -40,8 +40,14 @@ class _CompanyPageState extends State<CompanyPage>{
             title: Text('Perfil', style: app_bar),
             actions: <Widget>[
               IconButton(
-                icon: Icon(MdiIcons.leadPencil, color: background_color, size: 30,),
-                onPressed: (){}
+                icon: Icon(this._controller.getIcon(), color: background_color, size: 30,),
+                onPressed: (){
+                  if(this._controller.getEditMode()){
+                    this._controller.setEditMode(false);
+                  }else{
+                    this._controller.setEditMode(true);
+                  }
+                }
               ),
               SizedBox(width: (width * 0.04),)
             ],
@@ -54,7 +60,7 @@ class _CompanyPageState extends State<CompanyPage>{
               key: this._key,
               autovalidate: this._controller.getAutoValidate(),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextFormField(
                     enabled: this._controller.getEditMode(),
@@ -63,6 +69,9 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'Nome da Empresa'
                     ),
                     initialValue: this._controller.getName(),
+                    onSaved: (String value){this._controller.setName(value);},
+                    validator: (String value) 
+                        => (value.length >= 10)? null : 'Mínimo de 10 caracteres' ,
                   ),
                   TextFormField(
                     enabled: this._controller.getEditMode(),
@@ -72,6 +81,9 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'CNPJ'
                     ),
                     initialValue: this._controller.getCNPJ(),
+                    onSaved: (String value){this._controller.setCNPJ(value);},
+                   // validator: (String value) 
+                   //   =>,
                   ),
                   TextFormField(
                     enabled: this._controller.getEditMode(),
@@ -81,6 +93,21 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'Número de Telefone'
                     ),
                     initialValue: this._controller.getPhoneNumber(),
+                    onSaved: (String value){this._controller.setPhoneNumber(value);},
+                    validator: (String value){
+                      if(value.length < 11){
+                        return 'Precisa ter 11 dígitos';
+                      }else{
+                        List ddd = [11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35, 37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67, 68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99];
+                        String s = value[0]+value[1];
+                        int n = int.parse(s);
+                        if(ddd.lastIndexOf(n) != -1){
+                          return null;
+                        }else{
+                          return 'DDD inválido';
+                        }
+                      }
+                    }
                   ),
                   TextFormField(
                     enabled: this._controller.getEditMode(),
@@ -90,6 +117,15 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'Email'
                     ),
                     initialValue: this._controller.getEmail(),
+                    onSaved: (String value){this._controller.setEmail(value);},
+                    validator: (String value){
+                      Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                      RegExp regex = new RegExp(pattern);
+                      if(!regex.hasMatch(value)){
+                        return 'Email inválido';
+                      }
+                      return null;
+                    } 
                   ),
                   TextFormField(
                     enabled: this._controller.getEditMode(),
@@ -99,6 +135,8 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'Senha'
                     ),
                     initialValue: this._controller.getPassword(),
+                    onSaved: (String value){this._controller.setPassword(value);},
+                    validator: (String value) => (value.length >= 8)? null : 'Mínimo de 8 caracteres',
                   ),
                 ],
               ),

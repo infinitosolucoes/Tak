@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tak/Objects/Company.dart';
 
 class CompanyController{
@@ -36,10 +38,34 @@ class CompanyController{
     this._streamController.add(this._editMode);
   }
 
+  IconData getIcon() => (this._editMode)? MdiIcons.contentSave : MdiIcons.leadPencil;
+
   // Getters do Formulário
   String getName() => this._company.name;
   String getCNPJ() => this._company.cnpj;
   String getPhoneNumber() => this._company.phoneNumber;
   String getEmail() => this._company.email;
   String getPassword() => this._company.password;
+
+  // Setters do Formulário
+  void setName(String value) {
+    this._company.name = value;
+    this._streamController.add(this._company);
+  } 
+  void setCNPJ(String value) {
+    this._company.cnpj = value;
+    this._streamController.add(this._company);
+  } 
+  void setPhoneNumber(String value) {
+    this._company.phoneNumber = value;
+    this._streamController.add(this._company);
+  } 
+  void setEmail(String value) {
+    this._company.email = value;
+    this._streamController.add(this._company);
+  } 
+  void setPassword(String value) {
+    this._company.password = value;
+    this._streamController.add(this._company);
+  } 
 }
