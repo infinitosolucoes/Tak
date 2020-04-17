@@ -32,6 +32,6 @@ class Company{
 
 Company company = new Company(
   cnpj: '0000000000', name: 'Pastel do Zé', type: true,
-  email: 'pasteldoze@ze.com', password: '123456', phoneNumber: '+5522999236521',
+  email: 'pasteldoze@ze.com', password: '123456', phoneNumber: '22999236521',
   sales: [], items: []
 );

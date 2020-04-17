@@ -12,7 +12,17 @@ class CompanyPage extends StatefulWidget {
 class _CompanyPageState extends State<CompanyPage>{
   
   final CompanyController _controller = CompanyController();
-  final GlobalKey _key = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
+  bool submit(){
+    if(this._formKey.currentState.validate()){
+      this._formKey.currentState.save();
+      return true;
+    }else{
+      this._controller.setAutoValidate(true);
+      return false;
+    }
+  }
 
   @override
   void initState() {
@@ -43,7 +53,9 @@ class _CompanyPageState extends State<CompanyPage>{
                 icon: Icon(this._controller.getIcon(), color: background_color, size: 30,),
                 onPressed: (){
                   if(this._controller.getEditMode()){
-                    this._controller.setEditMode(false);
+                    if(this.submit()){
+                      this._controller.setEditMode(false);
+                    }
                   }else{
                     this._controller.setEditMode(true);
                   }
@@ -57,7 +69,7 @@ class _CompanyPageState extends State<CompanyPage>{
           body: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Form(
-              key: this._key,
+              key: this._formKey,
               autovalidate: this._controller.getAutoValidate(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,9 +93,50 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'CNPJ'
                     ),
                     initialValue: this._controller.getCNPJ(),
+                    maxLength: 14,
                     onSaved: (String value){this._controller.setCNPJ(value);},
-                   // validator: (String value) 
-                   //   =>,
+                    validator: (String value) {
+                      if(value.length < 14){
+                        return 'Precisa de 14 dígitos';
+                      }else{
+                        List<int> weight1 = [5,4,3,2,9,8,7,6,5,4,3,2];
+                        List<int> weight2 = [6,5,4,3,2,9,8,7,6,5,4,3,2];
+                        String vd = '';
+                        int counter = 0;
+                        for(int i = 0; i < weight1.length; i++){
+                            counter += int.parse(value[i]) * weight1[i];
+                        } 
+                        counter %= 11;
+                        if(counter >= 2){
+                          vd = vd + (11-counter).toString();
+                        }else{
+                          vd = vd + (counter).toString();
+                        }
+                        
+                        counter = 0;
+                        for(int i = 0; i < weight2.length; i++){
+                          if(i == (weight2.length - 1)){
+                            counter += int.parse(vd) * weight2[i];
+                          }else{
+                            counter += int.parse(value[i]) * weight2[i];
+                          }
+                        }
+                        
+                        counter %= 11;
+                        if(counter >= 2){
+                          vd = vd + (11-counter).toString();
+                        }else{
+                          vd = vd + (counter).toString();
+                        }
+                        
+                        if(int.parse(vd) == int.parse(value.substring((value.length - 2),value.length))){
+                          return null;
+                        }else{
+                          return 'CNPJ Inválido';
+                        }
+                      }
+                    }
+                   
                   ),
                   TextFormField(
                     enabled: this._controller.getEditMode(),
@@ -93,6 +146,7 @@ class _CompanyPageState extends State<CompanyPage>{
                       hintText: 'Número de Telefone'
                     ),
                     initialValue: this._controller.getPhoneNumber(),
+                    maxLength: 11,
                     onSaved: (String value){this._controller.setPhoneNumber(value);},
                     validator: (String value){
                       if(value.length < 11){
