@@ -14,6 +14,8 @@ class CompanyController{
 
   bool _autovalidate = false;     // Controle de validação do formulário
   bool _editMode = false;         // Controle de permissão de edição do formulário
+  final formKey = GlobalKey<FormState>();
+
 
   void getCompany(){
     this._company = company;
@@ -40,6 +42,7 @@ class CompanyController{
 
   IconData getIcon() => (this._editMode)? MdiIcons.contentSave : MdiIcons.leadPencil;
 
+  // Calculadora dos dígitos verificadores do CNPJS
   String _calculateVD(String cnpj, List<int> weight, String vd){
     int counter = 0;
     for(int i = 0; i < weight.length; i++){
@@ -102,33 +105,7 @@ class CompanyController{
 
       vd = vd + this._calculateVD(value,weight1,vd);
       vd = vd + this._calculateVD(value,weight2,vd);
-      // int counter = 0;
-      // for(int i = 0; i < weight1.length; i++){
-      //     counter += int.parse(value[i]) * weight1[i];
-      // } 
-      // counter %= 11;
-      // if(counter >= 2){
-      //   vd = vd + (11-counter).toString();
-      // }else{
-      //   vd = vd + (counter).toString();
-      // }
-      
-      // counter = 0;
-      // for(int i = 0; i < weight2.length; i++){
-      //   if(i == (weight2.length - 1)){
-      //     counter += int.parse(vd) * weight2[i];
-      //   }else{
-      //     counter += int.parse(value[i]) * weight2[i];
-      //   }
-      // }
-      
-      // counter %= 11;
-      // if(counter >= 2){
-      //   vd = vd + (11-counter).toString();
-      // }else{
-      //   vd = vd + (counter).toString();
-      // }
-      
+
       if(int.parse(vd) == int.parse(value.substring((value.length - 2),value.length))){
         return null;
       }else{
@@ -160,4 +137,14 @@ class CompanyController{
     return null;
   }
   String passwordValidator(String value) => (value.length >= 8)? null : 'Mínimo de 8 caracteres';
+
+  bool submit(){
+    if(this.formKey.currentState.validate()){
+      this.formKey.currentState.save();
+      return true;
+    }else{
+      this.setAutoValidate(true);
+      return false;
+    }
+  }
 }

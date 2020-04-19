@@ -3,6 +3,7 @@ import 'package:tak/Objects/Sale.dart';
 
 class Company{
   String cnpj;
+  String img;
   String name;
   String email;
   String password;
@@ -11,7 +12,7 @@ class Company{
   List<Sale> sales;
   List<Item> items;
 
-  Company({this.cnpj, this.name, this.type, this.email, this.password, this.phoneNumber, this.sales, this.items});
+  Company({this.cnpj, this.img, this.name, this.type, this.email, this.password, this.phoneNumber, this.sales, this.items});
 
   void newSale(Sale sale){
     if(sale != null){
@@ -31,7 +32,7 @@ class Company{
 }
 
 Company company = new Company(
-  cnpj: '0000000000', name: 'Pastel do Zé', type: true,
+  cnpj: '0000000000', img: null, name: 'Pastel do Zé', type: true,
   email: 'pasteldoze@ze.com', password: '123456', phoneNumber: '22999236521',
   sales: [], items: []
 );
