@@ -66,11 +66,19 @@ class _CompanyPageState extends State<CompanyPage>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  RawMaterialButton(
-                    child:  this._controller.getImage(),
-                  
-                    shape: new CircleBorder(),
-                    onPressed: this._controller.setImage,
+                  Material(
+                    shape: CircleBorder(),
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.transparent,
+                    child: Ink.image(
+                      image: this._controller.getImage(),
+                      fit: BoxFit.cover,
+                      width: 200.0,
+                      height: 200.0,
+                      child: InkWell(
+                        onTap: this._controller.setImage,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 5,),
                   TextFormField(

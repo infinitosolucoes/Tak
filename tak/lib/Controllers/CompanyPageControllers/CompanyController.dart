@@ -51,7 +51,7 @@ class CompanyController{
 
   IconData getIcon() => (this._editMode)? MdiIcons.contentSave : MdiIcons.leadPencil;
 
-  Image getImage() => (this._image  == null)?  Image(image: AssetImage('images/profile.png')): Image.file(_image);
+  ImageProvider getImage() => (this._image  == null)? AssetImage('images/profile.png'): FileImage(this._image);//Image.file(_image);
 
   // Getters do Formulário
   String getName() => this._company.name;
