@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,10 @@ class CompanyController{
   Future setImage() async{
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     this._image = image;
+    List<int> imageBytes = this._image.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+	this._company.img = base64Image;
+    print('\n Imagem: '+this._company.img+'\n');
     this._streamController.add(this._image);
   }
   
