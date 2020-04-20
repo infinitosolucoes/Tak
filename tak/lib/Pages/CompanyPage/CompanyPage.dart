@@ -66,9 +66,11 @@ class _CompanyPageState extends State<CompanyPage>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: AssetImage('images/profile.png'),
+                  RawMaterialButton(
+                    child:  this._controller.getImage(),
+                  
+                    shape: new CircleBorder(),
+                    onPressed: this._controller.setImage,
                   ),
                   SizedBox(height: 5,),
                   TextFormField(
