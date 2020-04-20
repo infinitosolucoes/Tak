@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Company.dart';
 
 class CompanyController{
@@ -16,7 +20,22 @@ class CompanyController{
   bool _editMode = false;         // Controle de permissão de edição do formulário
   final formKey = GlobalKey<FormState>();
 
+  File _image;
 
+  Future setImage() async{
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    this._image = image;
+    if(this._image != null){
+      List<int> imageBytes = this._image.readAsBytesSync();
+      String base64Image = base64Encode(imageBytes);
+      this._company.img = base64Image;
+      print('\n Imagem: '+this._company.img+'\n');
+      // this._streamController.add(this._image);
+      this._streamController.add(this._company);
+    }
+    
+  }
+  
   void getCompany(){
     this._company = company;
     this._streamController.add(this._company);
@@ -42,7 +61,15 @@ class CompanyController{
 
   IconData getIcon() => (this._editMode)? MdiIcons.contentSave : MdiIcons.leadPencil;
 
-
+  ImageProvider getImage(){ 
+    if (this._company.img  == null){ 
+      return AssetImage('images/profile.png');
+    }else{ 
+      Uint8List image = base64Decode(this._company.img);
+      return MemoryImage(image);
+      //return FileImage(image); 
+    }
+  }//Image.file(_image);
 
   // Getters do Formulário
   String getName() => this._company.name;
