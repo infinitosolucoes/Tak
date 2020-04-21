@@ -67,7 +67,9 @@ class _CompanyPageState extends State<CompanyPage>{
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Material(
-                    shape: CircleBorder(),
+                    shape: CircleBorder(
+                      side: BorderSide(color: primary_color, width: 4)
+                    ),
                     clipBehavior: Clip.hardEdge,
                     color: Colors.transparent,
                     child: Ink.image(

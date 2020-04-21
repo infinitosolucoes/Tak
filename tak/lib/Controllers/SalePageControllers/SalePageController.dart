@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/SaleItem.dart';
+import 'package:tak/Objects/Company.dart';
 
 class SalePageController {
   final StreamController _streamController = new StreamController.broadcast();
@@ -45,6 +46,16 @@ class SalePageController {
 
   int len(){
     return this.newSale.items.length;
+  }
+
+  bool finalizeSale(){
+    try{
+      company.sales.add(this.newSale);
+      print('\nRealizado com sucesso\n');
+      return true;
+    }catch(e){
+      return false;
+    }
   }
 
   void dispose(){
