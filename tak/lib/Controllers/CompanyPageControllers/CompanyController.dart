@@ -11,13 +11,13 @@ import 'package:tak/Objects/Company.dart';
 class CompanyController{
   final StreamController _streamController = new StreamController.broadcast();
 
-  Sink get input => _streamController.sink;
-  Stream get output => _streamController.stream;
+  Sink get input => _streamController.sink;                   // Entrada de dados da CompanyPage
+  Stream get output => _streamController.stream;              // Saída de dados do Controller
+  Future get close => _streamController.close();              // Fechamento da Stream
 
 
-
-  bool _autovalidate = false;     // Controle de validação do formulário
-  bool _editMode = false;         // Controle de permissão de edição do formulário
+  bool _autovalidate = false;               // Controle de validação do formulário
+  bool _editMode = false;                   // Controle de permissão de edição do formulário
   final formKey = GlobalKey<FormState>();
 
   File _image;
@@ -38,10 +38,6 @@ class CompanyController{
   void getCompany(){
     company = company;
     this._streamController.add(company);
-  }
-
-  void dispose(){
-    this._streamController.close(); 
   }
 
   bool getAutoValidate() => this._autovalidate;

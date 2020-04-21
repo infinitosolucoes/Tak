@@ -25,7 +25,7 @@ class _CompanyPageState extends State<CompanyPage>{
   @override
   void dispose() {
     super.dispose();
-    this._controller.dispose();
+    this._controller.close;
   }
 
   @override

@@ -6,8 +6,9 @@ import 'package:tak/Objects/SaleItem.dart';
 class AddItemController{
   final StreamController _streamController = new StreamController.broadcast();
 
-  Sink get input => _streamController.sink;
-  Stream get output => _streamController.stream;
+  Sink get input => _streamController.sink;                   // Entrada de dados da AddItemPage
+  Stream get output => _streamController.stream;              // Saída de dados do Controller
+  Future get close => _streamController.close();              // Fechamento da Stream
 
   List<Item> _items = new List<Item>();
   SaleItem _new = new SaleItem(amount: 0, item: null);
@@ -51,7 +52,4 @@ class AddItemController{
     return this._new;
   }
 
-  void dispose(){
-    this._streamController.close(); 
-  }
 }

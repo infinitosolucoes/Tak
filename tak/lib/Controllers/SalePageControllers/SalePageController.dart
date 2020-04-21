@@ -7,8 +7,9 @@ import 'package:tak/Objects/Company.dart';
 class SalePageController {
   final StreamController _streamController = new StreamController.broadcast();
 
-  Sink get input => _streamController.sink;
-  Stream get output => _streamController.stream;
+  Sink get input => _streamController.sink;                   // Entrada de dados da SalePage
+  Stream get output => _streamController.stream;              // Saída de dados do Controller
+  Future get close => _streamController.close();              // Fechamento da Stream. Obs.: Deve ser chamado na função dispose da SalePage
 
   Sale newSale = new Sale(
     total: 0.00,
@@ -58,7 +59,4 @@ class SalePageController {
     }
   }
 
-  void dispose(){
-    this._streamController.close();
-  }
 }

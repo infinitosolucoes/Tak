@@ -183,9 +183,10 @@ class _SalePageState extends State<SalePage> {
     );
   }
 
+  @override
   void dispose(){
+    this._controller.close;
+    this._methodController.close;
     super.dispose();
-    this._controller.dispose();
-    this._methodController.dispose();
   }
 }

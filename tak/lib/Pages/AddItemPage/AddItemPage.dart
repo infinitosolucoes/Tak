@@ -123,9 +123,9 @@ class _AddItemPageState extends State<AddItemPage> {
   }
 
   void dispose(){
+    this._controller.close;
+    this._counterController.close;
     super.dispose();
-    this._controller.dispose();
-    this._counterController.dispose();
   }
 
 
