@@ -162,10 +162,12 @@ class _SalePageState extends State<SalePage> {
                               color: success_color,
                               shape: shape,
                               child: Text('Finalizar', style: button_text),
-                              onPressed: (){ 
-                                print(this._methodController.getMethod());
+                              onPressed: (){
                                 this._controller.setMethod(this._methodController.getMethod());
-                                },
+                                if(this._controller.finalizeSale()){
+                                  Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+                                }
+                              },
                             ),
                           )
                         )
