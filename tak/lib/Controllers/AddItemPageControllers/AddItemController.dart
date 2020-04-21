@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Objects/SaleItem.dart';
+import 'package:tak/Objects/Company.dart';
 
 class AddItemController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -15,7 +16,7 @@ class AddItemController{
 
   // Carrega os itens vindos do BD
   void loadItems(){
-    this._items = items;
+    this._items = company.items;
     this._streamController.add(this._items);
   }
 

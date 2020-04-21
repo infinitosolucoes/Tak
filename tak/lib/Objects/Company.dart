@@ -34,5 +34,13 @@ class Company{
 Company company = new Company(
   cnpj: '0000000000', img: null, name: 'Pastel do Zé', type: true,
   email: 'pasteldoze@ze.com', password: '123456', phoneNumber: '22999236521',
-  sales: [], items: []
+  sales: [], 
+  items: [
+    new Item(id: '0', name: 'Lorem Ipsum', price: 5.99),
+    new Item(id: '1', name: 'Lorem Ipsum', price: 5.99),
+    new Item(id: '2', name: 'Lorem Ipsum', price: 5.99),
+    new Item(id: '3', name: 'Lorem Ipsum', price: 5.99),
+    new Item(id: '4', name: 'Lorem Ipsum', price: 5.99),
+    new Item(id: '5', name: 'Lorem Ipsum', price: 5.99),
+  ]
 );
