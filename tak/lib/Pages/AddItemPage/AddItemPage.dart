@@ -71,44 +71,54 @@ class _AddItemPageState extends State<AddItemPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text('Informe a Quantidade: ', style: title_item,),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 15,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      RaisedButton(
-                        color: danger_color,
-                        shape: shape,
-                        child: Icon(Icons.remove, size: 30, color: background_color),
-                        onPressed: this._counterController.decrementAmount,
+                      SizedBox(
+                        height: 50,
+                        child: RaisedButton(
+                          color: danger_color,
+                          shape: shape,
+                          child: Icon(Icons.remove, size: 30, color: background_color),
+                          onPressed: this._counterController.decrementAmount,
+                        ),
                       ),
 
                       Text(this._counterController.amountView.toString(), style: TextStyle(fontSize: 20),),
                       
-                      RaisedButton(
-                        color: success_color,
-                        shape: shape,
-                        child: Icon(Icons.add, size: 30, color: background_color),
-                        onPressed: this._counterController.increaseAmount,
-                      ), 
+                      SizedBox(
+                        height: 50,
+                        child: RaisedButton(
+                          color: success_color,
+                          shape: shape,
+                          child: Icon(Icons.add, size: 30, color: background_color),
+                          onPressed: this._counterController.increaseAmount,
+                        ), 
+                      ),
+                      
                     ],   
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 25,),
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
-                          color: primary_color,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7),
+                        child: SizedBox(
+                          height: 50,
+                          child: RaisedButton(
+                            color: primary_color,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: Text('Confirmar', style: button_text,),
+                            onPressed: (){
+                              this._controller.setAmount(this._counterController.amountView);
+                              Navigator.pop(context);
+                              if(!this._controller.isNull()){
+                                Navigator.pop(context,this._controller.getSaleItem());
+                              }
+                            },
                           ),
-                          child: Text('Confirmar', style: button_text,),
-                          onPressed: (){
-                            this._controller.setAmount(this._counterController.amountView);
-                            Navigator.pop(context);
-                            if(!this._controller.isNull()){
-                              Navigator.pop(context,this._controller.getSaleItem());
-                            }
-                          },
                         ),
                       )
                     ],
