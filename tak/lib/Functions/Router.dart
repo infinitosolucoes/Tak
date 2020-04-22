@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tak/Objects/SlideLeftTransition.dart';
 import 'package:tak/Pages/SalePage/SalePage.dart';
 import 'package:tak/Pages/pages.dart';
 
@@ -10,16 +10,16 @@ Route<dynamic> generateRoute(RouteSettings settings){
       return MaterialPageRoute(builder: (_) => HomePage());
 
     case '/listItems':
-     return SlideLeftTransition(page: ItemsPage());
+     return CupertinoPageRoute(builder: (_) => ItemsPage());
     
     case '/newSale':
-      return SlideLeftTransition(page: SalePage());
+      return CupertinoPageRoute(builder: (_) => SalePage());
 
     case '/newSale/addItem':
-      return SlideLeftTransition(page: AddItemPage());
+      return CupertinoPageRoute(builder: (_) => AddItemPage());
 
     case '/company':
-      return SlideLeftTransition(page: CompanyPage());  
+      return CupertinoPageRoute(builder: (_) => CompanyPage());  
          
     default:
       return MaterialPageRoute(
