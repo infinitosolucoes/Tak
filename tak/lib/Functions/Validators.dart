@@ -16,9 +16,10 @@
     }
   }
 
-// Validações do formulário               
+  // Função pra validar o nome               
   String nameValidator(String value) => (value.length >= 2)? null : 'Mínimo de 2 caracteres';
 
+  // Função de validação do CNPJ
   String cnpjValidator(String value){
     if(value.length < 14){
       return 'Precisa de 14 dígitos';
@@ -40,6 +41,7 @@
     }
   }
 
+  // Função de Validação de Telefone
   String phoneValidator(String value){
     if(value.length < 11){
       return 'Precisa ter 11 dígitos';
@@ -54,6 +56,8 @@
       }
     }
   }
+
+  // Função de validação de email
   String emailValidator(String value){
     Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
@@ -62,4 +66,61 @@
     }
     return null;
   }
+
+  // Função de validação de senha
   String passwordValidator(String value) => (value.length >= 8)? null : 'Mínimo de 8 caracteres';
+
+  // Função de validação de preço
+  String priceValidator(String value){
+    String priceString = value.replaceAll(',', '.');
+    
+    double price = double.tryParse(priceString);
+    if(price == null){
+      return 'Valor Inválido';
+    }
+    if(price <= 0){
+      return 'Valor Inválido';
+    }
+    return null;
+  }
+
+  // Função que calcula o Código de Barras, padrão EAN-13
+  String ean13Validator(String value){
+    if(value.length < 13){ 
+      return 'Precisa de 13 Dígitos'; 
+    }else if(value == ('0'*13)){ 
+      return 'Código Inválido'; 
+    }
+    int counter = 0;
+    bool flag = false;          // Bandeira de fazer a multiplicação por 1 (false) ou 3 (true)
+    for (int index = 0; index < 12; index++) {
+      int number = int.tryParse(value[index]);
+      if(number == null){
+        return 'Código Inválido';
+      }else{
+        if(flag){
+          counter += number * 3; 
+        }else{
+          counter += number;
+        }
+        flag = !flag;           // Inverte o valor da bandeira
+      }
+    }
+    int vd;
+    if((counter % 10) == 0){
+      vd = 0;
+    }else{
+      int number = (counter/10).truncate();  // Arredonda o valor pra baixo
+      number = (number + 1) * 10; 
+      vd = number - counter;
+    }
+    int vdValue = int.tryParse(value[(value.length - 1)]);  // Pega o digito verificador do código informado
+    if(vdValue == null){
+      return 'Código Inválido';
+    }else if(vd != vdValue){
+      return 'Código Inválido';
+    }else{
+      return null;
+    }
+
+  } 

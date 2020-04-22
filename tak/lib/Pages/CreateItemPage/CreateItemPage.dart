@@ -33,7 +33,10 @@ class _CreateItemPageState extends State<CreateItemPage> {
               IconButton(
                 icon: Icon(MdiIcons.contentSave, color: background_color, size: 30,),
                 onPressed: (){
-                 
+                  bool flag = this._controller.submit();
+                  if(flag){
+                    Navigator.pop(context, this._controller.newItem);
+                  }
                 }
               ),
               SizedBox(width: (width * 0.04),)
@@ -60,10 +63,11 @@ class _CreateItemPageState extends State<CreateItemPage> {
 
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Código do Item',
+                      labelText: 'Código de Barras do Item',
                       errorStyle: TextStyle(color: danger_color),
                     ),
-                    //validator: Validators.nameValidator,
+                    keyboardType: TextInputType.phone,
+                    validator: Validators.ean13Validator,
                     onSaved: (String value){
                       this._controller.id = value;
                     },
@@ -75,8 +79,9 @@ class _CreateItemPageState extends State<CreateItemPage> {
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     keyboardType: TextInputType.phone,
-                    //validator: Validators.nameValidator,
+                    validator: Validators.priceValidator,
                     onSaved: (String value){
+                      value = value.replaceAll(',', '.');
                       double price = double.parse(value);
                       this._controller.price = price;
                     },

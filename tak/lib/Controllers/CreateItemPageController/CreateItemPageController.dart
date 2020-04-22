@@ -14,7 +14,7 @@ class CreateItemPageController{
   final formKey = GlobalKey<FormState>();
 
   Item _newItem = new Item();
-
+  Item get newItem => this._newItem; 
   // Getters do formulário
   bool get autoValidate => this._autovalidate;
 
@@ -32,5 +32,15 @@ class CreateItemPageController{
   set price (double value){
     this._newItem.price = value;
     this._streamController.add(this._newItem);
+  }
+
+  bool submit(){
+    if(this.formKey.currentState.validate()){
+      this.formKey.currentState.save();
+      return true;
+    }else{
+      this._autovalidate = true;
+      return false;
+    }
   }
 }

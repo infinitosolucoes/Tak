@@ -18,4 +18,9 @@ class ItemsPageController{
     company.items.removeAt(index);
     this._streamController.add(company);
   }
+
+  void addItem(Item item){
+    company.items.add(item);
+    this._streamController.add(company);
+  }
 }
