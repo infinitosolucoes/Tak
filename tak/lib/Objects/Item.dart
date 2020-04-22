@@ -1,7 +1,7 @@
 class Item{
   String id;
   String name;
-  bool type;
+  bool type;                  // Este booleano é pra saber se o item é um produto ou serviço
   double price;
   int guarantee;
 

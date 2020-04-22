@@ -57,7 +57,9 @@ class _ItemsPageState extends State<ItemsPage>{
           floatingActionButton: FloatingActionButton(
             backgroundColor: primary_color,
             child: Icon(Icons.add, size: (height*0.06)),
-            onPressed: (){}
+            onPressed: (){
+              Navigator.pushNamed(context, '/listItems/createItem');
+            }
           )
         );
       }
