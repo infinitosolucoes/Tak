@@ -2,15 +2,14 @@
   String _calculateVD(String cnpj, List<int> weight, String vd){
     int counter = 0;
     for(int i = 0; i < weight.length; i++){
+      int digit;
       if((vd != '') && (i == (weight.length - 1))){
-        int digit = int.tryParse(vd);
-        if(digit == null){return null;}
-        counter += digit * weight[i];
+        digit = int.tryParse(vd);
       }else{
-        int digit = int.tryParse(cnpj[i]);
-        if(digit == null){return null;}
-        counter += digit * weight[i];
+        digit = int.tryParse(cnpj[i]);
       }
+      if(digit == null){return null;}
+      counter += digit * weight[i];
     }
     counter %= 11;
     if(counter >= 2){
@@ -29,7 +28,7 @@
       return 'Precisa de 14 dígitos';
     }else if(value == ('0'*14)){
       return 'CNPJ Inválido';
-    } else{
+    }else{
       List<int> weight1 = [5,4,3,2,9,8,7,6,5,4,3,2];
       List<int> weight2 = [6,5,4,3,2,9,8,7,6,5,4,3,2];
       String vd = '';
@@ -80,6 +79,18 @@
 
   // Função de validação de preço
   String priceValidator(String value){
+
+    for(var c in value.split('')){
+      if('0123456789,'.indexOf(c) == -1){
+        return 'Valor Inválido';
+      }
+    }
+    if((value.split(',').length != 2) || (value.split(',')[1].length != 2)){
+      return 'Valor Inválido';
+    }
+    // if(value.split(',')[1].length != 2){
+    //   return 'Valor Inválido';
+    // }
     String priceString = value.replaceAll(',', '.');
     
     double price = double.tryParse(priceString);
