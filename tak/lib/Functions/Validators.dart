@@ -3,9 +3,13 @@
     int counter = 0;
     for(int i = 0; i < weight.length; i++){
       if((vd != '') && (i == (weight.length - 1))){
-        counter += int.parse(vd) * weight[i];
+        int digit = int.tryParse(vd);
+        if(digit == null){return null;}
+        counter += digit * weight[i];
       }else{
-        counter += int.parse(cnpj[i]) * weight[i];
+        int digit = int.tryParse(cnpj[i]);
+        if(digit == null){return null;}
+        counter += digit * weight[i];
       }
     }
     counter %= 11;
@@ -30,8 +34,12 @@
       List<int> weight2 = [6,5,4,3,2,9,8,7,6,5,4,3,2];
       String vd = '';
 
-      vd = vd + _calculateVD(value,weight1,vd);
-      vd = vd + _calculateVD(value,weight2,vd);
+      String s = _calculateVD(value,weight1,vd);
+      if(s == null){return 'CNPJ Inválido';}
+      vd = vd + s;
+      s = _calculateVD(value,weight2,vd);
+      if(s == null){return 'CNPJ Inválido';}
+      vd = vd + s;
 
       if(int.parse(vd) == int.parse(value.substring((value.length - 2),value.length))){
         return null;

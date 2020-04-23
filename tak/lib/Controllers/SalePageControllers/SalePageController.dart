@@ -11,49 +11,53 @@ class SalePageController {
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream. Obs.: Deve ser chamado na função dispose da SalePage
 
-  Sale newSale = new Sale(
+  Sale _newSale = new Sale(
     total: 0.00,
     methodPayment: 1,
-    items: new List<SaleItem>()
+    items: new List<SaleItem>(),
+    date: DateTime.now().toString()
   );
 
   void incrementTotal(SaleItem saleItem){
     if(saleItem != null){
-      this.newSale.total += saleItem.calculateTotal();
-      this.newSale.items.add(saleItem);
-      this._streamController.add(this.newSale);
+      this._newSale.total += saleItem.calculateTotal();
+      this._newSale.items.add(saleItem);
+      this._streamController.add(this._newSale);
     }
   }
 
   void decrementTotal(int index){
-    SaleItem saleItem = this.newSale.items[index];
-    this.newSale.total -= saleItem.calculateTotal();
-    this.newSale.items.removeAt(index);
-    this._streamController.add(this.newSale);
+    SaleItem saleItem = this._newSale.items[index];
+    this._newSale.total -= saleItem.calculateTotal();
+    this._newSale.items.removeAt(index);
+    this._streamController.add(this._newSale);
   }
 
   void setMethod(int value){
-    this.newSale.methodPayment = value;
-    this._streamController.add(this.newSale);
+    this._newSale.methodPayment = value;
+    this._streamController.add(this._newSale);
   }
 
   SaleItem getSaleItem(int index){
-    return this.newSale.items[index];
+    return this._newSale.items[index];
   }
 
   double getTotal(){
-    return this.newSale.total;
+    return this._newSale.total;
   }
 
   int len(){
-    return this.newSale.items.length;
+    return this._newSale.items.length;
   }
 
   bool finalizeSale(){
     try{
-      company.sales.add(this.newSale);
-      print('\nRealizado com sucesso\n');
-      return true;
+      if(this._newSale.total > 0){
+        company.sales.add(this._newSale);
+        print('\nRealizado com sucesso\n');
+        return true;
+      }
+      return false;
     }catch(e){
       return false;
     }

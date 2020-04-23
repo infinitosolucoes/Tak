@@ -20,9 +20,9 @@ class _ItemsPageState extends State<ItemsPage>{
   }
   @override
   Widget build(BuildContext context) {
-    // Altura da Tela
+    // Tamanho da Tela
     double height = MediaQuery.of(context).size.height;
-
+    double width = MediaQuery.of(context).size.width;
     return StreamBuilder(
       stream: this._controller.output,
       builder: (context, snapshot){
@@ -31,6 +31,18 @@ class _ItemsPageState extends State<ItemsPage>{
             backgroundColor: primary_color,
             centerTitle: true,
             title: Text('Itens', style: app_bar),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add, color: background_color, size: 30),
+                onPressed: () async{
+                  final item = await Navigator.pushNamed(context, '/listItems/createItem');
+                  if(item != null){
+                    this._controller.addItem(item);
+                  }
+                },
+              ),
+              SizedBox(width: (width * 0.04),)
+            ],
           ),
           backgroundColor: background_color,
           body: ListView.separated(
@@ -54,17 +66,17 @@ class _ItemsPageState extends State<ItemsPage>{
             },
 
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: primary_color,
-            child: Icon(Icons.add, size: (height*0.06)),
-            onPressed: () async{
-              final item = await Navigator.pushNamed(context, '/listItems/createItem');
-              if(item != null){
-                this._controller.addItem(item);
-              }
+          // floatingActionButton: FloatingActionButton(
+          //   backgroundColor: primary_color,
+          //   child: Icon(Icons.add, size: (height*0.06)),
+          //   onPressed: () async{
+          //     final item = await Navigator.pushNamed(context, '/listItems/createItem');
+          //     if(item != null){
+          //       this._controller.addItem(item);
+          //     }
               
-            }
-          )
+          //   }
+          // )
         );
       }
     ); 
