@@ -12,10 +12,11 @@ class SalePageController {
   Future get close => _streamController.close();              // Fechamento da Stream. Obs.: Deve ser chamado na função dispose da SalePage
 
   Sale _newSale = new Sale(
+    id: (company.sales.length+1).toString(),
     total: 0.00,
     methodPayment: 1,
     items: new List<SaleItem>(),
-    date: DateTime.now().toString()
+    date: DateTime.now().toString().split(' ')[0]
   );
 
   void incrementTotal(SaleItem saleItem){
@@ -54,7 +55,7 @@ class SalePageController {
     try{
       if(this._newSale.total > 0){
         company.sales.add(this._newSale);
-        print('\nRealizado com sucesso\n');
+        print(this._newSale.toString());
         return true;
       }
       return false;

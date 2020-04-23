@@ -17,12 +17,6 @@ class _CompanyPageState extends State<CompanyPage>{
   
 
   @override
-  void initState() {
-    super.initState();
-    this._controller.getCompany();
-  }
-
-  @override
   void dispose() {
     super.dispose();
     this._controller.close;
@@ -42,14 +36,14 @@ class _CompanyPageState extends State<CompanyPage>{
             title: Text('Perfil', style: app_bar),
             actions: <Widget>[
               IconButton(
-                icon: Icon(this._controller.getIcon(), color: background_color, size: 30,),
+                icon: Icon(this._controller.icon, color: background_color, size: 30,),
                 onPressed: (){
-                  if(this._controller.getEditMode()){
+                  if(this._controller.editMode){
                     if(this._controller.submit()){
-                      this._controller.setEditMode(false);
+                      this._controller.editMode = false;
                     }
                   }else{
-                    this._controller.setEditMode(true);
+                    this._controller.editMode = true;
                   }
                 }
               ),
@@ -62,7 +56,7 @@ class _CompanyPageState extends State<CompanyPage>{
             padding: EdgeInsets.all(20),
             child: Form(
               key: this._controller.formKey,
-              autovalidate: this._controller.getAutoValidate(),
+              autovalidate: this._controller.autoValidate,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -73,7 +67,7 @@ class _CompanyPageState extends State<CompanyPage>{
                     clipBehavior: Clip.hardEdge,
                     color: Colors.transparent,
                     child: Ink.image(
-                      image: this._controller.getImage(),
+                      image: this._controller.image,
                       fit: BoxFit.cover,
                       width: 200.0,
                       height: 200.0,
@@ -84,68 +78,68 @@ class _CompanyPageState extends State<CompanyPage>{
                   ),
                   SizedBox(height: 5,),
                   TextFormField(
-                    enabled: this._controller.getEditMode(),
+                    enabled: this._controller.editMode,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.account, size: 30, color: decoration_color),
                       labelText: 'Nome Fantasia',
                       errorStyle: TextStyle(color: danger_color),
                     ),
-                    initialValue: this._controller.getName(),
-                    onSaved: (String value){this._controller.setName(value);},
+                    initialValue: this._controller.name,
+                    onSaved: (String value){this._controller.name = value;},
                     validator: Validators.nameValidator,
                   ),
 
                   TextFormField(
-                    enabled: this._controller.getEditMode(),
+                    enabled: this._controller.editMode,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.badgeAccountHorizontalOutline, size: 30, color: decoration_color),
                       labelText: 'CNPJ',
                       errorStyle: TextStyle(color: danger_color),
                     ),
-                    initialValue: this._controller.getCNPJ(),
+                    initialValue: this._controller.cnpj,
                     maxLength: 14,
-                    onSaved: (String value){this._controller.setCNPJ(value);},
+                    onSaved: (String value){this._controller.cnpj = value;},
                     validator: Validators.cnpjValidator,  
                   ),
 
                   TextFormField(
-                    enabled: this._controller.getEditMode(),
+                    enabled: this._controller.editMode,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.phone, size: 30, color: decoration_color),
                       labelText: 'Número de Telefone',
                       errorStyle: TextStyle(color: danger_color),
                     ),
-                    initialValue: this._controller.getPhoneNumber(),
+                    initialValue: this._controller.phoneNumber,
                     maxLength: 11,
-                    onSaved: (String value){this._controller.setPhoneNumber(value);},
+                    onSaved: (String value){this._controller.phoneNumber = value;},
                     validator: Validators.phoneValidator,
                   ),
 
                   TextFormField(
-                    enabled: this._controller.getEditMode(),
+                    enabled: this._controller.editMode,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.at, size: 30, color: decoration_color),
                       labelText: 'Email',
                       errorStyle: TextStyle(color: danger_color),
                     ),
-                    initialValue: this._controller.getEmail(),
-                    onSaved: (String value){this._controller.setEmail(value);},
+                    initialValue: this._controller.email,
+                    onSaved: (String value){this._controller.email = value;},
                     validator: Validators.emailValidator,
                   ),
 
                   TextFormField(
-                    enabled: this._controller.getEditMode(),
+                    enabled: this._controller.editMode,
                     obscureText: true,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.lock, size: 30, color: decoration_color),
                       labelText: 'Senha',
                       errorStyle: TextStyle(color: danger_color),
                     ),
-                    initialValue: this._controller.getPassword(),
-                    onSaved: (String value){this._controller.setPassword(value);},
+                    initialValue: this._controller.password,
+                    onSaved: (String value){this._controller.password = value;},
                     validator: Validators.passwordValidator,
                   ),
                 ],

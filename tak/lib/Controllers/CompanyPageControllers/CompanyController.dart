@@ -34,29 +34,21 @@ class CompanyController{
     }
     
   }
-  
-  void getCompany(){
-    company = company;
-    this._streamController.add(company);
-  }
 
-  bool getAutoValidate() => this._autovalidate;
 
-  void setAutoValidate(bool value){
-    this._autovalidate = value;
-    this._streamController.add(this._autovalidate);
-  }
+  bool get autoValidate => this._autovalidate;
 
-  bool getEditMode() => this._editMode;
 
-  void setEditMode(bool value){
+  bool get editMode => this._editMode;
+
+  set editMode(bool value){
     this._editMode = value;
     this._streamController.add(this._editMode);
   }
 
-  IconData getIcon() => (this._editMode)? MdiIcons.contentSave : MdiIcons.leadPencil;
+  IconData get icon => (this._editMode)? MdiIcons.contentSave : MdiIcons.leadPencil;
 
-  ImageProvider getImage(){ 
+  ImageProvider get image { 
     if (company.img  == null){ 
       return AssetImage('images/profile.png');
     }else{ 
@@ -66,30 +58,30 @@ class CompanyController{
   }
 
   // Getters do Formulário
-  String getName() => company.name;
-  String getCNPJ() => company.cnpj;
-  String getPhoneNumber() => company.phoneNumber;
-  String getEmail() => company.email;
-  String getPassword() => company.password;
+  String get name => company.name;
+  String get cnpj => company.cnpj;
+  String get phoneNumber => company.phoneNumber;
+  String get email => company.email;
+  String get password => company.password;
 
   // Setters do Formulário
-  void setName(String value) {
+  set name(String value) {
     company.name = value;
     this._streamController.add(company);
   } 
-  void setCNPJ(String value) {
+  set cnpj(String value) {
     company.cnpj = value;
     this._streamController.add(company);
   } 
-  void setPhoneNumber(String value) {
+  set phoneNumber(String value) {
     company.phoneNumber = value;
     this._streamController.add(company);
   } 
-  void setEmail(String value) {
+  set email(String value) {
     company.email = value;
     this._streamController.add(company);
   } 
-  void setPassword(String value) {
+  set password(String value) {
     company.password = value;
     this._streamController.add(company);
   } 
@@ -101,7 +93,8 @@ class CompanyController{
       this.formKey.currentState.save();
       return true;
     }else{
-      this.setAutoValidate(true);
+      this._autovalidate = true;
+      this._streamController.add(this._autovalidate);
       return false;
     }
   }
