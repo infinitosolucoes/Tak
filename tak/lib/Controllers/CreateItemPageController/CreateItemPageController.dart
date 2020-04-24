@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Item.dart';
 
 class CreateItemPageController{
@@ -15,6 +19,28 @@ class CreateItemPageController{
 
   Item _newItem = new Item();
   Item get newItem => this._newItem; 
+
+
+  ImageProvider get image { 
+    if (this._newItem.img  == null){ 
+      return AssetImage('images/food.png');
+    }else{ 
+      Uint8List image = base64Decode(this._newItem.img);
+      return MemoryImage(image);
+    }
+  }
+  Future setImage() async{
+    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if(image != null){
+      List<int> imageBytes = image.readAsBytesSync();
+      String base64Image = base64Encode(imageBytes);
+       this._newItem.img = base64Image;
+       print('\n Imagem: '+this._newItem.img+'\n');
+       this._streamController.add(this._newItem);
+    }
+    
+  }
+
   // Getters do formulário
   bool get autoValidate => this._autovalidate;
 
@@ -40,6 +66,7 @@ class CreateItemPageController{
       return true;
     }else{
       this._autovalidate = true;
+      this._streamController.add(this._autovalidate);
       return false;
     }
   }
