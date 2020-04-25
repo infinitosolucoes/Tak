@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Objects/Company.dart';
@@ -49,6 +52,15 @@ class SalePageController {
 
   int len(){
     return this._newSale.items.length;
+  }
+
+  ImageProvider getImageItem(SaleItem item) { 
+    if (item.item.img  == null){ 
+      return AssetImage('images/food.png');
+    }else{ 
+      Uint8List image = base64Decode(item.item.img);
+      return MemoryImage(image);
+    }
   }
 
   bool finalizeSale(){

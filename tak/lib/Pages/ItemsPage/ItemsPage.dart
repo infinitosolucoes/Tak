@@ -51,6 +51,20 @@ class _ItemsPageState extends State<ItemsPage>{
             itemBuilder: (context, index){
               Item item = this._controller.getItem(index);
               return ListTile(
+                leading: Material(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.all(Radius.circular(20.0)) 
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  color: Colors.transparent,
+                  child: Ink.image(
+                    image: this._controller.getImageItem(item),
+                    fit: BoxFit.cover,
+                    width: 50.0,
+                    height: 50.0,
+                    
+                  ),
+                ),
                 title: Text(item.name, style: title_item),
                 subtitle: Container(
                   padding: EdgeInsets.only(top: 5),

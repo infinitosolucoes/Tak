@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Item.dart';
 
@@ -22,5 +25,14 @@ class ItemsPageController{
   void addItem(Item item){
     company.items.add(item);
     this._streamController.add(company);
+  }
+
+  ImageProvider getImageItem(Item item) { 
+    if (item.img  == null){ 
+      return AssetImage('images/food.png');
+    }else{ 
+      Uint8List image = base64Decode(item.img);
+      return MemoryImage(image);
+    }
   }
 }
