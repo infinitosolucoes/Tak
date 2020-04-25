@@ -50,6 +50,25 @@ class _CreateItemPageState extends State<CreateItemPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                 
+                 
+                  Material(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.all(Radius.circular(20.0)) 
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.transparent,
+                    child: Ink.image(
+                      image: this._controller.image,
+                      fit: BoxFit.cover,
+                      width: width,
+                      height: 150.0,
+                      child: InkWell(
+                        onTap: this._controller.setImage,
+                      ),
+                    ),
+                  ),
+                  
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Nome',
@@ -60,10 +79,12 @@ class _CreateItemPageState extends State<CreateItemPage> {
                       this._controller.name = value;
                     },
                   ),
-
+                
+                
+              
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Código de Barras do Item',
+                      labelText: 'Código de Barras',
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     keyboardType: TextInputType.phone,
@@ -72,6 +93,10 @@ class _CreateItemPageState extends State<CreateItemPage> {
                       this._controller.id = value;
                     },
                   ),
+                         
+
+                  
+                  
 
                   TextFormField(
                     decoration: InputDecoration(

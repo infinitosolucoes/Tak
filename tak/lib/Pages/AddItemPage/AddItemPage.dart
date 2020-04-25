@@ -38,14 +38,31 @@ class _AddItemPageState extends State<AddItemPage> {
             itemCount: this._controller.len(),
             itemBuilder: (context, index){
               Item item = this._controller.getItem(index);
-              return ListTile(
-                title: Text(item.name, style: title_item),
-                trailing: Text('R\$ ' +  item.price.toStringAsFixed(2).replaceAll('.', ','), style: subtotal_text),
-                onTap: (){          
-                  this._controller.setItem(index); 
-                  this._counterController.reset();
-                  this.showSelectAmount();
-                },
+              return Container(
+                padding: EdgeInsets.only(top: 3, bottom: 3),
+                child: ListTile(
+                  leading: Material(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.all(Radius.circular(20.0)) 
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.transparent,
+                    child: Ink.image(
+                      image: this._controller.getImageItem(item),
+                      fit: BoxFit.cover,
+                      width: 50.0,
+                      height: 50.0,
+                      
+                    ),
+                  ),
+                  title: Text(item.name, style: title_item),
+                  trailing: Text('R\$ ' +  item.price.toStringAsFixed(2).replaceAll('.', ','), style: subtotal_text),
+                  onTap: (){          
+                    this._controller.setItem(index); 
+                    this._counterController.reset();
+                    this.showSelectAmount();
+                  },
+                ),
               );
             }, 
             separatorBuilder: (context, index) => divider,

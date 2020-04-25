@@ -37,6 +37,20 @@ class _SalePageState extends State<SalePage> {
               itemBuilder: (context, index){
                 SaleItem item = this._controller.getSaleItem(index);
                 return ListTile(
+                  leading: Material(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.all(Radius.circular(20.0)) 
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.transparent,
+                    child: Ink.image(
+                      image: this._controller.getImageItem(item),
+                      fit: BoxFit.cover,
+                      width: 50.0,
+                      height: 50.0,
+                      
+                    ),
+                  ),
                   title: Text(item.item.name, style: title_item),
                   subtitle: Container(
                     padding: EdgeInsets.only(top: 5),
