@@ -67,6 +67,7 @@ class SalePageController {
     try{
       if(this._newSale.total > 0){
         company.sales.add(this._newSale);
+        this._streamController.add(company);
         print(this._newSale.toString());
         return true;
       }
