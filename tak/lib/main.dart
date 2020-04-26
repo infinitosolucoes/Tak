@@ -7,6 +7,7 @@ class Tak extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Tak',
       onGenerateRoute: Router.generateRoute,
       initialRoute: '/',

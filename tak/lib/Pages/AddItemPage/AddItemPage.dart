@@ -43,7 +43,7 @@ class _AddItemPageState extends State<AddItemPage> {
                 child: ListTile(
                   leading: Material(
                     shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.all(Radius.circular(20.0)) 
+                      borderRadius: new BorderRadius.all(Radius.circular(10.0)) 
                     ),
                     clipBehavior: Clip.hardEdge,
                     color: Colors.transparent,

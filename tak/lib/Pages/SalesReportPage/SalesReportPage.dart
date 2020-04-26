@@ -17,6 +17,12 @@ class _SalesReportPageState extends State<SalesReportPage> {
     this._controller.getListByDate();
     super.initState();
   }
+
+  @override
+  void dispose(){
+    this._controller.close;
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -36,10 +42,14 @@ class _SalesReportPageState extends State<SalesReportPage> {
               children: <Widget>[
                 Text('Total de vendas:', style: title_item,),
                 Text(this._controller.len.toString(), style: results,),
+                
+                SizedBox(height: 10,),
 
                 Text('Faturamento Total:', style: title_item,),
                 Text('R\$ ' + this._controller.amount.toStringAsFixed(2).replaceAll('.', ','), style: results),
                 
+                SizedBox(height: 50,),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -59,7 +69,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 8,
                     ),
                     Container(
                       width: 20,
@@ -79,6 +89,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                    
                   ],
                 ),
+                SizedBox(height: 6,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -99,6 +110,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                     )
                   ],
                 ),
+                SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -115,18 +127,6 @@ class _SalesReportPageState extends State<SalesReportPage> {
                     ),
                   ],
                 ),
-                
-                
-                
-                // Container(
-                //   child: AnimatedCircularChart(
-                //     key: this._controller.chartKey,
-                //     size: Size((height*0.5), (width*0.8)), 
-                //     chartType: CircularChartType.Pie,
-                //     holeLabel: 'Metodos',
-                //     initialChartData: this._controller.methodSegments(),
-                //   )
-                // ),
               ],
             ),
           ),
