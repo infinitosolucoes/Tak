@@ -14,9 +14,14 @@ class SalesReportPageController{
 
   List<Sale> _list;
 
+  Map _states = {
+    'phrases': ['Hoje', 'Semana', 'Mês', 'Trimestre', 'Tudo'],
+    'index': 0
+  };
+
   void getListByDate(){
     if(company.sales.length != 0){
-       DateTime date = new DateTime.now();
+      DateTime date = new DateTime.now();
       int index;
       for(index = (company.sales.length - 1); (index >= 0) && (date.difference(DateTime.parse(company.sales[index].date)).inDays == 0); index--){}
       index++;
@@ -35,6 +40,26 @@ class SalesReportPageController{
       total += sale.total;
     }
     return total;
+  }
+
+  String get phrase => this._states['phrases'][this._states['index']];
+
+  void increment(){
+    int pos = this._states['index'] + 1;
+    if(pos == this._states['phrases'].length){
+      pos = 0;
+    }
+    this._states['index'] = pos;
+    this._streamController.add(this._states);
+  }
+
+  void decrement(){
+    int pos = this._states['index'] - 1;
+    if(pos < 0){
+      pos = this._states['phrases'].length - 1;
+    }
+    this._states['index'] = pos;
+    this._streamController.add(this._states);
   }
 
   List<PieChartSectionData> methodSegments(){

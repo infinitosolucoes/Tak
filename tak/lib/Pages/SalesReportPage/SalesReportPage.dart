@@ -33,6 +33,26 @@ class _SalesReportPageState extends State<SalesReportPage> {
             backgroundColor: primary_color,
             centerTitle: true,
             title: Text('Relatórios', style: app_bar),
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(50),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                 
+                  IconButton(
+                    icon: Icon(Icons.arrow_back_ios, color: background_color, size: 20), 
+                    onPressed: this._controller.decrement,
+                  ),
+                  Text(this._controller.phrase, style: app_bar),
+                  IconButton(
+                    icon: Icon(Icons.arrow_forward_ios, color: background_color, size: 20), 
+                    onPressed: this._controller.increment,
+                  ),
+                  //SizedBox(width: 10,),
+                ],
+              )
+            ),
           ),
           backgroundColor: background_color,
           body: SingleChildScrollView(
