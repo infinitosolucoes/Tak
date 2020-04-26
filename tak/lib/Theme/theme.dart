@@ -31,3 +31,6 @@ Divider divider =  Divider(height: 1, color: decoration_color);
   const TextStyle sale_title = TextStyle(fontFamily: 'Open Sans',fontSize: 25, fontWeight: FontWeight.bold);
   const TextStyle total_text = TextStyle(fontFamily: 'Open Sans',fontSize: 25, fontWeight: FontWeight.bold, color: primary_color);
   const TextStyle subtotal_text = TextStyle(fontFamily: 'Open Sans',fontSize: 18, fontWeight: FontWeight.bold, color: primary_color);
+
+  // Textos página de Relatório
+  const TextStyle results = TextStyle(fontFamily: 'Open Sans',fontSize: 35, fontWeight: FontWeight.bold, color: primary_color);

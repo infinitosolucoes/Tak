@@ -14,21 +14,6 @@ class Company{
 
   Company({this.cnpj, this.img, this.name, this.type, this.email, this.password, this.phoneNumber, this.sales, this.items});
 
-  void newSale(Sale sale){
-    if(sale != null){
-      this.sales.add(sale);
-    }
-  }
-
-  void newItem(Item item){
-    if(item != null){
-      this.items.add(item);
-    }
-  }
-
-  void removeItem(int index){
-    this.items.removeAt(index);
-  }
 }
 
 Company company = new Company(

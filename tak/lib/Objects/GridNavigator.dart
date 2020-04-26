@@ -12,7 +12,7 @@ class GridNavigator{
 // Lista de opções do Grid na HomePage
 List<GridNavigator> routes = [
   new GridNavigator(name: 'Vender', icon: MdiIcons.cashUsdOutline, page: '/newSale'),
-  new GridNavigator(name: 'Relatórios', icon: MdiIcons.chartLine),
+  new GridNavigator(name: 'Relatórios', icon: MdiIcons.chartLine, page: '/salesReport'),
   new GridNavigator(name: 'Itens', icon: MdiIcons.packageVariantClosed, page: '/listItems'),
   new GridNavigator(name: 'Perfil', icon: MdiIcons.account, page: '/company'),
   new GridNavigator(name: 'Contato', icon: MdiIcons.androidMessages),

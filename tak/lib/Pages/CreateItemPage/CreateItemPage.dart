@@ -42,6 +42,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
               SizedBox(width: (width * 0.04),)
             ],
           ),
+          backgroundColor: background_color,
           body: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Form(
