@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:tak/Controllers/SalesReportPageController/SalesReportPageController.dart';
 import 'package:tak/Theme/theme.dart';
 
@@ -19,6 +20,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
+      stream: this._controller.output,
       builder: (context, snapeshot){
         return Scaffold(
           appBar: AppBar(
@@ -30,12 +32,101 @@ class _SalesReportPageState extends State<SalesReportPage> {
           body: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Total de vendas:'),
-                Text(this._controller.len.toString()),
+                Text('Total de vendas:', style: title_item,),
+                Text(this._controller.len.toString(), style: results,),
 
-                Text('Faturamento Total:'),
-                Text(this._controller.amount.toStringAsFixed(2))
+                Text('Faturamento Total:', style: title_item,),
+                Text('R\$ ' + this._controller.amount.toStringAsFixed(2).replaceAll('.', ','), style: results),
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                     Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: success_color,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      'Dinheiro',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: primary_color,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      'Cartão de Débito',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                   
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                     Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: danger_color,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      'Cartão de Crédito',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: PieChart(
+                        PieChartData(
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          sectionsSpace: 2,
+                          sections: this._controller.methodSegments(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                
+                
+                
+                // Container(
+                //   child: AnimatedCircularChart(
+                //     key: this._controller.chartKey,
+                //     size: Size((height*0.5), (width*0.8)), 
+                //     chartType: CircularChartType.Pie,
+                //     holeLabel: 'Metodos',
+                //     initialChartData: this._controller.methodSegments(),
+                //   )
+                // ),
               ],
             ),
           ),

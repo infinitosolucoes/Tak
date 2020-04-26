@@ -5,7 +5,7 @@ class Sale{
   String date;
   double total;
   List<SaleItem> items;
-  int methodPayment;
+  int methodPayment;      // 1 - Representa Dinheiro, 2 - Repreenta Cartão de Débito e 3 - Cartão de Crédito
 
   Sale({
     this.id, this.date, this.total,
