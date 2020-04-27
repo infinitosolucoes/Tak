@@ -22,7 +22,7 @@ Company company = new Company(
   sales: [
     new Sale(date: '2020-02-14', methodPayment: 3, total: 100.00),
     new Sale(date: '2020-04-01', methodPayment: 2, total: 30.00),
-    new Sale(date: '2020-04-05', methodPayment: 1, total: 22.64),
+    new Sale(date: '2020-04-04', methodPayment: 1, total: 22.64),
   ], 
   items: [
     new Item(id: '0', name: 'Lorem Ipsum', price: 5.99),
