@@ -60,16 +60,18 @@ class _SalesReportPageState extends State<SalesReportPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Total de vendas:', style: title_item,),
+                Text('Total de vendas', style: title_item,),
                 Text(this._controller.len.toString(), style: results,),
                 
-                SizedBox(height: 10,),
+                SizedBox(height: 20,),
 
-                Text('Faturamento Total:', style: title_item,),
+                Text('Faturamento Total', style: title_item,),
                 Text('R\$ ' + this._controller.amount.toStringAsFixed(2).replaceAll('.', ','), style: results),
                 
-                SizedBox(height: 50,),
+                SizedBox(height: 30,),
 
+                Text('Meios de Pagamento', style: title_item,),
+                SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
