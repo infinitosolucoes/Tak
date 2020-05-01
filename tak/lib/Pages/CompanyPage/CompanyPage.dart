@@ -142,6 +142,62 @@ class _CompanyPageState extends State<CompanyPage>{
                     onSaved: (String value){this._controller.password = value;},
                     validator: Validators.passwordValidator,
                   ),
+
+                  TextFormField(
+                    enabled: this._controller.editMode,
+                    decoration: InputDecoration(
+                      labelText: 'Rua',
+                      errorStyle: TextStyle(color: danger_color),
+                    ),
+                    initialValue: this._controller.location,
+                    onSaved: (String value){this._controller.location = value;},
+                    validator: Validators.locationValidator,
+                  ),
+
+                  TextFormField(
+                    enabled: this._controller.editMode,
+                    decoration: InputDecoration(
+                      labelText: 'Número',
+                      errorStyle: TextStyle(color: danger_color),
+                    ),
+                    initialValue: this._controller.houseNumber,
+                    onSaved: (String value){this._controller.houseNumber = value;},
+                    validator: Validators.houseNumberValidator,
+                  ),
+
+                  TextFormField(
+                    enabled: this._controller.editMode,
+                    decoration: InputDecoration(
+                      labelText: 'Bairro',
+                      errorStyle: TextStyle(color: danger_color),
+                    ),
+                    initialValue: this._controller.district,
+                    onSaved: (String value){this._controller.district = value;},
+                    validator: Validators.nameValidator,
+                  ),
+
+                  TextFormField(
+                    enabled: this._controller.editMode,
+                    decoration: InputDecoration(
+                      labelText: 'Município',
+                      errorStyle: TextStyle(color: danger_color),
+                    ),
+                    initialValue: this._controller.city,
+                    onSaved: (String value){this._controller.city = value;},
+                    validator: Validators.nameValidator,
+                  ),
+
+                  TextFormField(
+                    enabled: this._controller.editMode,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      labelText: 'Município',
+                      errorStyle: TextStyle(color: danger_color),
+                    ),
+                    initialValue: this._controller.cep,
+                    onSaved: (String value){this._controller.cep = value;},
+                    //validator: Validators.nameValidator,
+                  ),
                 ],
               ),
             )
