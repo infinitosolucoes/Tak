@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tak/Controllers/CreateItemPageController/CreateItemPageController.dart';
 import 'package:tak/Functions/Validators.dart' as Validators;
+import 'package:tak/Objects/Item.dart';
 import 'package:tak/Theme/theme.dart';
 
 class CreateItemPage extends StatefulWidget {
+
+  final Item itemEdit;
+
+  CreateItemPage({
+    @required this.itemEdit
+  });
+
   @override
   _CreateItemPageState createState() => _CreateItemPageState();
 }
@@ -12,6 +20,15 @@ class CreateItemPage extends StatefulWidget {
 class _CreateItemPageState extends State<CreateItemPage> {
   final CreateItemPageController _controller = CreateItemPageController();
 
+  @override
+  void initState(){
+    if(widget.itemEdit != null){
+      this._controller.item = widget.itemEdit;
+      this._controller.appBarText = 'Editar Item';
+    }
+    super.initState();
+  }
+  @override
   void dispose(){
     this._controller.close;
     super.dispose();
@@ -28,7 +45,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
           appBar: AppBar(
             backgroundColor: primary_color,
             centerTitle: true,
-            title: Text('Novo Item', style: app_bar),
+            title: Text(this._controller.appBarText, style: app_bar),
             actions: <Widget>[
               IconButton(
                 icon: Icon(MdiIcons.contentSave, color: background_color, size: 30,),
@@ -75,6 +92,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                       labelText: 'Nome',
                       errorStyle: TextStyle(color: danger_color),
                     ),
+                    initialValue: this._controller.name,
                     validator: Validators.nameValidator,
                     onSaved: (String value){
                       this._controller.name = value;
@@ -89,6 +107,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     keyboardType: TextInputType.phone,
+                    initialValue: this._controller.id,
                     validator: Validators.ean13Validator,
                     onSaved: (String value){
                       this._controller.id = value;
@@ -105,6 +124,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     keyboardType: TextInputType.phone,
+                    initialValue: this._controller.getPrice(),
                     validator: Validators.priceValidator,
                     onSaved: (String value){
                       value = value.replaceAll(',', '.');

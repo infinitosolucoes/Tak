@@ -17,10 +17,21 @@ class CreateItemPageController{
   bool _autovalidate = false;               // Controle de validação do formulário
   final formKey = GlobalKey<FormState>();
 
+  String _appBarText = 'Novo Item';
+
+  String get appBarText => this._appBarText;
+  set appBarText(String value){
+    this._appBarText = value;
+    this._streamController.add(this._appBarText);
+  }
+
   Item _newItem = new Item();
+
   Item get newItem => this._newItem; 
-
-
+  set item(Item item){
+    this._newItem = item;
+    this._streamController.add(this._newItem);
+  }
   ImageProvider get image { 
     if (this._newItem.img  == null){ 
       return AssetImage('images/food.png');
@@ -43,6 +54,10 @@ class CreateItemPageController{
 
   // Getters do formulário
   bool get autoValidate => this._autovalidate;
+
+  String get name => (this._appBarText == 'Novo Item')? null : this._newItem.name;
+  String get id => (this._appBarText == 'Novo Item')? null : this._newItem.id;
+  String getPrice() => (this._appBarText == 'Novo Item')? null : this._newItem.price.toString().replaceAll('.', ',');
 
   // Setters do Formulário
   set name(String value){

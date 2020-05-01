@@ -13,7 +13,7 @@ Route<dynamic> generateRoute(RouteSettings settings){
      return CupertinoPageRoute(builder: (_) => ItemsPage());
 
     case '/listItems/createItem':
-      return CupertinoPageRoute(builder: (_) => CreateItemPage());
+      return CupertinoPageRoute(builder: (_) => CreateItemPage(itemEdit: settings.arguments));
     
     case '/newSale':
       return CupertinoPageRoute(builder: (_) => SalePage());

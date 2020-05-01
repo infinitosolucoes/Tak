@@ -35,7 +35,7 @@ class _ItemsPageState extends State<ItemsPage>{
               IconButton(
                 icon: Icon(Icons.add, color: background_color, size: 30),
                 onPressed: () async{
-                  final item = await Navigator.pushNamed(context, '/listItems/createItem');
+                  final item = await Navigator.pushNamed(context, '/listItems/createItem', arguments: null);
                   if(item != null){
                     this._controller.addItem(item);
                   }
@@ -70,11 +70,26 @@ class _ItemsPageState extends State<ItemsPage>{
                   padding: EdgeInsets.only(top: 5),
                   child: Text('R\$ ' + item.price.toString().replaceAll('.',','), style: subtitle_item),
                 ),
-                trailing: IconButton(
-                  icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
-                  onPressed: (){
-                    this._controller.removeItem(index);
-                  },
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(MdiIcons.pencil, size: (height*0.05), color: decoration_color),
+                      onPressed: ()async{
+                        final editItem = await Navigator.pushNamed(context, '/listItems/createItem', arguments: item);
+                        if(editItem != null){
+                          this._controller.setItem(index,editItem);
+                        }
+                      },
+                    ),
+                    SizedBox(width: 5,),
+                    IconButton(
+                      icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
+                      onPressed: (){
+                        this._controller.removeItem(index);
+                      },
+                    )
+                  ],
                 )
               );
             },
