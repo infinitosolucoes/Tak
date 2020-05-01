@@ -82,7 +82,7 @@ class _ItemsPageState extends State<ItemsPage>{
                         }
                       },
                     ),
-                    SizedBox(width: 5,),
+                   
                     IconButton(
                       icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
                       onPressed: (){

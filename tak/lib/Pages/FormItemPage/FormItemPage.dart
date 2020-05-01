@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:tak/Controllers/CreateItemPageController/CreateItemPageController.dart';
+import 'package:tak/Controllers/FormItemPageController/FormItemPageController.dart';
 import 'package:tak/Functions/Validators.dart' as Validators;
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Theme/theme.dart';
 
-class CreateItemPage extends StatefulWidget {
+class FormItemPage extends StatefulWidget {
 
   final Item itemEdit;
 
-  CreateItemPage({
+  FormItemPage({
     @required this.itemEdit
   });
 
   @override
-  _CreateItemPageState createState() => _CreateItemPageState();
+  _FormItemPageState createState() => _FormItemPageState();
 }
 
-class _CreateItemPageState extends State<CreateItemPage> {
-  final CreateItemPageController _controller = CreateItemPageController();
+class _FormItemPageState extends State<FormItemPage> {
+  final FormItemPageController _controller = FormItemPageController();
 
   @override
   void initState(){

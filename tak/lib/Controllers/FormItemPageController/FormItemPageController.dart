@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Item.dart';
 
-class CreateItemPageController{
+class FormItemPageController{
   final StreamController _streamController = new StreamController.broadcast();
 
-  Sink get input => _streamController.sink;                   // Entrada de dados da CreateItemPage
+  Sink get input => _streamController.sink;                   // Entrada de dados da FormItemPage
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
