@@ -27,6 +27,11 @@ class ItemsPageController{
     this._streamController.add(company);
   }
 
+  void setItem(int index, Item item){
+    company.items[index] = item;
+    this._streamController.add(company);
+  }
+
   ImageProvider getImageItem(Item item) { 
     if (item.img  == null){ 
       return AssetImage('images/food.png');

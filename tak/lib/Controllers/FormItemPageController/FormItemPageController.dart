@@ -7,20 +7,31 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Item.dart';
 
-class CreateItemPageController{
+class FormItemPageController{
   final StreamController _streamController = new StreamController.broadcast();
 
-  Sink get input => _streamController.sink;                   // Entrada de dados da CreateItemPage
+  Sink get input => _streamController.sink;                   // Entrada de dados da FormItemPage
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
   bool _autovalidate = false;               // Controle de validação do formulário
   final formKey = GlobalKey<FormState>();
 
+  String _appBarText = 'Novo Item';
+
+  String get appBarText => this._appBarText;
+  set appBarText(String value){
+    this._appBarText = value;
+    this._streamController.add(this._appBarText);
+  }
+
   Item _newItem = new Item();
+
   Item get newItem => this._newItem; 
-
-
+  set item(Item item){
+    this._newItem = item;
+    this._streamController.add(this._newItem);
+  }
   ImageProvider get image { 
     if (this._newItem.img  == null){ 
       return AssetImage('images/food.png');
@@ -43,6 +54,10 @@ class CreateItemPageController{
 
   // Getters do formulário
   bool get autoValidate => this._autovalidate;
+
+  String get name => (this._appBarText == 'Novo Item')? null : this._newItem.name;
+  String get id => (this._appBarText == 'Novo Item')? null : this._newItem.id;
+  String getPrice() => (this._appBarText == 'Novo Item')? null : this._newItem.price.toString().replaceAll('.', ',');
 
   // Setters do Formulário
   set name(String value){
