@@ -191,13 +191,24 @@ class _CompanyPageState extends State<CompanyPage>{
                     enabled: this._controller.editMode,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
-                      labelText: 'Município',
+                      labelText: 'CEP',
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.cep,
                     onSaved: (String value){this._controller.cep = value;},
                     //validator: Validators.nameValidator,
                   ),
+                  DropdownButtonFormField<String>(
+                    hint:Text(this._controller.fu),
+                    //enabled: this._controller.editMode,
+                    items: this._controller.options,
+                    value: this._controller.fu,
+                    onChanged: (value) {
+                      this._controller.fu = value;
+                    },
+                  ),
+                  
+                  
                 ],
               ),
             )

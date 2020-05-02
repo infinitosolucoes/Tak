@@ -57,6 +57,19 @@ class CompanyController{
     }
   }
 
+
+  static List<String> _fus = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+
+  List<DropdownMenuItem<String>> _options = List.generate(
+    _fus.length, (int index){
+      return DropdownMenuItem<String>(
+        child: Text(_fus[index]),
+        value: _fus[index],
+      );
+    }
+  );
+  List<DropdownMenuItem<String>> get options => (this._editMode)? this._options: null;
+
   // Getters do Formulário
   String get name => company.name;
   String get cnpj => company.cnpj;
