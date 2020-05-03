@@ -5,6 +5,7 @@ import 'package:tak/Controllers/CompanyPageControllers/CompanyController.dart';
 import 'package:tak/Functions/Validators.dart' as Validators;
 import 'package:tak/Theme/theme.dart';
 
+
 class CompanyPage extends StatefulWidget {
   @override
   _CompanyPageState createState() => _CompanyPageState();
@@ -145,20 +146,6 @@ class _CompanyPageState extends State<CompanyPage>{
 
                   SizedBox(height: 20,),
                   Text('Endereço', style: title_item),
-
-                  TextFormField(
-                    enabled: this._controller.editMode,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      labelText: 'CEP',
-                      errorStyle: TextStyle(color: danger_color),
-                    ),
-                    maxLength: 8,
-                    initialValue: this._controller.cep,
-                    onSaved: (String value){this._controller.cep = value;},
-                  ///  validator: this._controller.cepValidator,
-                     
-                  ),
 
                   Row(
                     children: <Widget>[

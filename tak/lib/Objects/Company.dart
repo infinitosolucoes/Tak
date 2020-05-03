@@ -18,9 +18,9 @@ class Company{
 }
 // objeto teste
 Company company = new Company(
-  cnpj: '0000000000', img: null, name: 'Pastel do Zé', 
+  cnpj: '50306471000109', img: null, name: 'Pastel do Zé', 
   address: Address(cep: '28994642', location: 'Rua Francisca Maria de Oliveira', city: 'Saquarema', district: 'Bacaxá', houseNumber: '23',fu: 'RJ',),
-  email: 'pasteldoze@ze.com', password: '123456', phoneNumber: '22999236521',
+  email: 'pasteldoze@ze.com', password: '1234567890', phoneNumber: '22999236521',
   sales: [
     new Sale(date: '2020-02-14', methodPayment: 3, total: 100.00),
     new Sale(date: '2020-04-01', methodPayment: 2, total: 30.00),
