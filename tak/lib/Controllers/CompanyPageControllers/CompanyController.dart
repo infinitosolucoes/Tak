@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Company.dart';
+import 'package:tak/Objects/ResultCEP.dart';
+import "package:tak/Functions/FetchCEP.dart" as CEP;
 
 class CompanyController{
   final StreamController _streamController = new StreamController.broadcast();

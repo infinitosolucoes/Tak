@@ -1,4 +1,4 @@
-  // Calculadora dos dígitos verificadores do CNPJ
+    // Calculadora dos dígitos verificadores do CNPJ
   String _calculateVD(String cnpj, List<int> weight, String vd){
     int counter = 0;
     for(int i = 0; i < weight.length; i++){
@@ -146,3 +146,5 @@
 
   String locationValidator(String value) => (value.length >= 5)? null : 'Mínimo de 5 caracteres';
   String houseNumberValidator(String value) => (value.length >= 1)? null : 'Mínimo de 1 caractere';
+
+  
