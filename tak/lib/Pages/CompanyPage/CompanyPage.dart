@@ -5,6 +5,7 @@ import 'package:tak/Controllers/CompanyPageControllers/CompanyController.dart';
 import 'package:tak/Functions/Validators.dart' as Validators;
 import 'package:tak/Theme/theme.dart';
 
+
 class CompanyPage extends StatefulWidget {
   @override
   _CompanyPageState createState() => _CompanyPageState();
@@ -142,6 +143,91 @@ class _CompanyPageState extends State<CompanyPage>{
                     onSaved: (String value){this._controller.password = value;},
                     validator: Validators.passwordValidator,
                   ),
+
+                  SizedBox(height: 20,),
+                  Text('Endereço', style: title_item),
+
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: TextFormField(
+                          enabled: this._controller.editMode,
+                          decoration: InputDecoration(
+                            labelText: 'Rua',
+                            errorStyle: TextStyle(color: danger_color),
+                          ),
+                          initialValue: this._controller.location,
+                          onSaved: (String value){this._controller.location = value;},
+                          validator: Validators.locationValidator,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: TextFormField(
+                          enabled: this._controller.editMode,
+                          decoration: InputDecoration(
+                            labelText: 'Número',
+                            errorStyle: TextStyle(color: danger_color),
+                          ),
+                          initialValue: this._controller.houseNumber,
+                          onSaved: (String value){this._controller.houseNumber = value;},
+                          validator: Validators.houseNumberValidator,
+                        ),
+                      )
+                    ],
+                  ),
+
+                  TextFormField(
+                    enabled: this._controller.editMode,
+                    decoration: InputDecoration(
+                      labelText: 'Bairro',
+                      errorStyle: TextStyle(color: danger_color),
+                    ),
+                    initialValue: this._controller.district,
+                    onSaved: (String value){this._controller.district = value;},
+                    validator: Validators.nameValidator,
+                  ),
+
+
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 4,
+                        child: TextFormField(
+                          enabled: this._controller.editMode,
+                          decoration: InputDecoration(
+                            labelText: 'Município',
+                            errorStyle: TextStyle(color: danger_color),
+                          ),
+                          initialValue: this._controller.city,
+                          onSaved: (String value){this._controller.city = value;},
+                          validator: Validators.nameValidator,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            hint:Text(this._controller.fu),
+                            
+                            items: this._controller.options,
+                            value: this._controller.fu,
+                            onChanged: (value) {
+                              this._controller.fu = value;
+                            },
+                          ),
+                        )
+                      ),
+                    ],
+                  ),
+            
                 ],
               ),
             )

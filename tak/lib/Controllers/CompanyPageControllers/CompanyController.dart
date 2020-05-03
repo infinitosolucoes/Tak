@@ -8,6 +8,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Company.dart';
 
+
 class CompanyController{
   final StreamController _streamController = new StreamController.broadcast();
 
@@ -57,12 +58,32 @@ class CompanyController{
     }
   }
 
+
+  static List<String> _fus = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+
+  List<DropdownMenuItem<String>> _options = List.generate(
+    _fus.length, (int index){
+      return DropdownMenuItem<String>(
+        child: Text(_fus[index]),
+        value: _fus[index],
+      );
+    }
+  );
+  List<DropdownMenuItem<String>> get options => (this._editMode)? this._options: null;
+
   // Getters do Formulário
   String get name => company.name;
   String get cnpj => company.cnpj;
   String get phoneNumber => company.phoneNumber;
   String get email => company.email;
   String get password => company.password;
+
+  String get location => company.address.location;
+  String get houseNumber => company.address.houseNumber;
+  String get district => company.address.district;
+  String get city => company.address.city;
+  String get cep => company.address.cep;
+  String get fu => company.address.fu;
 
   // Setters do Formulário
   set name(String value) {
@@ -84,10 +105,39 @@ class CompanyController{
   set password(String value) {
     company.password = value;
     this._streamController.add(company);
-  } 
+  }
+
+  set location(String value){
+    company.address.location = value;
+    this._streamController.add(company);
+  }
+
+  set houseNumber(String value){
+    company.address.houseNumber = value;
+    this._streamController.add(company);
+  }
+
+  set district(String value){
+    company.address.district = value;
+    this._streamController.add(company);
+  }
+
+  set city(String value){
+    company.address.city = value;
+    this._streamController.add(company);
+  }
+
+  set cep(String value){
+    company.address.cep = value;
+    this._streamController.add(company);
+  }
+
+  set fu(String value){
+    company.address.fu = value;
+    this._streamController.add(company);
+  }
 
 
-  
   bool submit(){
     if(this.formKey.currentState.validate()){
       this.formKey.currentState.save();
@@ -98,4 +148,6 @@ class CompanyController{
       return false;
     }
   }
+
+ 
 }
