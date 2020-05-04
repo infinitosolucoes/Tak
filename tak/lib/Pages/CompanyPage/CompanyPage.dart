@@ -19,8 +19,8 @@ class _CompanyPageState extends State<CompanyPage>{
 
   @override
   void dispose() {
-    super.dispose();
     this._controller.close;
+    super.dispose();
   }
 
   @override
@@ -231,7 +231,44 @@ class _CompanyPageState extends State<CompanyPage>{
                 ],
               ),
             )
-          )
+          ),
+          bottomNavigationBar: Visibility(
+            visible: !(this._controller.editMode),
+            child: BottomAppBar(
+              child: Container(
+                padding: EdgeInsets.all(15),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: RaisedButton(
+                          shape: shape,
+                          child: Text('Deletar', style: button_text),
+                          color: danger_color,
+                          onPressed: (){},
+                        )
+                      )
+                    ),
+                     SizedBox(
+                      width: (width * 0.04),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 50,
+                        child: RaisedButton(
+                          shape: shape,
+                          child: Text('Sair', style: button_text),
+                          color: primary_color,
+                          onPressed: (){},
+                        )
+                      )
+                    )
+                  ]
+                )
+              ),
+            )
+          ),
         );
       },
     );

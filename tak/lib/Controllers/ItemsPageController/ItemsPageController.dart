@@ -17,9 +17,22 @@ class ItemsPageController{
 
   int len() => company.items.length;
 
-  void removeItem(int index){
-    company.items.removeAt(index);
-    this._streamController.add(company);
+  SnackBar _snackbar = SnackBar(
+    content: Text('Removido com sucesso'),
+  );
+
+  SnackBar get snackbar => this._snackbar;
+
+  bool removeItem(int index){
+    try{
+      company.items.removeAt(index);
+      this._streamController.add(company);
+      return true;
+    }catch (e){
+      Exception('Index fora do range');
+      return false;
+    }
+    
   }
 
   void addItem(Item item){

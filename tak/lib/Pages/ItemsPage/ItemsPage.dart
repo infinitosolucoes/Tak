@@ -86,7 +86,9 @@ class _ItemsPageState extends State<ItemsPage>{
                     IconButton(
                       icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
                       onPressed: (){
-                        this._controller.removeItem(index);
+                        if(this._controller.removeItem(index)){
+                          Scaffold.of(context).showSnackBar(this._controller.snackbar);
+                        }
                       },
                     )
                   ],
