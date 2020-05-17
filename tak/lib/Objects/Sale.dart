@@ -11,6 +11,22 @@ class Sale{
     this.id, this.date, this.total,
     this.items, this.methodPayment
   });
+
+  String getMethodPayment(){ 
+    switch(this.methodPayment){
+      case 1:
+        return '1 - Dinheiro';
+      
+      case 2:
+        return '2 - Cartão de Débito';
+      
+      case 3:
+        return '3 - Cartão de Crédito';
+      
+      default:
+        return '';
+    }
+  }
   
   @override
   String toString() => '\nNova Venda:\nID: '+this.id+'\nData: '+this.date+
