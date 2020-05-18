@@ -126,7 +126,7 @@ class InvoicePageController{
     );
   }
 
-  Future<Uint8List> generateInvoice() async{
+  Future<Uint8List> generateInvoice(PdfPageFormat pageFormat) async {
     final invoice = pw.Document();  // Crio o documento PDF da Nota Fiscal
 
     // Crio uma página

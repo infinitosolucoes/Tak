@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tak/Controllers/InvoicePageController/InvoicePageController.dart';
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Theme/theme.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 class InvoicePage extends StatefulWidget {
 
@@ -43,7 +42,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
       body: PdfPreview(
         maxPageWidth: 700,
-        build: this._controller.generateInvoice(),
+        build: this._controller.generateInvoice,
         
         //onPrinted: _showPrintedToast,
         //onShared: _showSharedToast,

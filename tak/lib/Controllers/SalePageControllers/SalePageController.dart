@@ -21,6 +21,8 @@ class SalePageController {
     items: new List<SaleItem>(),
     date: DateTime.now().toString().split(' ')[0]
   );
+  
+  Sale get newSale => this._newSale;
 
   void incrementTotal(SaleItem saleItem){
     if(saleItem != null){
