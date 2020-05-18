@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -13,11 +14,49 @@ class InvoicePageController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  Sale _sale;
+  Sale _newSale;
 
-  set sale(Sale sale){
-    this._sale = sale;
-    this._streamController.add(this._sale);
+  set newSale(Sale sale){
+    this._newSale = sale;
+    this._streamController.add(this._newSale);
+  }
+
+  bool finalizeSale(){
+    try{ 
+      company.sales.add(this._newSale);
+      this._streamController.add(company);
+      print(this._newSale.toString());
+      return true;
+  
+    }catch(e){
+      return false;
+    }
+  }
+
+  Future<Uint8List> generateInvoice(PdfPageFormat pageFormat) async {
+    final invoice = pw.Document();  // Crio o documento PDF da Nota Fiscal
+
+    // Crio uma página
+    invoice.addPage(
+      pw.MultiPage(
+        header: this._buildHeader,
+        footer: this._buildFooter,
+
+        build: (context) => [
+          this._generateTable(context),
+          this._generateTotal(context),
+        ]
+      )
+    );
+
+    Uint8List invoiceBytes = invoice.save();  // Salvo o documento
+
+    String base64Invoice = base64Encode(invoiceBytes);  // Converto para String de base 64
+    this._newSale.invoice = base64Invoice;                 // Salvo no objeto Sale
+    
+    this._streamController.add(this._newSale);
+
+    return invoiceBytes;     // Envio os bytes a serem mostrado na InvoicePage
   }
 
   // Crio o cabeçalho da Nota Fiscal
@@ -94,10 +133,10 @@ class InvoicePageController{
 
       // Conteúdo da Tabela
       data: List<List<String>>.generate(
-        this._sale.items.length,
+        this._newSale.items.length,
         (row) => List<String>.generate(
           headers.length,
-          (col) => this._sale.items[row].getValue(col),
+          (col) => this._newSale.items[row].getValue(col),
         ),
       ),
       
@@ -112,36 +151,19 @@ class InvoicePageController{
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Total:'),
-            pw.Text('R\$ ' + this._sale.total.toString().replaceAll('.',',')),
+            pw.Text('R\$ ' + this._newSale.total.toString().replaceAll('.',',')),
           ]
         ),
         pw.Row(
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Método de Pagamento:'),
-            pw.Text(this._sale.getMethodPayment()),
+            pw.Text(this._newSale.getMethodPayment()),
           ]
         )
       ]
     );
   }
 
-  Future<Uint8List> generateInvoice(PdfPageFormat pageFormat) async {
-    final invoice = pw.Document();  // Crio o documento PDF da Nota Fiscal
 
-    // Crio uma página
-    invoice.addPage(
-      pw.MultiPage(
-        header: this._buildHeader,
-        footer: this._buildFooter,
-
-        build: (context) => [
-          this._generateTable(context),
-          this._generateTotal(context),
-        ]
-      )
-    );
-
-    return invoice.save();     // Salvo o documento
-  }
 }

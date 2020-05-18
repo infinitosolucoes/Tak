@@ -6,9 +6,9 @@ import 'package:printing/printing.dart';
 
 class InvoicePage extends StatefulWidget {
 
-  final Sale sale;
+  final Sale newSale;
 
-  InvoicePage({Key key, @required this.sale}) : super(key: key);
+  InvoicePage({Key key, @required this.newSale}) : super(key: key);
 
   @override
   _InvoicePageState createState() => _InvoicePageState();
@@ -19,7 +19,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
   @override
   void initState(){
-    this._controller.sale = widget.sale;
+    this._controller.newSale = widget.newSale;
     super.initState();
   }
 
@@ -36,16 +36,27 @@ class _InvoicePageState extends State<InvoicePage> {
         backgroundColor: primary_color,
         centerTitle: true,
         title: Text('Recibo', style: app_bar),
+
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save, color: background_color),
+            onPressed: (){
+              if(this._controller.finalizeSale()){
+                Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+              }
+            },
+          )
+        ],
         
       ),
       backgroundColor: background_color,
 
       body: PdfPreview(
-        maxPageWidth: 700,
+        maxPageWidth: 600,
         build: this._controller.generateInvoice,
-        
-        //onPrinted: _showPrintedToast,
-        //onShared: _showSharedToast,
+        allowPrinting: false,
+        allowSharing: false,
+        canChangePageFormat: false,
       ),
     );
   }
