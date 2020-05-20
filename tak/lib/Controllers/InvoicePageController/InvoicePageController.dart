@@ -43,7 +43,9 @@ class InvoicePageController{
         footer: this._buildFooter,
 
         build: (context) => [
+          pw.SizedBox(height: 15),
           this._generateTable(context),
+          pw.SizedBox(height: 15),
           this._generateTotal(context),
         ]
       )
@@ -67,20 +69,16 @@ class InvoicePageController{
         pw.Row(
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [
-            pw.Text(company.name),
-            pw.Text(company.cnpj),
-            pw.Text(company.phoneNumber),
+            pw.Text('${company.name}, CNPJ: ${company.cnpj}, Tel.: ${company.phoneNumber}'),
+            
           ]
         ),
+        pw.SizedBox(height: 4),
         pw.Row(
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [
-            pw.Text(company.address.location),
-            pw.Text(company.address.houseNumber),
-            pw.Text(company.address.district),
-            pw.Text(company.address.city),
-            pw.Text(company.address.fu),
-            pw.Text(company.address.cep)
+            pw.Text('Endereço: ${company.address.location}, ${company.address.houseNumber}, ${company.address.district}, ${company.address.city}, ${company.address.fu}. CEP: ${company.address.cep}'),
+            
           ]
         ),
       ]
@@ -113,6 +111,8 @@ class InvoicePageController{
     ];
 
     return pw.Table.fromTextArray(
+      border: null,
+      cellAlignment: pw.Alignment.centerLeft,
       headerHeight: 25,
       cellHeight: 40,
 
@@ -120,10 +120,30 @@ class InvoicePageController{
       cellAlignments: {
         0: pw.Alignment.centerLeft,
         1: pw.Alignment.centerLeft,
-        2: pw.Alignment.centerRight,
+        2: pw.Alignment.center,
         3: pw.Alignment.center,
         4: pw.Alignment.centerRight,
       },
+
+      headerDecoration: pw.BoxDecoration(
+        borderRadius: 2,
+        color: PdfColors.blueAccent,
+      ),
+
+      headerStyle: pw.TextStyle(
+        color: PdfColors.white,
+        fontWeight: pw.FontWeight.bold
+      ),
+
+      
+      
+      rowDecoration: pw.BoxDecoration(
+        border: pw.BoxBorder(
+          bottom: true,
+          color: PdfColors.blueAccent,
+          width: .5,
+        ),
+      ),
 
       // Cabeçalho da Tabela
       headers: List<String>.generate(
@@ -151,16 +171,25 @@ class InvoicePageController{
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Total:'),
-            pw.Text('R\$ ' + this._newSale.total.toString().replaceAll('.',',')),
+            pw.Text('R\$ ${this._newSale.total.toString().replaceAll('.',',')}'),
           ]
         ),
+        pw.SizedBox(height: 3),
         pw.Row(
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Método de Pagamento:'),
             pw.Text(this._newSale.getMethodPayment()),
           ]
-        )
+        ),
+        pw.SizedBox(height: 3),
+        pw.Row(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          children: [
+            pw.Text('Troco:'),
+            pw.Text('R\$ 0,00'),
+          ]
+        ),
       ]
     );
   }
