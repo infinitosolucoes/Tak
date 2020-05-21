@@ -28,7 +28,13 @@ Route<dynamic> generateRoute(RouteSettings settings){
       return CupertinoPageRoute(builder: (_) => SalesReportPage());
 
     case '/company':
-      return CupertinoPageRoute(builder: (_) => CompanyPage());  
+      return CupertinoPageRoute(builder: (_) => CompanyPage()); 
+
+    case '/help':
+      return CupertinoPageRoute(builder: (_) => HelpPage());  
+
+    case '/help/about':
+      return CupertinoPageRoute(builder: (_) => AboutPage());
          
     default:
       return MaterialPageRoute(
