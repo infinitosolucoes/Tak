@@ -10,7 +10,7 @@ import 'package:tak/Objects/Company.dart';
 class InvoicePageController{
   final StreamController _streamController = new StreamController.broadcast();
 
-  Sink get input => _streamController.sink;                   // Entrada de dados da CompanyPage
+  Sink get input => _streamController.sink;                   // Entrada de dados da InvoicePage
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
@@ -44,6 +44,8 @@ class InvoicePageController{
 
         build: (context) => [
           pw.SizedBox(height: 15),
+          pw.Text('Código da Venda: ${this._newSale.id}', style: pw.TextStyle(color: PdfColors.blue, fontSize: 30)),
+          pw.SizedBox(height: 5),
           this._generateTable(context),
           pw.SizedBox(height: 15),
           this._generateTotal(context),
