@@ -27,6 +27,9 @@ class _HelpPageState extends State<HelpPage> {
             leading: Icon(helpRoutes[index].icon, color: primary_color, size: 30),
             title: Text(helpRoutes[index].name , style: subtitle_item),
             trailing: Icon(Icons.arrow_forward_ios, color: primary_color,),
+            onTap: (){
+              Navigator.pushNamed(context, helpRoutes[index].page);
+            },
           );
         }, 
       )

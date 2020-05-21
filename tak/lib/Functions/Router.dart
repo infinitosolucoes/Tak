@@ -32,6 +32,9 @@ Route<dynamic> generateRoute(RouteSettings settings){
 
     case '/help':
       return CupertinoPageRoute(builder: (_) => HelpPage());  
+
+    case '/help/about':
+      return CupertinoPageRoute(builder: (_) => AboutPage());
          
     default:
       return MaterialPageRoute(

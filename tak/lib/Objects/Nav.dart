@@ -25,5 +25,5 @@ final List<Nav> homeRoutes = [
 final List<Nav> helpRoutes = [
   new Nav(name: 'Contato', icon: MdiIcons.androidMessages),
   new Nav(name: 'Manual', icon: MdiIcons.youtube),
-  new Nav(name: 'Sobre', icon: MdiIcons.helpCircleOutline),
+  new Nav(name: 'Sobre', icon: MdiIcons.helpCircleOutline, page: '/help/about'),
 ];

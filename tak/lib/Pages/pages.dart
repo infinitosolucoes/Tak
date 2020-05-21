@@ -6,3 +6,4 @@ export 'FormItemPage/FormItemPage.dart';
 export 'SalesReportPage/SalesReportPage.dart';
 export 'InvoicePage/InvoicePage.dart';
 export 'HelpPage/HelpPage.dart';
+export 'AboutPage/AboutPage.dart';
