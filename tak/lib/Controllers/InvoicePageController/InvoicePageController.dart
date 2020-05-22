@@ -44,7 +44,7 @@ class InvoicePageController{
 
         build: (context) => [
           pw.SizedBox(height: 15),
-          pw.Text('Código da Venda: ${this._newSale.id}', style: pw.TextStyle(color: PdfColors.blue, fontSize: 30)),
+          pw.Text('Código da Venda: ${this._newSale.id}', style: pw.TextStyle(color: PdfColors.blueAccent, fontSize: 20)),
           pw.SizedBox(height: 5),
           this._generateTable(context),
           pw.SizedBox(height: 15),

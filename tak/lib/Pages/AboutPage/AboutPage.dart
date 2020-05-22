@@ -28,20 +28,20 @@ class _AboutPageState extends State<AboutPage> {
     return StreamBuilder(
       stream: this._controller.output,
       builder: (context, snapshot){
-    return Scaffold(
-      backgroundColor: primary_color,
-      body: Center(
-        child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Tak', style: TextStyle(fontFamily: 'Merienda One',fontSize: 120,color: background_color)),
-            Text('Versão: ${this._controller.packageInfo.version}', style: TextStyle(fontFamily: 'Open Sans', fontSize: 20, color: background_color)),
-            SizedBox(height: 50),
-            Text('Desenvolvido por Evoluis Cooperativa de Programação, sob a licença BSD 3-Clause', style: TextStyle(fontFamily: 'Open Sans', fontSize: 20, color: background_color), textAlign: TextAlign.center)
-          ],
-        ),
-      )
-    );
+        return Scaffold(
+          backgroundColor: primary_color,
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Tak', style: TextStyle(fontFamily: 'Merienda One',fontSize: 120,color: background_color)),
+                Text('Versão: ${this._controller.packageInfo.version}', style: TextStyle(fontFamily: 'Open Sans', fontSize: 20, color: background_color)),
+                SizedBox(height: 50),
+                Text('Desenvolvido por Evoluis Cooperativa de Programação, sob a licença BSD 3-Clause', style: TextStyle(fontFamily: 'Open Sans', fontSize: 20, color: background_color), textAlign: TextAlign.center)
+              ],
+            ),
+          )
+        );
       }
     );
   }
