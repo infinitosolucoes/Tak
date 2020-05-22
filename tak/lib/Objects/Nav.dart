@@ -13,7 +13,7 @@ class Nav{
 final List<Nav> homeRoutes = [
   new Nav(name: 'Vender', icon: MdiIcons.cashUsdOutline, page: '/newSale'),
   new Nav(name: 'Relatórios', icon: MdiIcons.chartLine, page: '/salesReport'),
-  new Nav(name: 'Recibos', icon: MdiIcons.receipt),
+  new Nav(name: 'Recibos', icon: MdiIcons.receipt, page: '/listInvoices'),
   new Nav(name: 'Itens', icon: MdiIcons.packageVariantClosed, page: '/listItems'),
   new Nav(name: 'Perfil', icon: MdiIcons.account, page: '/company'),
   new Nav(name: 'Ajuda', icon: MdiIcons.helpCircleOutline, page: '/help'),

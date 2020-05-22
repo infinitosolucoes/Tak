@@ -27,6 +27,9 @@ Route<dynamic> generateRoute(RouteSettings settings){
     case '/salesReport':
       return CupertinoPageRoute(builder: (_) => SalesReportPage());
 
+    case '/listInvoices':
+     return CupertinoPageRoute(builder: (_) => InvoiceListPage());
+
     case '/company':
       return CupertinoPageRoute(builder: (_) => CompanyPage()); 
 
