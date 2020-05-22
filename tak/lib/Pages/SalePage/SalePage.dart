@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tak/Controllers/SalePageControllers/MethodPaymentController.dart';
-import 'package:tak/Controllers/SalePageControllers/SalePageController.dart';
+import 'package:tak/Controllers/SalePage/Controllers.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Theme/theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

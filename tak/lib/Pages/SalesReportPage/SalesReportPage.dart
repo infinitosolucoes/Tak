@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:tak/Controllers/SalesReportPageController/SalesReportPageController.dart';
+import 'package:tak/Controllers/SalesReportPage/SalesReportPageController.dart';
 import 'package:tak/Theme/theme.dart';
 
 class SalesReportPage extends StatefulWidget {

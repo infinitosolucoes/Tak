@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Objects/Item.dart';
-import 'package:tak/Controllers/AddItemPageControllers/AddItemController.dart';
-import 'package:tak/Controllers/AddItemPageControllers/CounterController.dart';
+import 'package:tak/Controllers/AddItemPage/Controllers.dart';
 import 'package:tak/Theme/theme.dart';
 
 
