@@ -178,7 +178,7 @@ class _SalePageState extends State<SalePage> {
                               onPressed: (){
                                 this._controller.setMethod(this._methodController.getMethod());
                                 if(this._controller.invoice()){
-                                  Navigator.pushNamed(context, '/newSale/invoice', arguments: this._controller.newSale);
+                                  Navigator.pushNamed(context, '/invoice', arguments: this._controller.newSale);
                                   //Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
                                 }
                               },

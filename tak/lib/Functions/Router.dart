@@ -18,8 +18,8 @@ Route<dynamic> generateRoute(RouteSettings settings){
     case '/newSale':
       return CupertinoPageRoute(builder: (_) => SalePage());
       
-    case '/newSale/invoice':
-      return CupertinoPageRoute(builder: (_) => InvoicePage(newSale: settings.arguments));
+    case '/invoice':
+      return CupertinoPageRoute(builder: (_) => InvoicePage(sale: settings.arguments));
 
     case '/newSale/addItem':
       return CupertinoPageRoute(builder: (_) => AddItemPage());

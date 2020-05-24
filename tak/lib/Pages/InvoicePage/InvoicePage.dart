@@ -6,9 +6,9 @@ import 'package:printing/printing.dart';
 
 class InvoicePage extends StatefulWidget {
 
-  final Sale newSale;
+  final Sale sale;
 
-  InvoicePage({Key key, @required this.newSale}) : super(key: key);
+  InvoicePage({Key key, @required this.sale}) : super(key: key);
 
   @override
   _InvoicePageState createState() => _InvoicePageState();
@@ -19,7 +19,7 @@ class _InvoicePageState extends State<InvoicePage> {
 
   @override
   void initState(){
-    this._controller.newSale = widget.newSale;
+    this._controller.sale = widget.sale;
     super.initState();
   }
 
@@ -37,7 +37,7 @@ class _InvoicePageState extends State<InvoicePage> {
         centerTitle: true,
         title: Text('Recibo', style: app_bar),
 
-        actions: <Widget>[
+        actions: (widget.sale.invoice != null)? null : <Widget>[
           IconButton(
             icon: Icon(Icons.save, color: background_color),
             onPressed: (){

@@ -43,6 +43,10 @@ class _InvoiceListPageState extends State<InvoiceListPage> {
               return ListTile(
                 leading: Icon(MdiIcons.receipt, color: primary_color, size: 40),
                 title: Text(this._controller.title(index), style: title_item),
+
+                onTap: (){
+                  Navigator.pushNamed(context, "/invoice", arguments: this._controller.sale(index));
+                },
               );
             }, 
             separatorBuilder: (context, index) => divider, 
