@@ -10,7 +10,7 @@ class Tak extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tak',
       onGenerateRoute: Router.generateRoute,
-      initialRoute: '/',
+      initialRoute: '/login',
     );
   }
 }

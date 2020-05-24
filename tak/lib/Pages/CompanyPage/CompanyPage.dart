@@ -260,7 +260,9 @@ class _CompanyPageState extends State<CompanyPage>{
                           shape: shape,
                           child: Text('Sair', style: button_text),
                           color: primary_color,
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
+                          },
                         )
                       )
                     )

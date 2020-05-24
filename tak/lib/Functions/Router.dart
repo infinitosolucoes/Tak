@@ -7,7 +7,7 @@ import 'package:tak/Pages/pages.dart';
 Route<dynamic> generateRoute(RouteSettings settings){
   switch(settings.name){
     case '/':
-      return MaterialPageRoute(builder: (_) => HomePage());
+      return CupertinoPageRoute(builder: (_) => HomePage());
 
     case '/listItems':
      return CupertinoPageRoute(builder: (_) => ItemsPage());
@@ -38,9 +38,12 @@ Route<dynamic> generateRoute(RouteSettings settings){
 
     case '/help/about':
       return CupertinoPageRoute(builder: (_) => AboutPage());
+
+    case '/login':
+      return CupertinoPageRoute(builder: (_) => LoginPage());
          
     default:
-      return MaterialPageRoute(
+      return CupertinoPageRoute(
         builder: (_) => Scaffold(
               body: Center(
                 child: Text('Não existe rota defininda por ${settings.name}')),
