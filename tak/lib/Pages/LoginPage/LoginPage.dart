@@ -50,7 +50,10 @@ class _LoginPageState extends State<LoginPage> {
 		          textColor: primary_color,
 		          child: Text('LOGIN COM O GOOGLE'),
 		          onPressed: () async{
-		            Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+                this._controller.signInWithGoogle().whenComplete(() {
+                  Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+                });
+		            
 		          },
 		        )
 		      ],
