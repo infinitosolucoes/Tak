@@ -76,7 +76,7 @@ class CompanyController{
   String get cnpj => company.cnpj;
   String get phoneNumber => company.phoneNumber;
   String get email => company.email;
-  String get password => company.password;
+  
 
   String get location => company.address.location;
   String get houseNumber => company.address.houseNumber;
@@ -102,10 +102,7 @@ class CompanyController{
     company.email = value;
     this._streamController.add(company);
   } 
-  set password(String value) {
-    company.password = value;
-    this._streamController.add(company);
-  }
+  
 
   set location(String value){
     company.address.location = value;

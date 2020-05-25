@@ -131,18 +131,7 @@ class _CompanyPageState extends State<CompanyPage>{
                     validator: Validators.emailValidator,
                   ),
 
-                  TextFormField(
-                    enabled: this._controller.editMode,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      icon: Icon(MdiIcons.lock, size: 30, color: decoration_color),
-                      labelText: 'Senha',
-                      errorStyle: TextStyle(color: danger_color),
-                    ),
-                    initialValue: this._controller.password,
-                    onSaved: (String value){this._controller.password = value;},
-                    validator: Validators.passwordValidator,
-                  ),
+                  
 
                   SizedBox(height: 20,),
                   Text('Endereço', style: title_item),
