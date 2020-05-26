@@ -6,6 +6,13 @@ class SaleItem{
   
   SaleItem({this.item, this.amount});
 
+  Map saleItemMap(){
+    return {
+      item: this.item.itemMap(),
+      amount: this.amount
+    };
+  }
+
   double calculateTotal() => this.item.price * this.amount;
 
   String getValue(int index){

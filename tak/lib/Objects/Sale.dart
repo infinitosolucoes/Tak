@@ -13,6 +13,24 @@ class Sale{
     this.items, this.methodPayment, this.invoice
   });
 
+  Map saleMap(){
+    return {
+      id: this.id,
+      date: this.date,
+      total: this.total,
+      items: this._convertListSaleItems(),
+      methodPayment: this.methodPayment,
+      invoice: this.invoice
+    };
+  }
+
+  List<Map> _convertListSaleItems(){
+    return List.generate(
+      this.items.length,
+      (int index) => this.items[index].saleItemMap()
+    );
+  }
+
   String getMethodPayment(){ 
     switch(this.methodPayment){
       case 1:

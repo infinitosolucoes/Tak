@@ -14,6 +14,32 @@ class Company{
 
   Company({this.cnpj, this.img, this.name, this.address, this.email, this.phoneNumber, this.sales, this.items});
 
+  Map companyMap(){
+    return {
+      cnpj: this.cnpj,
+      img: this.img,
+      name: this.name,
+      email: this.email,
+      phoneNumber: this.phoneNumber,
+      address: this.address.addressMap(),
+      sales: this._convertListSale(),
+      items: this._convertListItems()
+    };
+  }
+
+  List<Map> _convertListItems(){
+    return List.generate(
+      this.items.length,
+      (int index) => this.items[index].itemMap()
+    );
+  }
+
+  List<Map> _convertListSale(){
+    return List.generate(
+      this.sales.length,
+      (int index) => this.sales[index].saleMap()
+    );
+  }
 }
 // objeto teste
 Company company = new Company(
