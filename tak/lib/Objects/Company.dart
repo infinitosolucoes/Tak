@@ -16,14 +16,14 @@ class Company{
 
   Map companyMap(){
     return {
-      cnpj: this.cnpj,
-      img: this.img,
-      name: this.name,
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      address: this.address.addressMap(),
-      sales: this._convertListSale(),
-      items: this._convertListItems()
+      "cnpj": this.cnpj,
+      "img": this.img,
+      "name": this.name,
+      "email": this.email,
+      "phoneNumber": this.phoneNumber,
+      "address": this.address.addressMap(),
+      "sales": this._convertListSale(),
+      "items": this._convertListItems()
     };
   }
 
