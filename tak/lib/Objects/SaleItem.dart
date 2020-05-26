@@ -8,8 +8,8 @@ class SaleItem{
 
   Map saleItemMap(){
     return {
-      item: this.item.itemMap(),
-      amount: this.amount
+      "item": this.item.itemMap(),
+      "amount": this.amount
     };
   }
 

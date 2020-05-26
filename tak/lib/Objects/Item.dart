@@ -10,10 +10,10 @@ class Item{
 
   Map itemMap(){
     return {
-      id: this.id,
-      img: this.name,
-      name: this.img,
-      price: this.price
+      "id": this.id,
+      "img": this.name,
+      "name": this.img,
+      "price": this.price
     };
   }
 }

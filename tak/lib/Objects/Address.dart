@@ -13,12 +13,12 @@ class Address{
 
   Map addressMap(){
     return {
-      cep: this.cep,
-      location: this.location,
-      district: this.district,
-      city: this.city,
-      fu: this.fu,
-      houseNumber: this.houseNumber
+      "cep": this.cep,
+      "location": this.location,
+      "district": this.district,
+      "city": this.city,
+      "fu": this.fu,
+      "houseNumber": this.houseNumber
     };
   }
 }
