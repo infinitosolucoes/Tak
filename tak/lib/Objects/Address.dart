@@ -11,14 +11,22 @@ class Address{
     this.city, this.fu
   });
 
-  Map addressMap(){
+  Address.newAddress(): this(
+    cep: "",
+    location: "",
+    district: "",
+    city: "",
+    fu: "",
+    houseNumber: ""
+  );
+  Map<String,dynamic> addressMap(){
     return {
-      "cep": this.cep,
-      "location": this.location,
-      "district": this.district,
-      "city": this.city,
-      "fu": this.fu,
-      "houseNumber": this.houseNumber
+      'cep': this.cep,
+      'location': this.location,
+     'district': this.district,
+      'city': this.city,
+      'fu': this.fu,
+      'houseNumber': this.houseNumber
     };
   }
 }

@@ -8,12 +8,12 @@ class Item{
     this.id, this.name, this.img, this.price
   });
 
-  Map itemMap(){
+  Map<String,dynamic> itemMap(){
     return {
-      "id": this.id,
-      "img": this.name,
-      "name": this.img,
-      "price": this.price
+      'id': this.id,
+      'img': this.name,
+      'name': this.img,
+      'price': this.price
     };
   }
 }

@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'dart:async';
 
+import 'package:tak/Objects/Company.dart';
+
 class LoginPageController{
   final StreamController _streamController = new StreamController.broadcast();
   
@@ -34,7 +36,15 @@ class LoginPageController{
 
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
-	  print('signInWithGoogle succeeded: $user');
+	  
+    
+    print('signInWithGoogle succeeded: ${user.toString()}');
+
+    Company newCompany = new Company.newCompany(user.email);
+    Map<String,dynamic> company = newCompany.companyMap();
+    
+    await this.firestore.collection("companies").document(user.email).setData(company);
+
     return 'signInWithGoogle succeeded: $user';
   }
 }

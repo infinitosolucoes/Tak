@@ -14,27 +14,38 @@ class Company{
 
   Company({this.cnpj, this.img, this.name, this.address, this.email, this.phoneNumber, this.sales, this.items});
 
-  Map companyMap(){
+  Company.newCompany(String email): this(
+    cnpj: "",
+    img: "",
+    name: "",
+    address: new Address.newAddress(),
+    email: email,
+    phoneNumber: "",
+    sales: [],
+    items: []
+  );
+
+  Map<String,dynamic> companyMap(){
     return {
-      "cnpj": this.cnpj,
-      "img": this.img,
-      "name": this.name,
-      "email": this.email,
-      "phoneNumber": this.phoneNumber,
-      "address": this.address.addressMap(),
-      "sales": this._convertListSale(),
-      "items": this._convertListItems()
+      'cnpj': this.cnpj,
+      'img': this.img,
+      'name': this.name,
+      'email': this.email,
+      'phoneNumber': this.phoneNumber,
+      'address': this.address.addressMap(),
+      'sales': this._convertListSale(),
+      'items': this._convertListItems()
     };
   }
 
-  List<Map> _convertListItems(){
+  List<Map<String,dynamic>> _convertListItems(){
     return List.generate(
       this.items.length,
       (int index) => this.items[index].itemMap()
     );
   }
 
-  List<Map> _convertListSale(){
+  List<Map<String,dynamic>> _convertListSale(){
     return List.generate(
       this.sales.length,
       (int index) => this.sales[index].saleMap()

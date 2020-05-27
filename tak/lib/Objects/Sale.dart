@@ -13,14 +13,14 @@ class Sale{
     this.items, this.methodPayment, this.invoice
   });
 
-  Map saleMap(){
+  Map<String,dynamic> saleMap(){
     return {
-      "id": this.id,
-      "date": this.date,
-      "total": this.total,
-      "items": this._convertListSaleItems(),
-      "methodPayment": this.methodPayment,
-      "invoice": this.invoice
+     'id': this.id,
+      'date': this.date,
+      'total': this.total,
+      'items': this._convertListSaleItems(),
+      'methodPayment': this.methodPayment,
+      'invoice': this.invoice
     };
   }
 

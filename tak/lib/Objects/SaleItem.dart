@@ -6,10 +6,10 @@ class SaleItem{
   
   SaleItem({this.item, this.amount});
 
-  Map saleItemMap(){
+  Map<String,dynamic> saleItemMap(){
     return {
-      "item": this.item.itemMap(),
-      "amount": this.amount
+      'item': this.item.itemMap(),
+      'amount': this.amount
     };
   }
 
