@@ -40,10 +40,16 @@ class LoginPageController{
     
     print('signInWithGoogle succeeded: ${user.toString()}');
 
-    Company newCompany = new Company.newCompany(user.email);
-    Map<String,dynamic> company = newCompany.companyMap();
+    DocumentSnapshot doc = await this.firestore.collection("companies").document(user.email).get();
+
+    if(doc == null){
+      Company newCompany = new Company.newCompany(user.email);
+      Map<String,dynamic> company = newCompany.companyMap();
     
-    await this.firestore.collection("companies").document(user.email).setData(company);
+      await this.firestore.collection("companies").document(user.email).setData(company);
+    }else{
+      print(doc.data);
+    }
 
     return 'signInWithGoogle succeeded: $user';
   }
