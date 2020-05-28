@@ -18,8 +18,8 @@ class Item{
   Map<String,dynamic> toJson()
     => {
       'id': this.id,
-      'img': this.name,
-      'name': this.img,
+      'name': this.name,
+      'img': this.img,
       'price': this.price
     };
   
