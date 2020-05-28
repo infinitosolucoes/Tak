@@ -41,14 +41,16 @@ class LoginPageController{
     print('signInWithGoogle succeeded: ${user.toString()}');
 
     DocumentSnapshot doc = await this.firestore.collection("companies").document(user.email).get();
-
-    if(doc == null){
-      Company newCompany = new Company.newCompany(user.email);
-      Map<String,dynamic> company = newCompany.companyMap();
     
-      await this.firestore.collection("companies").document(user.email).setData(company);
+    if(doc == null){
+      company = new Company.newCompany(user.email);
+      Map<String,dynamic> json = company.toJson();
+    
+      await this.firestore.collection("companies").document(user.email).setData(json);
     }else{
-      print(doc.data);
+      Map<String, dynamic> json = doc.data; 
+      company = Company.fromJson(json);
+      print(company.email);
     }
 
     return 'signInWithGoogle succeeded: $user';

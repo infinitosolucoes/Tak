@@ -19,8 +19,18 @@ class Address{
     fu: "",
     houseNumber: ""
   );
-  Map<String,dynamic> addressMap(){
-    return {
+
+  Address.fromJson(Map<String, dynamic> json): this(
+    cep: json['cep'],
+    location: json['location'],
+    district: json['district'],
+    city: json['city'],
+    fu: json['fu'],
+    houseNumber: json['houseNumber']
+  );
+
+  Map<String,dynamic> toJson()
+    => {
       'cep': this.cep,
       'location': this.location,
      'district': this.district,
@@ -28,5 +38,5 @@ class Address{
       'fu': this.fu,
       'houseNumber': this.houseNumber
     };
-  }
+  
 }

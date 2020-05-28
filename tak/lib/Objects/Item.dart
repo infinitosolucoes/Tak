@@ -8,12 +8,19 @@ class Item{
     this.id, this.name, this.img, this.price
   });
 
-  Map<String,dynamic> itemMap(){
-    return {
+  Item.fromJson(Map<String, dynamic> json): this(
+    id: json['id'],
+    img: json['img'],
+    name: json['name'],
+    price: json['price']
+  );  
+
+  Map<String,dynamic> toJson()
+    => {
       'id': this.id,
       'img': this.name,
       'name': this.img,
       'price': this.price
     };
-  }
+  
 }

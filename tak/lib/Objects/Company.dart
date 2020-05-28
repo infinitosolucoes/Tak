@@ -25,32 +25,51 @@ class Company{
     items: []
   );
 
-  Map<String,dynamic> companyMap(){
-    return {
-      'cnpj': this.cnpj,
-      'img': this.img,
-      'name': this.name,
-      'email': this.email,
-      'phoneNumber': this.phoneNumber,
-      'address': this.address.addressMap(),
-      'sales': this._convertListSale(),
-      'items': this._convertListItems()
-    };
-  }
+  Company.fromJson(Map<String, dynamic> json): this(
+    cnpj: json['cnpj'],
+    img: json['img'],
+    name: json['name'],
+    address: new Address.newAddress(),
+    email: json['email'],
+    phoneNumber: json['phoneNumber'],
 
-  List<Map<String,dynamic>> _convertListItems(){
-    return List.generate(
-      this.items.length,
-      (int index) => this.items[index].itemMap()
-    );
-  }
+    sales: List.generate(
+      json['sales'].length,
+      (int index) => Sale.fromJson(json['sales'][index])
+    ),
 
-  List<Map<String,dynamic>> _convertListSale(){
-    return List.generate(
-      this.sales.length,
-      (int index) => this.sales[index].saleMap()
-    );
-  }
+    items: List.generate(
+      json['items'].length,
+      (int index) => Item.fromJson(json['items'][index])
+    )
+  );
+
+  Map<String,dynamic> toJson()
+  => {
+    'cnpj': this.cnpj,
+    'img': this.img,
+    'name': this.name,
+    'email': this.email,
+    'phoneNumber': this.phoneNumber,
+    'address': this.address.toJson(),
+    'sales': this._convertListSaleToJson(),
+    'items': this._convertListItemsToJson()
+  };
+  
+
+  List<Map<String,dynamic>> _convertListItemsToJson()
+  => List.generate(
+    this.items.length,
+    (int index) => this.items[index].toJson()
+  );
+  
+
+  List<Map<String,dynamic>> _convertListSaleToJson()
+  => List.generate(
+    this.sales.length,
+    (int index) => this.sales[index].toJson()
+  );
+  
 }
 // objeto teste
 Company company = new Company(
