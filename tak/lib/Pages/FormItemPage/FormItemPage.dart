@@ -106,6 +106,7 @@ class _FormItemPageState extends State<FormItemPage> {
                       labelText: 'Código de Barras',
                       errorStyle: TextStyle(color: danger_color),
                     ),
+                    maxLength: 13,
                     keyboardType: TextInputType.phone,
                     initialValue: this._controller.id,
                     validator: Validators.ean13Validator,

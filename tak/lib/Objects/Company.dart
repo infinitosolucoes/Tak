@@ -52,19 +52,19 @@ class Company{
     'email': this.email,
     'phoneNumber': this.phoneNumber,
     'address': this.address.toJson(),
-    'sales': this._convertListSaleToJson(),
-    'items': this._convertListItemsToJson()
+    'sales': this.convertListSaleToJson(),
+    'items': this.convertListItemsToJson()
   };
   
 
-  List<Map<String,dynamic>> _convertListItemsToJson()
+  List<Map<String,dynamic>> convertListItemsToJson()
   => List.generate(
     this.items.length,
     (int index) => this.items[index].toJson()
   );
   
 
-  List<Map<String,dynamic>> _convertListSaleToJson()
+  List<Map<String,dynamic>> convertListSaleToJson()
   => List.generate(
     this.sales.length,
     (int index) => this.sales[index].toJson()
