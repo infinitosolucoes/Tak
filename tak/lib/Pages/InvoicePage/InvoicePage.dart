@@ -40,8 +40,8 @@ class _InvoicePageState extends State<InvoicePage> {
         actions: (widget.sale.invoice != null)? null : <Widget>[
           IconButton(
             icon: Icon(Icons.save, color: background_color),
-            onPressed: (){
-              if(this._controller.finalizeSale()){
+            onPressed: () async {
+              if(await this._controller.finalizeSale()){
                 Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
               }
             },

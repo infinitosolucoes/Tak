@@ -6,6 +6,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/Company.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class InvoicePageController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -16,14 +18,19 @@ class InvoicePageController{
 
   Sale _sale;
 
+  final Firestore firestore = Firestore.instance;
+
   set sale(Sale sale){
     this._sale = sale;
     this._streamController.add(this._sale);
   }
 
-  bool finalizeSale(){
+  Future<bool> finalizeSale() async {
     try{ 
       company.sales.add(this._sale);
+      final user = await FirebaseAuth.instance.currentUser();
+
+      this.firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
       this._streamController.add(company);
       print(this._sale.toString());
       return true;

@@ -33,7 +33,7 @@ class ItemsPageController{
       company.items.removeAt(index);
       final user = await FirebaseAuth.instance.currentUser();
 
-    this.firestore.collection("companies").document(user.email).updateData({'items': company.convertListItemsToJson()}).then((_) {print("Salvado com sucesso");});
+      this.firestore.collection("companies").document(user.email).updateData({'items': company.convertListItemsToJson()}).then((_) {print("Salvado com sucesso");});
       this._streamController.add(company);
       return true;
     }catch (e){
