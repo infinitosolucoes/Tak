@@ -38,9 +38,10 @@ class _CompanyPageState extends State<CompanyPage>{
             actions: <Widget>[
               IconButton(
                 icon: Icon(this._controller.icon, color: background_color, size: 30,),
-                onPressed: (){
+                onPressed: ()async{
                   if(this._controller.editMode){
-                    if(this._controller.submit()){
+                    bool flag = await this._controller.submit();
+                    if(flag){
                       this._controller.editMode = false;
                     }
                   }else{
@@ -77,7 +78,9 @@ class _CompanyPageState extends State<CompanyPage>{
                       ),
                     ),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 10,),
+                  Text(this._controller.email, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8,),
                   TextFormField(
                     enabled: this._controller.editMode,
                     decoration: InputDecoration(
@@ -118,20 +121,6 @@ class _CompanyPageState extends State<CompanyPage>{
                     validator: Validators.phoneValidator,
                   ),
 
-                  TextFormField(
-                    enabled: this._controller.editMode,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      icon: Icon(MdiIcons.at, size: 30, color: decoration_color),
-                      labelText: 'Email',
-                      errorStyle: TextStyle(color: danger_color),
-                    ),
-                    initialValue: this._controller.email,
-                    onSaved: (String value){this._controller.email = value;},
-                    validator: Validators.emailValidator,
-                  ),
-
-                  
 
                   SizedBox(height: 20,),
                   Text('Endereço', style: title_item),
