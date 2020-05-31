@@ -29,7 +29,7 @@ class Company{
     cnpj: json['cnpj'],
     img: json['img'],
     name: json['name'],
-    address: new Address.newAddress(),
+    address: new Address.fromJson(json['address']),
     email: json['email'],
     phoneNumber: json['phoneNumber'],
 

@@ -224,7 +224,11 @@ class _CompanyPageState extends State<CompanyPage>{
                           shape: shape,
                           child: Text('Deletar', style: button_text),
                           color: danger_color,
-                          onPressed: (){},
+                          onPressed: () async{
+                            await this._controller.deleteCompany().whenComplete((){
+                              Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
+                            });
+                          },
                         )
                       )
                     ),
@@ -238,8 +242,11 @@ class _CompanyPageState extends State<CompanyPage>{
                           shape: shape,
                           child: Text('Sair', style: button_text),
                           color: primary_color,
-                          onPressed: (){
-                            Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
+                          onPressed: () async {
+                            await this._controller.signOut().whenComplete((){
+                              Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
+                            });
+                            
                           },
                         )
                       )

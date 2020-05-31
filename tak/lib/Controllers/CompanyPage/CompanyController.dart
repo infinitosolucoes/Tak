@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Company.dart';
@@ -23,7 +24,8 @@ class CompanyController{
   bool _editMode = false;                   // Controle de permissão de edição do formulário
   final formKey = GlobalKey<FormState>();
 
-  final Firestore firestore = Firestore.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final Firestore firestore = Firestore.instance;  
 
   File _image;
 
@@ -150,5 +152,24 @@ class CompanyController{
     }
   }
 
+  Future<void> signOut() async{
+    try{
+      await this.googleSignIn.signOut();
+      print('Usuário saiu');
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  Future<void> deleteCompany() async{
+    try{
+      final user = await FirebaseAuth.instance.currentUser();
+      await this.firestore.collection("companies").document(user.email).delete();
+      print('Usuário deletado');
+      this.signOut();
+    }catch(e){
+      print(e.toString());
+    }
+  }
  
 }
