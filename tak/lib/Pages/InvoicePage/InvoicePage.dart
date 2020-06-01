@@ -53,11 +53,9 @@ class _InvoicePageState extends State<InvoicePage> {
 
           IconButton(
             icon: Icon(Icons.send, color: background_color),
-            onPressed: () async{
-              if(await this._controller.sendEmail()){
-                Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
-              }
-            },
+            onPressed:() async {await this._controller.sendEmail();}
+                
+      
           )
           
         ],
