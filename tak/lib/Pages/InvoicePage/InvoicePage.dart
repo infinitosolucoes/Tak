@@ -37,15 +37,29 @@ class _InvoicePageState extends State<InvoicePage> {
         centerTitle: true,
         title: Text('Recibo', style: app_bar),
 
-        actions: (widget.sale.invoice != null)? null : <Widget>[
+        actions: <Widget>[
+
+          Visibility(
+            visible: (widget.sale.invoice == null),
+            child: IconButton(
+              icon: Icon(Icons.save, color: background_color),
+              onPressed: () async {
+                if(await this._controller.finalizeSale()){
+                  Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+                }
+              },
+            ),
+          ),
+
           IconButton(
-            icon: Icon(Icons.save, color: background_color),
-            onPressed: () async {
-              if(await this._controller.finalizeSale()){
+            icon: Icon(Icons.send, color: background_color),
+            onPressed: () async{
+              if(await this._controller.sendEmail()){
                 Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
               }
             },
           )
+          
         ],
         
       ),
