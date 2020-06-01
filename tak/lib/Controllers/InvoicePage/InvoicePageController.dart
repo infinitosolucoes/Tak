@@ -6,6 +6,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/Company.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class InvoicePageController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -14,18 +16,23 @@ class InvoicePageController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  Sale _newSale;
+  Sale _sale;
 
-  set newSale(Sale sale){
-    this._newSale = sale;
-    this._streamController.add(this._newSale);
+  final Firestore firestore = Firestore.instance;
+
+  set sale(Sale sale){
+    this._sale = sale;
+    this._streamController.add(this._sale);
   }
 
-  bool finalizeSale(){
+  Future<bool> finalizeSale() async {
     try{ 
-      company.sales.add(this._newSale);
+      company.sales.add(this._sale);
+      final user = await FirebaseAuth.instance.currentUser();
+
+      this.firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
       this._streamController.add(company);
-      print(this._newSale.toString());
+      print(this._sale.toString());
       return true;
   
     }catch(e){
@@ -34,6 +41,11 @@ class InvoicePageController{
   }
 
   Future<Uint8List> generateInvoice(PdfPageFormat pageFormat) async {
+    if(this._sale.invoice != null){
+      Uint8List invoiceBytes = base64Decode(this._sale.invoice);
+      return invoiceBytes;
+    }
+
     final invoice = pw.Document();  // Crio o documento PDF da Nota Fiscal
 
     // Crio uma página
@@ -44,7 +56,7 @@ class InvoicePageController{
 
         build: (context) => [
           pw.SizedBox(height: 15),
-          pw.Text('Código da Venda: ${this._newSale.id}', style: pw.TextStyle(color: PdfColors.blueAccent, fontSize: 20)),
+          pw.Text('Código da Venda: ${this._sale.id}', style: pw.TextStyle(color: PdfColors.blueAccent, fontSize: 20)),
           pw.SizedBox(height: 5),
           this._generateTable(context),
           pw.SizedBox(height: 15),
@@ -56,9 +68,9 @@ class InvoicePageController{
     Uint8List invoiceBytes = invoice.save();  // Salvo o documento
 
     String base64Invoice = base64Encode(invoiceBytes);  // Converto para String de base 64
-    this._newSale.invoice = base64Invoice;                 // Salvo no objeto Sale
+    this._sale.invoice = base64Invoice;                 // Salvo no objeto Sale
     
-    this._streamController.add(this._newSale);
+    this._streamController.add(this._sale);
 
     return invoiceBytes;     // Envio os bytes a serem mostrado na InvoicePage
   }
@@ -79,7 +91,7 @@ class InvoicePageController{
         pw.Row(
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [
-            pw.Text('Endereço: ${company.address.location}, ${company.address.houseNumber}, ${company.address.district}, ${company.address.city}, ${company.address.fu}. CEP: ${company.address.cep}'),
+            pw.Text('Endereço: ${company.address.location}, ${company.address.houseNumber}, ${company.address.district}, ${company.address.city}, ${company.address.fu}.'),
             
           ]
         ),
@@ -155,10 +167,10 @@ class InvoicePageController{
 
       // Conteúdo da Tabela
       data: List<List<String>>.generate(
-        this._newSale.items.length,
+        this._sale.items.length,
         (row) => List<String>.generate(
           headers.length,
-          (col) => this._newSale.items[row].getValue(col),
+          (col) => this._sale.items[row].getValue(col),
         ),
       ),
       
@@ -173,7 +185,7 @@ class InvoicePageController{
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Total:'),
-            pw.Text('R\$ ${this._newSale.total.toString().replaceAll('.',',')}'),
+            pw.Text('R\$ ${this._sale.total.toString().replaceAll('.',',')}'),
           ]
         ),
         pw.SizedBox(height: 3),
@@ -181,7 +193,7 @@ class InvoicePageController{
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Método de Pagamento:'),
-            pw.Text(this._newSale.getMethodPayment()),
+            pw.Text(this._sale.getMethodPayment()),
           ]
         ),
         pw.SizedBox(height: 3),

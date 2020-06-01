@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tak/Controllers/SalePageControllers/MethodPaymentController.dart';
-import 'package:tak/Controllers/SalePageControllers/SalePageController.dart';
+import 'package:tak/Controllers/SalePage/Controllers.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Theme/theme.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -179,7 +178,7 @@ class _SalePageState extends State<SalePage> {
                               onPressed: (){
                                 this._controller.setMethod(this._methodController.getMethod());
                                 if(this._controller.invoice()){
-                                  Navigator.pushNamed(context, '/newSale/invoice', arguments: this._controller.newSale);
+                                  Navigator.pushNamed(context, '/invoice', arguments: this._controller.newSale);
                                   //Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
                                 }
                               },

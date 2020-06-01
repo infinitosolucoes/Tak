@@ -6,6 +6,18 @@ class SaleItem{
   
   SaleItem({this.item, this.amount});
 
+  SaleItem.fromJson(Map<String,dynamic> json): this(
+    item: Item.fromJson(json['item']),
+    amount: json['amount']
+  );
+
+  Map<String,dynamic> toJson()
+  => {
+    'item': this.item.toJson(),
+    'amount': this.amount
+  };
+  
+
   double calculateTotal() => this.item.price * this.amount;
 
   String getValue(int index){

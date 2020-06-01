@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:tak/Controllers/CompanyPageControllers/CompanyController.dart';
+import 'package:tak/Controllers/CompanyPage/CompanyController.dart';
 import 'package:tak/Functions/Validators.dart' as Validators;
 import 'package:tak/Theme/theme.dart';
 
@@ -38,9 +38,10 @@ class _CompanyPageState extends State<CompanyPage>{
             actions: <Widget>[
               IconButton(
                 icon: Icon(this._controller.icon, color: background_color, size: 30,),
-                onPressed: (){
+                onPressed: ()async{
                   if(this._controller.editMode){
-                    if(this._controller.submit()){
+                    bool flag = await this._controller.submit();
+                    if(flag){
                       this._controller.editMode = false;
                     }
                   }else{
@@ -77,7 +78,9 @@ class _CompanyPageState extends State<CompanyPage>{
                       ),
                     ),
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(height: 10,),
+                  Text(this._controller.email, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 8,),
                   TextFormField(
                     enabled: this._controller.editMode,
                     decoration: InputDecoration(
@@ -118,31 +121,6 @@ class _CompanyPageState extends State<CompanyPage>{
                     validator: Validators.phoneValidator,
                   ),
 
-                  TextFormField(
-                    enabled: this._controller.editMode,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      icon: Icon(MdiIcons.at, size: 30, color: decoration_color),
-                      labelText: 'Email',
-                      errorStyle: TextStyle(color: danger_color),
-                    ),
-                    initialValue: this._controller.email,
-                    onSaved: (String value){this._controller.email = value;},
-                    validator: Validators.emailValidator,
-                  ),
-
-                  TextFormField(
-                    enabled: this._controller.editMode,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      icon: Icon(MdiIcons.lock, size: 30, color: decoration_color),
-                      labelText: 'Senha',
-                      errorStyle: TextStyle(color: danger_color),
-                    ),
-                    initialValue: this._controller.password,
-                    onSaved: (String value){this._controller.password = value;},
-                    validator: Validators.passwordValidator,
-                  ),
 
                   SizedBox(height: 20,),
                   Text('Endereço', style: title_item),
@@ -246,7 +224,11 @@ class _CompanyPageState extends State<CompanyPage>{
                           shape: shape,
                           child: Text('Deletar', style: button_text),
                           color: danger_color,
-                          onPressed: (){},
+                          onPressed: () async{
+                            await this._controller.deleteCompany().whenComplete((){
+                              Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
+                            });
+                          },
                         )
                       )
                     ),
@@ -260,7 +242,12 @@ class _CompanyPageState extends State<CompanyPage>{
                           shape: shape,
                           child: Text('Sair', style: button_text),
                           color: primary_color,
-                          onPressed: (){},
+                          onPressed: () async {
+                            await this._controller.signOut().whenComplete((){
+                              Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
+                            });
+                            
+                          },
                         )
                       )
                     )

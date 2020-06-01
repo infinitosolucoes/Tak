@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Company.dart';
@@ -20,6 +23,9 @@ class CompanyController{
   bool _autovalidate = false;               // Controle de validação do formulário
   bool _editMode = false;                   // Controle de permissão de edição do formulário
   final formKey = GlobalKey<FormState>();
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final Firestore firestore = Firestore.instance;  
 
   File _image;
 
@@ -76,13 +82,12 @@ class CompanyController{
   String get cnpj => company.cnpj;
   String get phoneNumber => company.phoneNumber;
   String get email => company.email;
-  String get password => company.password;
+  
 
   String get location => company.address.location;
   String get houseNumber => company.address.houseNumber;
   String get district => company.address.district;
   String get city => company.address.city;
-  String get cep => company.address.cep;
   String get fu => company.address.fu;
 
   // Setters do Formulário
@@ -98,15 +103,7 @@ class CompanyController{
     company.phoneNumber = value;
     this._streamController.add(company);
   } 
-  set email(String value) {
-    company.email = value;
-    this._streamController.add(company);
-  } 
-  set password(String value) {
-    company.password = value;
-    this._streamController.add(company);
-  }
-
+  
   set location(String value){
     company.address.location = value;
     this._streamController.add(company);
@@ -127,20 +124,26 @@ class CompanyController{
     this._streamController.add(company);
   }
 
-  set cep(String value){
-    company.address.cep = value;
-    this._streamController.add(company);
-  }
-
   set fu(String value){
     company.address.fu = value;
     this._streamController.add(company);
   }
 
 
-  bool submit(){
+  Future<bool> submit() async {
     if(this.formKey.currentState.validate()){
       this.formKey.currentState.save();
+      final user = await FirebaseAuth.instance.currentUser();
+
+      this.firestore.collection("companies").document(user.email).updateData(
+        {
+          'cnpj': company.cnpj,
+          'img': company.img,
+          'name': company.name,
+          'email': company.email,
+          'phoneNumber': company.phoneNumber,
+          'address': company.address.toJson(),
+        }).then((_) {print("Salvado com sucesso");});
       return true;
     }else{
       this._autovalidate = true;
@@ -149,5 +152,24 @@ class CompanyController{
     }
   }
 
+  Future<void> signOut() async{
+    try{
+      await this.googleSignIn.signOut();
+      print('Usuário saiu');
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  Future<void> deleteCompany() async{
+    try{
+      final user = await FirebaseAuth.instance.currentUser();
+      await this.firestore.collection("companies").document(user.email).delete();
+      print('Usuário deletado');
+      this.signOut();
+    }catch(e){
+      print(e.toString());
+    }
+  }
  
 }

@@ -8,3 +8,4 @@ export 'InvoicePage/InvoicePage.dart';
 export 'HelpPage/HelpPage.dart';
 export 'AboutPage/AboutPage.dart';
 export 'InvoiceListPage/InvoiceListPage.dart';
+export 'LoginPage/LoginPage.dart';

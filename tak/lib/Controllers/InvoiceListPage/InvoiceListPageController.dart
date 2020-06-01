@@ -16,6 +16,8 @@ class InvoiceListPageController{
 
   int len() => this._sales.length;
 
+  Sale sale(int index) => this._sales[index];
+
   String title(int index) => '${this._sales[index].id} - ${this._sales[index].date}';
 
   void initialize(){

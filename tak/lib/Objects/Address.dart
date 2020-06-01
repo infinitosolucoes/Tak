@@ -1,5 +1,5 @@
 class Address{
-  String cep;
+ 
   String location;
   String district;
   String city;
@@ -7,7 +7,35 @@ class Address{
   String houseNumber;
 
   Address({
-    this.cep, this.location, this.district , this.houseNumber,
+    this.location, this.district , this.houseNumber,
     this.city, this.fu
   });
+
+  Address.newAddress(): this(
+    
+    location: "",
+    district: "",
+    city: "",
+    fu: "AC",
+    houseNumber: ""
+  );
+
+  Address.fromJson(Map<String, dynamic> json): this(
+    
+    location: json['location'],
+    district: json['district'],
+    city: json['city'],
+    fu: json['fu'],
+    houseNumber: json['houseNumber']
+  );
+
+  Map<String,dynamic> toJson()
+    => {
+      'location': this.location,
+     'district': this.district,
+      'city': this.city,
+      'fu': this.fu,
+      'houseNumber': this.houseNumber
+    };
+  
 }

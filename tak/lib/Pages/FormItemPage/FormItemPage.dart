@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:tak/Controllers/FormItemPageController/FormItemPageController.dart';
+import 'package:tak/Controllers/FormItemPage/FormItemPageController.dart';
 import 'package:tak/Functions/Validators.dart' as Validators;
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Theme/theme.dart';
@@ -106,6 +106,7 @@ class _FormItemPageState extends State<FormItemPage> {
                       labelText: 'Código de Barras',
                       errorStyle: TextStyle(color: danger_color),
                     ),
+                    maxLength: 13,
                     keyboardType: TextInputType.phone,
                     initialValue: this._controller.id,
                     validator: Validators.ean13Validator,

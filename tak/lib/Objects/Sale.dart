@@ -13,6 +13,38 @@ class Sale{
     this.items, this.methodPayment, this.invoice
   });
 
+  Sale.fromJson(Map<String, dynamic> json): this(
+    id: json['id'],
+    date: json['date'],
+    total: json['total'],
+
+    items: List.generate(
+      json['items'].length,
+      (int index) => SaleItem.fromJson(json['items'][index])
+    ),
+
+    methodPayment: json['methodPayment'],
+    invoice: json['invoice']
+  );
+
+  Map<String,dynamic> toJson()
+  => {
+    'id': this.id,
+    'date': this.date,
+    'total': this.total,
+    'items': this._convertListSaleItems(),
+    'methodPayment': this.methodPayment,
+    'invoice': this.invoice
+  };
+  
+
+  List<Map> _convertListSaleItems()
+  => List.generate(
+    this.items.length,
+    (int index) => this.items[index].toJson()
+  );
+  
+
   String getMethodPayment(){ 
     switch(this.methodPayment){
       case 1:

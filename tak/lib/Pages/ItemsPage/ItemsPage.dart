@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tak/Controllers/ItemsPageController/ItemsPageController.dart';
+import 'package:tak/Controllers/ItemsPage/ItemsPageController.dart';
 import 'package:tak/Theme/theme.dart';
 import 'package:tak/Objects/Item.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -68,7 +68,7 @@ class _ItemsPageState extends State<ItemsPage>{
                 title: Text(item.name, style: title_item),
                 subtitle: Container(
                   padding: EdgeInsets.only(top: 5),
-                  child: Text('R\$ ' + item.price.toString().replaceAll('.',','), style: subtitle_item),
+                  child: Text('R\$ ' + item.price.toStringAsFixed(2).replaceAll('.',','), style: subtitle_item),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -85,8 +85,9 @@ class _ItemsPageState extends State<ItemsPage>{
                    
                     IconButton(
                       icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
-                      onPressed: (){
-                        if(this._controller.removeItem(index)){
+                      onPressed: () async {
+                      	bool flag = await this._controller.removeItem(index);
+                        if(flag){
                           Scaffold.of(context).showSnackBar(this._controller.snackbar);
                         }
                       },
