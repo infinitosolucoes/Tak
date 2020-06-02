@@ -78,9 +78,13 @@ class _CompanyPageState extends State<CompanyPage>{
                       ),
                     ),
                   ),
+
                   SizedBox(height: 10,),
+
                   Text(this._controller.email, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
                   SizedBox(height: 8,),
+
                   TextFormField(
                     enabled: this._controller.editMode,
                     decoration: InputDecoration(
@@ -90,7 +94,9 @@ class _CompanyPageState extends State<CompanyPage>{
                     ),
                     initialValue: this._controller.name,
                     onSaved: (String value){this._controller.name = value;},
-                    validator: Validators.nameValidator,
+                    validator: (String value){
+                      return Validators.textValidator(value,2);
+                    },
                   ),
 
                   TextFormField(
@@ -137,7 +143,9 @@ class _CompanyPageState extends State<CompanyPage>{
                           ),
                           initialValue: this._controller.location,
                           onSaved: (String value){this._controller.location = value;},
-                          validator: Validators.locationValidator,
+                          validator: (String value){
+                            return Validators.textValidator(value,4);
+                          },
                         ),
                       ),
                       SizedBox(
@@ -153,7 +161,9 @@ class _CompanyPageState extends State<CompanyPage>{
                           ),
                           initialValue: this._controller.houseNumber,
                           onSaved: (String value){this._controller.houseNumber = value;},
-                          validator: Validators.houseNumberValidator,
+                          validator: (String value){
+                            return Validators.textValidator(value,1);
+                          },
                         ),
                       )
                     ],
@@ -167,7 +177,9 @@ class _CompanyPageState extends State<CompanyPage>{
                     ),
                     initialValue: this._controller.district,
                     onSaved: (String value){this._controller.district = value;},
-                    validator: Validators.nameValidator,
+                    validator: (String value){
+                      return Validators.textValidator(value,2);
+                    },
                   ),
 
 
@@ -183,7 +195,9 @@ class _CompanyPageState extends State<CompanyPage>{
                           ),
                           initialValue: this._controller.city,
                           onSaved: (String value){this._controller.city = value;},
-                          validator: Validators.nameValidator,
+                          validator: (String value){
+                            return Validators.textValidator(value,2);
+                          },
                         ),
                       ),
                       SizedBox(
