@@ -10,7 +10,7 @@ String phoneValidator(String value){
   String s = value[0]+value[1];
   int n = int.parse(s);
   
-  if(ddd.lastIndexOf(n) != -1){
+  if(ddd.contains(n)){
     return null;
   }
     

@@ -2,7 +2,7 @@
 String priceValidator(String value){
 
   for(var c in value.split('')){
-    if('0123456789,'.indexOf(c) == -1){
+    if(!('0123456789,'.contains(c))){
       return 'Valor Inválido';
     }
   }
