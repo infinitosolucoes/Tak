@@ -110,7 +110,8 @@ class _CompanyPageState extends State<CompanyPage>{
                     initialValue: this._controller.cnpj,
                     maxLength: 14,
                     onSaved: (String value){this._controller.cnpj = value;},
-                    validator: Validators.cnpjValidator,  
+                    onChanged: (String value){ this._controller.cnpjValue = value;},
+                    validator: (String value){ return this._controller.cnpjResult;},  
                   ),
 
                   TextFormField(

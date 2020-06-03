@@ -10,6 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tak/Objects/Company.dart';
+import 'package:tak/Functions/Validators/CNPJ.dart';
 
 
 class CompanyController{
@@ -26,6 +27,15 @@ class CompanyController{
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final Firestore firestore = Firestore.instance;  
+
+  String _cnpjResult;
+  String _cnpjValue = company.cnpj;
+
+  String get cnpjResult => this._cnpjResult;
+  set cnpjValue(String value){
+    this._cnpjValue = value;
+    this._streamController.add(_cnpjValue);
+  }
 
   File _image;
 
@@ -131,6 +141,9 @@ class CompanyController{
 
 
   Future<bool> submit() async {
+    this._cnpjResult = await cnpjValidator(this._cnpjValue);
+    this._streamController.add(_cnpjResult);
+    
     if(this.formKey.currentState.validate()){
       this.formKey.currentState.save();
       final user = await FirebaseAuth.instance.currentUser();
