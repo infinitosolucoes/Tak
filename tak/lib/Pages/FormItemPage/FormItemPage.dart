@@ -93,7 +93,9 @@ class _FormItemPageState extends State<FormItemPage> {
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.name,
-                    validator: Validators.nameValidator,
+                    validator: (String value){
+                      return Validators.textValidator(value,2);
+                    },
                     onSaved: (String value){
                       this._controller.name = value;
                     },

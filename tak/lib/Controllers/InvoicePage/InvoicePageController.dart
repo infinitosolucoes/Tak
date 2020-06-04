@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:pdf/pdf.dart';
@@ -8,6 +9,8 @@ import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/Company.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:path_provider/path_provider.dart';
 
 class InvoicePageController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -17,6 +20,7 @@ class InvoicePageController{
   Future get close => _streamController.close();              // Fechamento da Stream
 
   Sale _sale;
+  
 
   final Firestore firestore = Firestore.instance;
 
@@ -37,6 +41,34 @@ class InvoicePageController{
   
     }catch(e){
       return false;
+    }
+  }
+
+  Future<void> sendEmail() async{
+    try{
+      
+      Uint8List invoiceBytes = base64Decode(this._sale.invoice);
+
+      final Directory directory = await getTemporaryDirectory();
+      final String path = directory.path;
+	print(path);
+      final File file = File('$path/Recibo.pdf');
+      file.writeAsBytes(invoiceBytes);
+
+      final Email email = Email(
+        isHTML: false,
+        subject: 'Recibo de ${company.name}',
+        recipients: [],   
+        attachmentPaths: [file.path],
+      );
+
+      await FlutterEmailSender.send(email);
+      
+
+    //  return true;
+    }catch(e){
+      print(e.toString());
+     // return false;
     }
   }
 

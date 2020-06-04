@@ -42,7 +42,7 @@ class LoginPageController{
 
     DocumentSnapshot doc = await this.firestore.collection("companies").document(user.email).get();
     
-    if(doc == null){
+    if((doc == null) || (!doc.exists)){
       company = new Company.newCompany(user.email);
       Map<String,dynamic> json = company.toJson();
     
