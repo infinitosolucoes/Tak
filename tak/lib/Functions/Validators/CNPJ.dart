@@ -1,12 +1,12 @@
 // Função de validação do CNPJ
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<String> cnpjValidator(String value) async{
+Future<String> cnpjValidator(String value, String before) async{
   if(value.length < 14){
     return 'Precisa de 14 dígitos';
   }else if(value == ('0'*14)){
     return 'CNPJ Inválido';
-  }else if(await _existsCNPJ(value)){
+  }else if((await _existsCNPJ(value)) && (value != before)){
     return 'CNPJ já cadastrado';
   }
   List<int> weight1 = [5,4,3,2,9,8,7,6,5,4,3,2];

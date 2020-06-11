@@ -141,7 +141,7 @@ class CompanyController{
 
 
   Future<bool> submit() async {
-    this._cnpjResult = await cnpjValidator(this._cnpjValue);
+    this._cnpjResult = await cnpjValidator(this._cnpjValue, company.cnpj);
     this._streamController.add(_cnpjResult);
     
     if(this.formKey.currentState.validate()){
