@@ -1,13 +1,13 @@
 import 'package:tak/Objects/Company.dart';
 
 // Função que verifica se o Código de Barras, padrão EAN-13, é válido
-String ean13Validator(String value){
+String ean13Validator(String value, bool editMode){
 
   if(value.length < 13){ 
     return 'Precisa de 13 Dígitos'; 
   }else if(value == ('0'*13)){ 
     return 'Código Inválido'; 
-  }else if(_ean13Exists(value)){
+  }else if(_ean13Exists(value) && !editMode){
     return 'Código já cadastrado';
   }
 
