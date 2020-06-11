@@ -112,8 +112,8 @@ class _FormItemPageState extends State<FormItemPage> {
                     keyboardType: TextInputType.phone,
                     initialValue: this._controller.id,
                     validator: (String value){
-			return Validators.ean13Validator(value,(widget.itemEdit != null));
-		    },
+                      return Validators.ean13Validator(value,(widget.itemEdit != null)? widget.itemEdit.id : '');
+                    },
                     onSaved: (String value){
                       this._controller.id = value;
                     },
