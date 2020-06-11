@@ -7,6 +7,8 @@ import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Objects/Company.dart';
 
+import 'package:tak/Functions/RoundPrice.dart' as RoundPrice;
+
 class SalePageController {
   final StreamController _streamController = new StreamController.broadcast();
 
@@ -25,18 +27,30 @@ class SalePageController {
   Sale get newSale => this._newSale;
 
   void incrementTotal(SaleItem saleItem){
-    if(saleItem != null){
-      this._newSale.total += saleItem.calculateTotal();
+    try{
+      double value = RoundPrice.roundPrice((this._newSale.total + saleItem.calculateTotal()));
+     
+      this._newSale.total = value;
       this._newSale.items.add(saleItem);
+      
       this._streamController.add(this._newSale);
+    }catch(e){
+      print(e.toString());
     }
   }
 
   void decrementTotal(int index){
-    SaleItem saleItem = this._newSale.items[index];
-    this._newSale.total -= saleItem.calculateTotal();
-    this._newSale.items.removeAt(index);
-    this._streamController.add(this._newSale);
+    try{
+      SaleItem saleItem = this._newSale.items[index];
+      double value = RoundPrice.roundPrice((this._newSale.total - saleItem.calculateTotal()));
+
+      this._newSale.total = value;
+      this._newSale.items.removeAt(index);
+      
+      this._streamController.add(this._newSale);
+    }catch(e){
+      print(e.toString());
+    }
   }
 
   void setMethod(int value){
@@ -44,17 +58,11 @@ class SalePageController {
     this._streamController.add(this._newSale);
   }
 
-  SaleItem getSaleItem(int index){
-    return this._newSale.items[index];
-  }
-
-  double getTotal(){
-    return this._newSale.total;
-  }
-
-  int len(){
-    return this._newSale.items.length;
-  }
+  SaleItem getSaleItem(int index) => this._newSale.items[index];
+  
+  double getTotal() => this._newSale.total;
+  
+  int len() => this._newSale.items.length;
 
   ImageProvider getImageItem(SaleItem item) { 
     if (item.item.img  == null){ 
@@ -65,16 +73,6 @@ class SalePageController {
     }
   }
 
-  bool invoice(){
-    
-    if(this._newSale.items.length > 0){
-      // company.sales.add(this._newSale);
-      // this._streamController.add(company);
-      // print(this._newSale.toString());
-      return true;
-    }
-    return false;
-  
-  }
+  bool invoice() => (this._newSale.items.length > 0)? true : false;
 
 }

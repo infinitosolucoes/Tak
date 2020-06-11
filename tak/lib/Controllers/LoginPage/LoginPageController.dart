@@ -19,40 +19,45 @@ class LoginPageController{
 
 
   Future<String> signInWithGoogle() async{
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+    try{
+      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
+      final AuthResult authResult = await _auth.signInWithCredential(credential);
+      final FirebaseUser user = authResult.user;
 
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
-	  
-    
-    print('signInWithGoogle succeeded: ${user.toString()}');
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
+      
+      
+      print('signInWithGoogle succeeded: ${user.toString()}');
 
-    DocumentSnapshot doc = await this.firestore.collection("companies").document(user.email).get();
-    
-    if((doc == null) || (!doc.exists)){
-      company = new Company.newCompany(user.email);
-      Map<String,dynamic> json = company.toJson();
-    
-      await this.firestore.collection("companies").document(user.email).setData(json);
-    }else{
-      Map<String, dynamic> json = doc.data; 
-      company = Company.fromJson(json);
-      print(company.email);
+      DocumentSnapshot doc = await this.firestore.collection("companies").document(user.email).get();
+      
+      if((doc == null) || (!doc.exists)){
+        company = new Company.newCompany(user.email);
+        Map<String,dynamic> json = company.toJson();
+      
+        await this.firestore.collection("companies").document(user.email).setData(json);
+      }else{
+        Map<String, dynamic> json = doc.data; 
+        company = Company.fromJson(json);
+        print(company.email);
+      }
+
+      return 'signInWithGoogle succeeded: $user';
+    }catch(e){
+      print(e.toString());
+      return null;
     }
-
-    return 'signInWithGoogle succeeded: $user';
   }
 }
