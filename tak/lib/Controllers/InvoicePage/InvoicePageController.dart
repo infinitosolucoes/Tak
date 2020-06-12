@@ -32,7 +32,7 @@ class InvoicePageController{
 
   Future<bool> finalizeSale() async {
     try{ 
-      company.sales.add(this._sale);
+      company.sales.insert(0, this._sale);
       final user = await FirebaseAuth.instance.currentUser();
 
       this.firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
@@ -52,7 +52,7 @@ class InvoicePageController{
 
       final Directory directory = await getTemporaryDirectory();
       final String path = directory.path;
-	print(path);
+      print(path);
       final File file = File('$path/Recibo.pdf');
       file.writeAsBytes(invoiceBytes);
 
