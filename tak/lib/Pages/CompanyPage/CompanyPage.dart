@@ -74,7 +74,7 @@ class _CompanyPageState extends State<CompanyPage>{
                       width: 200.0,
                       height: 200.0,
                       child: InkWell(
-                        onTap: this._controller.setImage,
+                        onTap: (this._controller.editMode)? this._controller.setImage: null,
                       ),
                     ),
                   ),

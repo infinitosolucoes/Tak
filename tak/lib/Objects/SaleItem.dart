@@ -1,4 +1,5 @@
 import 'package:tak/Objects/Item.dart';
+import 'package:tak/Functions/MoneyText.dart' as MT;
 
 class SaleItem{
   Item item;
@@ -32,10 +33,10 @@ class SaleItem{
         return this.amount.toString();
       
       case 3: 
-        return ('R\$ ' + this.item.price.toString().replaceAll('.',','));
+        return MT.moneyText(this.item.price);//('R\$ ' + this.item.price.toString().replaceAll('.',','));
 
       case 4:
-        return ('R\$ ' + this.calculateTotal().toString().replaceAll('.',','));
+        return MT.moneyText(this.calculateTotal());//('R\$ ' + this.calculateTotal().toString().replaceAll('.',','));
       
       default:
         return '';

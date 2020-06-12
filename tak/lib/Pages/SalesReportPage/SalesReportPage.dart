@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tak/Controllers/SalesReportPage/SalesReportPageController.dart';
 import 'package:tak/Theme/theme.dart';
+import 'package:tak/Functions/MoneyText.dart' as MT;
 
 class SalesReportPage extends StatefulWidget {
   @override
@@ -66,8 +67,8 @@ class _SalesReportPageState extends State<SalesReportPage> {
                 SizedBox(height: 20,),
 
                 Text('Faturamento Total', style: title_item,),
-                Text('R\$ ' + this._controller.amount.toStringAsFixed(2).replaceAll('.', ','), style: results),
-                
+                Text(MT.moneyText(this._controller.amount), style: results),
+
                 SizedBox(height: 30,),
 
                 Text('Meios de Pagamento', style: title_item,),
@@ -146,6 +147,28 @@ class _SalesReportPageState extends State<SalesReportPage> {
                           sections: this._controller.methodSegments(),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30,),
+                Text('Os mais vendidos', style: title_item,),
+                SizedBox(height: 15,),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      child: Table(
+                        
+                        border: TableBorder(
+                          horizontalInside: BorderSide(
+                            color: primary_color,
+                            style: BorderStyle.solid,
+                            width: 1.0
+                          )
+                        ),
+                        children: this._controller.generateTable()
+                      ),
+                      
                     ),
                   ],
                 ),

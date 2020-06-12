@@ -7,6 +7,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/Company.dart';
+import 'package:tak/Functions/MoneyText.dart' as MT;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -31,7 +32,7 @@ class InvoicePageController{
 
   Future<bool> finalizeSale() async {
     try{ 
-      company.sales.add(this._sale);
+      company.sales.insert(0, this._sale);
       final user = await FirebaseAuth.instance.currentUser();
 
       this.firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
@@ -51,7 +52,7 @@ class InvoicePageController{
 
       final Directory directory = await getTemporaryDirectory();
       final String path = directory.path;
-	print(path);
+      print(path);
       final File file = File('$path/Recibo.pdf');
       file.writeAsBytes(invoiceBytes);
 
@@ -217,7 +218,7 @@ class InvoicePageController{
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Total:'),
-            pw.Text('R\$ ${this._sale.total.toString().replaceAll('.',',')}'),
+            pw.Text(MT.moneyText(this._sale.total))//'R\$ ${this._sale.total.toString().replaceAll('.',',')}'),
           ]
         ),
         pw.SizedBox(height: 3),

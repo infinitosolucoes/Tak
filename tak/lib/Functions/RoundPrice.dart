@@ -1,0 +1,1 @@
+double roundPrice(double value) => double.parse(value.toStringAsFixed(2));

@@ -41,9 +41,8 @@ class _AboutPageState extends State<AboutPage> {
                 
                 SizedBox(height: 50),
                 
-                Text('Desenvolvido por Ricardo de Monteiro e Tavares', style: TextStyle(fontFamily: 'Open Sans', fontSize: 20, color: background_color), textAlign: TextAlign.center),
-                SizedBox(height: 8),
-                Text('© 2020 - Evoluis Cooperativa de Programação, sob a licença BSD 3-Clause', style: TextStyle(fontFamily: 'Open Sans', fontSize: 20, color: background_color), textAlign: TextAlign.center),
+                
+                Text('© 2020 - Ricardo de Monteiro e Tavares, sob a licença BSD 3-Clause', style: TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color), textAlign: TextAlign.center),
                 SizedBox(height: 8),
                 FlatButton(
                   color: background_color,

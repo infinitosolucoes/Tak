@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tak/Controllers/SalePage/Controllers.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Theme/theme.dart';
+import 'package:tak/Functions/MoneyText.dart' as MT;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SalePage extends StatefulWidget {
@@ -53,12 +54,14 @@ class _SalePageState extends State<SalePage> {
                   title: Text(item.item.name, style: title_item),
                   subtitle: Container(
                     padding: EdgeInsets.only(top: 5),
-                    child: Text(item.amount.toString() + ' x R\$ '+ item.item.price.toString().replaceAll('.',','), style: subtitle_item ),
+                    child: Text('${item.amount.toString()} x ${MT.moneyText(item.item.price)}', style: subtitle_item ),
+                    //child: Text(item.amount.toString() + ' x R\$ '+ item.item.price.toString().replaceAll('.',','), style: subtitle_item ),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('R\$ ' + (item.calculateTotal()).toStringAsFixed(2).replaceAll('.', ','), style: subtotal_text),
+                      Text(MT.moneyText(item.calculateTotal()), style: subtotal_text),
+                      //Text('R\$ ' + (item.calculateTotal()).toStringAsFixed(2).replaceAll('.', ','), style: subtotal_text),
                       IconButton(
                         icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
                         onPressed: (){this._controller.decrementTotal(index);},
@@ -80,7 +83,8 @@ class _SalePageState extends State<SalePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Text('Total: ', style: sale_title),
-                        Text('R\$ '+ this._controller.getTotal().toStringAsFixed(2).replaceAll('.', ','), style: total_text)
+                        Text(MT.moneyText(this._controller.getTotal()), style: total_text)
+                        //Text('R\$ '+ this._controller.getTotal().toStringAsFixed(2).replaceAll('.', ','), style: total_text)
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -179,7 +183,6 @@ class _SalePageState extends State<SalePage> {
                                 this._controller.setMethod(this._methodController.getMethod());
                                 if(this._controller.invoice()){
                                   Navigator.pushNamed(context, '/invoice', arguments: this._controller.newSale);
-                                  //Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
                                 }
                               },
                             ),

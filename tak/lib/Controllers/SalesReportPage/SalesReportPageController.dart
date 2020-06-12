@@ -1,8 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:tak/Functions/MergeSort.dart';
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Sale.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Theme/theme.dart';
 
 class SalesReportPageController{
@@ -26,7 +29,7 @@ class SalesReportPageController{
       switch(this._states['index']){
         // Vendas no dia
         case 0:
-          for(index = (company.sales.length - 1); (index >= 0) && (date.difference(DateTime.parse(company.sales[index].date)).inDays == 0); index--){}
+          for(index = 0; (index < company.sales.length) && (date.difference(DateTime.parse(company.sales[index].date)).inDays == 0); index++){}
           break;
         
         // Vendas na semana
@@ -34,37 +37,39 @@ class SalesReportPageController{
          // index = -1;
           int difference = date.weekday - 1;                // Vejo a quantidade de dias necessárias para retornar para segunda-feira (valor = 1)
           date = date.subtract(Duration(days: difference));
-          for(index = (company.sales.length - 1); (index >= 0) && (date.difference(DateTime.parse(company.sales[index].date)).inDays <= 0) && (date.difference(DateTime.parse(company.sales[index].date)).inDays >= -6); index--){}
+          for(index = 0; (index < company.sales.length) && (date.difference(DateTime.parse(company.sales[index].date)).inDays <= 0) && (date.difference(DateTime.parse(company.sales[index].date)).inDays >= -6); index++){}
           break;
 
         // Vendas no mês
         case 2:
-          for(index = (company.sales.length - 1); (index >= 0) && (date.month == DateTime.parse(company.sales[index].date).month); index--){}
+          for(index = 0; (index < company.sales.length) && (date.month == DateTime.parse(company.sales[index].date).month); index++){}
           break;
 
         // Vendas no trimestre
         case 3:
           int referenceMonth;
-          if((1 >= date.month) || (date.month <= 3)){       referenceMonth = 1;
+          if      ((1 >= date.month) || (date.month <= 3)){ referenceMonth = 1;
           }else if((4 >= date.month) || (date.month <= 6)){ referenceMonth = 4;
           }else if((7 >= date.month) || (date.month <= 9)){ referenceMonth = 7;
           }else{                                            referenceMonth = 10;}
 
-          for(index = (company.sales.length - 1); (index >= 0) && ((DateTime.parse(company.sales[index].date).month - referenceMonth) >= 0) && ((DateTime.parse(company.sales[index].date).month - referenceMonth) <= 2); index--){}
+          for(index = 0; (index < company.sales.length) && ((DateTime.parse(company.sales[index].date).month - referenceMonth) >= 0) && ((DateTime.parse(company.sales[index].date).month - referenceMonth) <= 2); index++){}
           break;
 
         // Vendas totais
         case 4:
-          index = -1;
+          index = company.sales.length;
           break;
       }
       
-      index++;
-      this._list = company.sales.sublist(index, company.sales.length);
+      
+      this._list = company.sales.sublist(0, index);
+      
     }else{
       this._list = [];
     }
     this._streamController.add(this._list);
+    this._bestSellers();
   }
 
   int get len => this._list.length;
@@ -145,4 +150,100 @@ class SalesReportPageController{
     ];
     return list;
   }
+
+  List _bestSellersItems;
+
+  int _search(String ean13, List list){
+    for(int i = 0; i < list.length; i++){
+      if(list[i][0] == ean13){return i;}
+    }
+    return -1;
+  }
+
+  void _bestSellers(){
+    List bestSellers = new List();
+    for(Sale sale in this._list){
+      for(SaleItem saleItem in sale.items){
+        int index = this._search(saleItem.item.id, bestSellers);
+        if(index != -1){
+          bestSellers[index][2] += saleItem.amount;
+        }else{
+          bestSellers.add([
+            saleItem.item.id,
+            saleItem.item.name,
+            saleItem.amount
+          ]);
+        }
+      }
+    }
+    mergeSort(bestSellers, 0, (bestSellers.length - 1));
+    this._bestSellersItems = bestSellers;
+    this._streamController.add(this._bestSellersItems);
+    print(this._bestSellersItems);
+  }
+
+  List<TableRow> generateTable() => List.generate(
+    this._bestSellersItems.length,
+    (int index) => TableRow(
+      
+      children: [
+        // Container(
+        //   padding: EdgeInsets.only(top: 5, bottom: 5),
+        //   child: Row(
+        //     children: [
+        //       TableCell(
+        //           child: Text(this._bestSellersItems[index][0]),
+        //         ),
+        //         TableCell(
+        //           child: Text(this._bestSellersItems[index][1]),
+        //         ),
+        //         TableCell(
+        //           child: Column(
+        //             crossAxisAlignment: CrossAxisAlignment.end,
+        //             children: [Text(this._bestSellersItems[index][2].toString()),]
+        //           )
+        //         ),
+        //     ]
+        //   )
+        // ),
+
+        // TableCell(
+        //   child: Text(this._bestSellersItems[index][0]),
+        // ),
+        // TableCell(
+        //   child: Text(this._bestSellersItems[index][1]),
+        // ),
+        // TableCell(
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.end,
+        //     children: [Text(this._bestSellersItems[index][2].toString()),]
+        //   )
+        // ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Text(this._bestSellersItems[index][0], style: TextStyle(fontSize: 15)),
+          )
+           
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Text(this._bestSellersItems[index][1], style: TextStyle(fontSize: 15)),
+          )
+          
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [Text(this._bestSellersItems[index][2].toString(), style: TextStyle(fontSize: 15)),]
+            )
+          )
+          
+        ),
+      ]
+    )
+  );
 }

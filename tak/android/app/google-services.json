@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "719494683151-9cu5djtin2kvs0t9rjktnbts5cbragr8.apps.googleusercontent.com",
+          "client_id": "719494683151-qev47e8hlibsadrdpgicm5h9f3vafk9e.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.evoluis.tak",
-            "certificate_hash": "ddbf614ebc6196505935bd22af0acf97e42ddc63"
+            "certificate_hash": "5eb43c68c52d7362e57510b5876b25966de5a85d"
           }
         },
         {
