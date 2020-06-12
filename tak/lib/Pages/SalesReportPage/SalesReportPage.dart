@@ -158,6 +158,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                   children: <Widget>[
                     Container(
                       child: Table(
+                        
                         border: TableBorder(
                           horizontalInside: BorderSide(
                             color: primary_color,

@@ -185,10 +185,64 @@ class SalesReportPageController{
   List<TableRow> generateTable() => List.generate(
     this._bestSellersItems.length,
     (int index) => TableRow(
+      
       children: [
-        Text(this._bestSellersItems[index][0]),
-        Text(this._bestSellersItems[index][1]),
-        Text(this._bestSellersItems[index][2].toString()),
+        // Container(
+        //   padding: EdgeInsets.only(top: 5, bottom: 5),
+        //   child: Row(
+        //     children: [
+        //       TableCell(
+        //           child: Text(this._bestSellersItems[index][0]),
+        //         ),
+        //         TableCell(
+        //           child: Text(this._bestSellersItems[index][1]),
+        //         ),
+        //         TableCell(
+        //           child: Column(
+        //             crossAxisAlignment: CrossAxisAlignment.end,
+        //             children: [Text(this._bestSellersItems[index][2].toString()),]
+        //           )
+        //         ),
+        //     ]
+        //   )
+        // ),
+
+        // TableCell(
+        //   child: Text(this._bestSellersItems[index][0]),
+        // ),
+        // TableCell(
+        //   child: Text(this._bestSellersItems[index][1]),
+        // ),
+        // TableCell(
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.end,
+        //     children: [Text(this._bestSellersItems[index][2].toString()),]
+        //   )
+        // ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Text(this._bestSellersItems[index][0], style: TextStyle(fontSize: 15)),
+          )
+           
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Text(this._bestSellersItems[index][1], style: TextStyle(fontSize: 15)),
+          )
+          
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [Text(this._bestSellersItems[index][2].toString(), style: TextStyle(fontSize: 15)),]
+            )
+          )
+          
+        ),
       ]
     )
   );
