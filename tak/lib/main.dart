@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tak/Functions/Router.dart' as Router;
 
-void main() => runApp(Tak());
+void main() {
+    WidgetsFlutterBinding.ensureInitialized();   
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]).then((_){
+    runApp(Tak());
+   });
+ }
 
 class Tak extends StatelessWidget {
   @override

@@ -50,7 +50,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                     icon: Icon(Icons.arrow_forward_ios, color: background_color, size: 20), 
                     onPressed: this._controller.increment,
                   ),
-                  //SizedBox(width: 10,),
+                  
                 ],
               )
             ),
@@ -136,7 +136,9 @@ class _SalesReportPageState extends State<SalesReportPage> {
                 SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: (this._controller.isEmpty)? [
+                    Text('Não existem dados :(', style: TextStyle(color: primary_color, fontSize: 25))
+                  ]: [
                     Container(
                       child: PieChart(
                         PieChartData(
@@ -154,20 +156,20 @@ class _SalesReportPageState extends State<SalesReportPage> {
                 Text('Os mais vendidos', style: title_item,),
                 SizedBox(height: 15,),
                 Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      child: Table(
-                        
-                        border: TableBorder(
-                          horizontalInside: BorderSide(
-                            color: primary_color,
-                            style: BorderStyle.solid,
-                            width: 1.0
-                          )
+                      child: (this._controller.isEmpty)? 
+                        Text('Não existem dados :(', style: TextStyle(color: primary_color, fontSize: 25))
+                        : Table(
+                          border: TableBorder(
+                            horizontalInside: BorderSide(
+                              color: primary_color,
+                              style: BorderStyle.solid,
+                              width: 1.0
+                            )
+                          ),
+                          children: this._controller.generateTable()
                         ),
-                        children: this._controller.generateTable()
-                      ),
                       
                     ),
                   ],

@@ -73,6 +73,7 @@ class SalesReportPageController{
   }
 
   int get len => this._list.length;
+  bool get isEmpty => this._list.isEmpty;
 
   double get amount {
     double total = 0;

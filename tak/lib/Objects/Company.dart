@@ -44,6 +44,20 @@ class Company{
     )
   );
 
+  bool isEmpty(){
+    if(
+      (cnpj == "") &&
+      (img == null) &&
+      (name == "") &&
+      (address.isEmpty()) &&
+      (phoneNumber == "")
+      
+    ){
+      return true;
+    }
+    return false;
+  }
+
   Map<String,dynamic> toJson()
   => {
     'cnpj': this.cnpj,

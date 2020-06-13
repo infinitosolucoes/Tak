@@ -12,7 +12,6 @@ class Address{
   });
 
   Address.newAddress(): this(
-    
     location: "",
     district: "",
     city: "",
@@ -28,6 +27,18 @@ class Address{
     fu: json['fu'],
     houseNumber: json['houseNumber']
   );
+
+  bool isEmpty(){
+    if(
+      (location == "") &&
+      (district == "") &&
+      (city == "") &&
+      (houseNumber == "")
+    ){
+      return true;
+    }
+    return false;
+  }
 
   Map<String,dynamic> toJson()
     => {
