@@ -41,9 +41,15 @@ class FormItemPageController{
     }
   }
   Future setImage() async{
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile image = await imagePicker.getImage(
+      source: ImageSource.gallery,
+      maxHeight: 200,
+      maxWidth: 200,
+      imageQuality: 70
+    );
     if(image != null){
-      List<int> imageBytes = image.readAsBytesSync();
+      List<int> imageBytes = await image.readAsBytes();
       String base64Image = base64Encode(imageBytes);
        this._newItem.img = base64Image;
        print('\n Imagem: '+this._newItem.img+'\n');
@@ -57,7 +63,7 @@ class FormItemPageController{
 
   String get name => (this._appBarText == 'Novo Item')? null : this._newItem.name;
   String get id => (this._appBarText == 'Novo Item')? null : this._newItem.id;
-  String getPrice() => (this._appBarText == 'Novo Item')? null : this._newItem.price.toString().replaceAll('.', ',');
+  String getPrice() => (this._appBarText == 'Novo Item')? null : this._newItem.price.toStringAsFixed(2).replaceAll('.', ',');
 
   // Setters do Formulário
   set name(String value){

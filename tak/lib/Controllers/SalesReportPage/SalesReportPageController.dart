@@ -177,6 +177,9 @@ class SalesReportPageController{
       }
     }
     mergeSort(bestSellers, 0, (bestSellers.length - 1));
+    if(bestSellers.length > 10){
+      bestSellers = bestSellers.sublist(0,10);
+    }
     this._bestSellersItems = bestSellers;
     this._streamController.add(this._bestSellersItems);
     print(this._bestSellersItems);
@@ -187,38 +190,7 @@ class SalesReportPageController{
     (int index) => TableRow(
       
       children: [
-        // Container(
-        //   padding: EdgeInsets.only(top: 5, bottom: 5),
-        //   child: Row(
-        //     children: [
-        //       TableCell(
-        //           child: Text(this._bestSellersItems[index][0]),
-        //         ),
-        //         TableCell(
-        //           child: Text(this._bestSellersItems[index][1]),
-        //         ),
-        //         TableCell(
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.end,
-        //             children: [Text(this._bestSellersItems[index][2].toString()),]
-        //           )
-        //         ),
-        //     ]
-        //   )
-        // ),
-
-        // TableCell(
-        //   child: Text(this._bestSellersItems[index][0]),
-        // ),
-        // TableCell(
-        //   child: Text(this._bestSellersItems[index][1]),
-        // ),
-        // TableCell(
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.end,
-        //     children: [Text(this._bestSellersItems[index][2].toString()),]
-        //   )
-        // ),
+       
         TableCell(
           child: Container(
             padding: EdgeInsets.only(top: 10, bottom: 5),
