@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,13 +36,19 @@ class CompanyController{
     this._streamController.add(_cnpjValue);
   }
 
-  File _image;
+  //File _image;
 
   Future setImage() async{
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    this._image = image;
-    if(this._image != null){
-      List<int> imageBytes = this._image.readAsBytesSync();
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile image = await imagePicker.getImage(
+      source: ImageSource.gallery,
+      maxHeight: 200,
+      maxWidth: 200,
+      imageQuality: 70 
+    );
+    //this._image = image;
+    if(image != null){
+      List<int> imageBytes = await image.readAsBytes();
       String base64Image = base64Encode(imageBytes);
       company.img = base64Image;
       print('\n Imagem: '+company.img+'\n');

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Nav.dart';
 import 'package:tak/Theme/theme.dart';
 
 
 class HomePage extends StatefulWidget {
+  
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -49,7 +51,30 @@ class _HomePageState extends State<HomePage> {
               side: BorderSide( color: decoration_color, width: 1)
             ),
             onPressed: (){
-              Navigator.pushNamed(context, homeRoutes[index].page);
+              if(company.isEmpty() && homeRoutes[index].completeDataRequired){
+                showDialog(
+                  context: context, 
+                  barrierDismissible: false, 
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                     
+                      content: Text('Complete os dados para prosseguir'),
+                            
+                      
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('FECHAR'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }else{
+                Navigator.pushNamed(context, homeRoutes[index].page);
+              }
             },
           );
         }),

@@ -35,34 +35,53 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.all(20),
             child: Center(
             
-		    child: Column(
-		      crossAxisAlignment: CrossAxisAlignment.center,
-		      mainAxisAlignment: MainAxisAlignment.center,
-		      children: <Widget>[
-		        Text('Tak', style: TextStyle(fontFamily: 'Merienda One',fontSize: 80,color: background_color)),
-		        Text('O seu melhor ajudante ;)', style: TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color)),
-		        
-		        SizedBox(height: (height * 0.25)),
-		        
-		        
-		        FlatButton(
-		          color: background_color,
-		          textColor: primary_color,
-		          child: Text('LOGIN COM O GOOGLE'),
-		          onPressed: () async{
-                this._controller.signInWithGoogle().then((String result) {
-                  if(result != null){
-                    Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
-                  }else{
-                    print('Deu Ruim');
-                  }
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Tak', style: TextStyle(fontFamily: 'Merienda One',fontSize: 80,color: background_color)),
+                  Text('O seu melhor ajudante ;)', style: TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color)),
                   
-                });
-		            
-		          },
-		        )
-		      ],
-		    )
+                  SizedBox(height: (height * 0.25)),
+                  
+                  
+                  FlatButton(
+                    color: background_color,
+                    textColor: primary_color,
+                    child: Text('LOGIN COM O GOOGLE'),
+                    onPressed: () async{
+
+                      String result = await this._controller.signInWithGoogle();
+                      if(result != null){
+                        Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+                      }else{
+                        
+                        showDialog(
+                          context: context, 
+                          barrierDismissible: false, 
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                            
+                              content: Text('Não foi possível fazer o Login: Erro de Conexão'),
+                                    
+                              
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text('FECHAR'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                        );
+                        print('Deu Ruim');
+                      }
+                    },
+                  )
+                ],
+              )
             ),
           )
         );
