@@ -13,6 +13,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:firebase_admob/firebase_admob.dart';
+
 class InvoicePageController{
   final StreamController _streamController = new StreamController.broadcast();
 
@@ -22,8 +24,34 @@ class InvoicePageController{
 
   Sale _sale;
   
+  InterstitialAd _myInterstitial;
 
-  final Firestore firestore = Firestore.instance;
+  final Firestore _firestore = Firestore.instance;
+
+  String get invoice => this._sale.invoice;
+
+  final MobileAdTargetingInfo _targetingInfo = MobileAdTargetingInfo(
+    keywords: <String>['empréstimo', 'investimentos', 'cartão', 'negócio',
+    'dívida', 'crédito', 'empresa', 'estoque', 'cooperativismo', 'marketing digital'],
+    childDirected: false,
+    testDevices: <String>["772D423594EC94638FE64A0A21910465"], // Android emulators are considered test devices
+  );
+
+  
+  showAd(bool flag){
+    if(flag){
+      FirebaseAdMob.instance.initialize(appId:'ca-app-pub-1209124964642887~7864359291');
+      this._myInterstitial = this._buildInterstitial();
+      this._streamController.add(this._myInterstitial);
+      this._myInterstitial..load()..show();
+    }
+    
+  }
+
+  disposeAd(){
+    this._myInterstitial?.dispose();
+    
+  }
 
   set sale(Sale sale){
     this._sale = sale;
@@ -32,17 +60,31 @@ class InvoicePageController{
 
   Future<bool> finalizeSale() async {
     try{ 
-      company.sales.insert(0, this._sale);
+      
       final user = await FirebaseAuth.instance.currentUser();
 
-      this.firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
+      this._firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
       this._streamController.add(company);
+      company.sales.insert(0, this._sale);
       print(this._sale.toString());
       return true;
-  
+      
     }catch(e){
       return false;
     }
+  }
+
+  InterstitialAd _buildInterstitial(){
+    return InterstitialAd(
+      // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+      // https://developers.google.com/admob/android/test-ads
+      // https://developers.google.com/admob/ios/test-ads
+      adUnitId: 'ca-app-pub-1209124964642887/9464930160', //'ca-app-pub-3940256099942544/1033173712', //'ca-app-pub-1209124964642887/9464930160',//InterstitialAd.testAdUnitId,
+      targetingInfo: this._targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event is $event");
+      },
+    );
   }
 
   Future<void> sendEmail() async{
@@ -66,10 +108,8 @@ class InvoicePageController{
       await FlutterEmailSender.send(email);
       
 
-    //  return true;
     }catch(e){
       print(e.toString());
-     // return false;
     }
   }
 
@@ -218,7 +258,7 @@ class InvoicePageController{
           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
           children: [
             pw.Text('Total:'),
-            pw.Text(MT.moneyText(this._sale.total))//'R\$ ${this._sale.total.toString().replaceAll('.',',')}'),
+            pw.Text(MT.moneyText(this._sale.total))
           ]
         ),
         pw.SizedBox(height: 3),
