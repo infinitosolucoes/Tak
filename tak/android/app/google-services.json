@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "719494683151",
-    "firebase_url": "https://projeto-tak.firebaseio.com",
-    "project_id": "projeto-tak",
-    "storage_bucket": "projeto-tak.appspot.com"
+    "project_number": "985686304277",
+    "firebase_url": "https://projeto-tak-83573.firebaseio.com",
+    "project_id": "projeto-tak-83573",
+    "storage_bucket": "projeto-tak-83573.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:719494683151:android:5c0db124e77db15a9a617a",
+        "mobilesdk_app_id": "1:985686304277:android:d915b7bfcbae756bcad01c",
         "android_client_info": {
           "package_name": "com.evoluis.tak"
         }
       },
       "oauth_client": [
         {
-          "client_id": "719494683151-qev47e8hlibsadrdpgicm5h9f3vafk9e.apps.googleusercontent.com",
+          "client_id": "985686304277-2u7j05rg2vilab531f8sqo9u4s5eq5ie.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.evoluis.tak",
@@ -23,25 +23,26 @@
           }
         },
         {
-          "client_id": "719494683151-tb6iltc207h82jrfqj92puklaj2rf7bd.apps.googleusercontent.com",
+          "client_id": "985686304277-434q5bji58eg069tta20k8njcds0hpcm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA4BvV3paZNGE30VtRgec4lIwBon79l4Eg"
+          "current_key": "AIzaSyBd0xmhQdoTNpRpQAvDgjfEgJNG-_VK53U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "719494683151-tb6iltc207h82jrfqj92puklaj2rf7bd.apps.googleusercontent.com",
+              "client_id": "985686304277-434q5bji58eg069tta20k8njcds0hpcm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-1209124964642887~7864359291"
     }
   ],
   "configuration_version": "1"

@@ -37,14 +37,22 @@ class InvoicePageController{
     testDevices: <String>["772D423594EC94638FE64A0A21910465"], // Android emulators are considered test devices
   );
 
+  initializeAd(){
+    FirebaseAdMob.instance.initialize(appId:'ca-app-pub-1209124964642887~7864359291');
+  }
+
+  loadAd(){
+     this._myInterstitial = this._buildInterstitial();
+     this._myInterstitial.load();
+  }
   
-  showAd(bool flag){
-    if(flag){
-      FirebaseAdMob.instance.initialize(appId:'ca-app-pub-1209124964642887~7864359291');
-      this._myInterstitial = this._buildInterstitial();
-      this._streamController.add(this._myInterstitial);
-      this._myInterstitial..load()..show();
-    }
+  showAd(){
+    
+      
+     
+   //   this._streamController.add(this._myInterstitial);
+      this._myInterstitial.show();
+    
     
   }
 
@@ -62,10 +70,10 @@ class InvoicePageController{
     try{ 
       
       final user = await FirebaseAuth.instance.currentUser();
-
+      company.sales.insert(0, this._sale);
       this._firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
       this._streamController.add(company);
-      company.sales.insert(0, this._sale);
+      
       print(this._sale.toString());
       return true;
       
