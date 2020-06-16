@@ -19,15 +19,16 @@ class _InvoicePageState extends State<InvoicePage> {
 
   @override
   void initState(){
+    this._controller.initializeAd();
+    this._controller.loadAd();
     this._controller.sale = widget.sale;
-    this._controller.showAd((widget.sale.invoice == null));
     super.initState();
   }
 
   @override
   void dispose(){
-    this._controller.close;
     this._controller.disposeAd();
+    this._controller.close;
     super.dispose();
   }
 
@@ -46,67 +47,17 @@ class _InvoicePageState extends State<InvoicePage> {
             child: IconButton(
               icon: Icon(Icons.save, color: background_color),
               onPressed: () async {
-                if(this._controller.invoice != null){
-                  if(await this._controller.finalizeSale()){
-                    Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
-                  }
-                }else{
-                  showDialog(
-                    context: context, 
-                    barrierDismissible: false, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                      
-                        content: Text('Erro: O Recibo ainda está sendo gerado.'),
-                              
-                        
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text('FECHAR'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    }
-                  );
+                this._controller.showAd();
+                if(await this._controller.finalizeSale()){
+                  Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
                 }
-                
               },
             ),
           ),
 
           IconButton(
             icon: Icon(Icons.send, color: background_color),
-            onPressed:() async {
-              if(this._controller.invoice != null){
-                await this._controller.sendEmail();
-              }else{
-                showDialog(
-                    context: context, 
-                    barrierDismissible: false, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                      
-                        content: Text('Erro: O Recibo ainda está sendo gerado.'),
-                              
-                        
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text('FECHAR'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    }
-                  );
-              }
-            }
-                
-      
+            onPressed:() async {await this._controller.sendEmail();}
           )
           
         ],
