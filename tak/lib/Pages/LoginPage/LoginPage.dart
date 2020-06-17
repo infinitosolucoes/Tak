@@ -19,7 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    final double height = MediaQuery.of(context).size.height;
+
     return StreamBuilder(
       stream: this._controller.output,
       builder: (context, snapshot){

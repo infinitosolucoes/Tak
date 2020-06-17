@@ -22,7 +22,7 @@ class LoginPageController{
   Future<void> login(BuildContext context) async{
     String result = await this._signInWithGoogle();
     if(result != null){
-      Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+      Navigator.pushNamedAndRemoveUntil(context,routes['home'], (Route<dynamic> route) => false);
     }else{
       showDialog(
         context: context, 
@@ -71,15 +71,30 @@ class LoginPageController{
       
       if((doc == null) || (!doc.exists)){
         company = new Company.newCompany(user.email);
-        Map<String,dynamic> json = company.toJson();
-      
+        //Map<String,dynamic> json = company.toJson();
+        Map<String,dynamic> json = {
+          'cnpj': "",
+          'img': null,
+          'name': "",
+          'address': {
+            'location': "",
+            'district': "",
+            'city': "",
+            'fu': "AC",
+            'houseNumber': ""
+          },
+          'email': user.email,
+          'phoneNumber': "",
+          'sales': [],
+          'items': []
+        };
         await this.firestore.collection("companies").document(user.email).setData(json);
+      //}
+      }else{
+        Map<String, dynamic> json = doc.data; 
+        company = Company.fromJson(json);
+        print(company.email);
       }
-      // }else{
-      //   Map<String, dynamic> json = doc.data; 
-      //   company = Company.fromJson(json);
-      //   print(company.email);
-      // }
 
       return 'signInWithGoogle succeeded: $user';
     }catch(e){

@@ -6,4 +6,9 @@ const phrases = {
     'loginButton': 'LOGIN COM O GOOGLE',
     
     'connectionError': 'Não foi possível fazer o Login: Erro de Conexão',
+    'dataError': 'Complete os dados para prosseguir'
+};
+
+const routes = {
+    'home': '/'
 };
