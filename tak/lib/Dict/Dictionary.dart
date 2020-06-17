@@ -1,8 +1,11 @@
 const phrases = {
     'companyLogo': 'Tak',
     'catchphrase': 'O seu melhor ajudante ;)',
-
+    'invoices': 'Recibos',
     'address': 'Endereço',
+    'items': 'Itens',
+
+    'deleteSuccess': 'Removido com sucesso',
 
     'closeButton': 'FECHAR',
     'loginButton': 'LOGIN COM O GOOGLE',
@@ -23,5 +26,7 @@ const phrases = {
 
 const routes = {
     'home': '/',
-    'login': '/login'
+    'login': '/login',
+    'invoice': '/invoice',
+    'createItem': '/listItems/createItem'
 };

@@ -56,20 +56,6 @@ class Company{
     'address': this.address.toJson(),
   };
   
-
-  // List<Map<String,dynamic>> convertListItemsToJson()
-  // => List.generate(
-  //   this.items.length,
-  //   (int index) => this.items[index].toJson()
-  // );
-  
-
-  // List<Map<String,dynamic>> convertListSaleToJson()
-  // => List.generate(
-  //   this.sales.length,
-  //   (int index) => this.sales[index].toJson()
-  // );
-  
 }
 // objeto teste
 Company company;

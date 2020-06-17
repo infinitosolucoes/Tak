@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tak/Controllers/InvoiceListPage/InvoiceListPageController.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Theme/Theme.dart';
 
 class InvoiceListPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _InvoiceListPageState extends State<InvoiceListPage> {
           appBar: AppBar(
             backgroundColor: primary_color,
             centerTitle: true,
-            title: Text('Recibos', style: app_bar),
+            title: Text(phrases['invoices'], style: app_bar),
             ),
           backgroundColor: background_color,
 
@@ -45,7 +46,7 @@ class _InvoiceListPageState extends State<InvoiceListPage> {
                 title: Text(this._controller.title(index), style: title_item),
 
                 onTap: (){
-                  Navigator.pushNamed(context, "/invoice", arguments: this._controller.sale(index));
+                  Navigator.pushNamed(context, routes['invoice'], arguments: this._controller.sale(index));
                 },
               );
             }, 
