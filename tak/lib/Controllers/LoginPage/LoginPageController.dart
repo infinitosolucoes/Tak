@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'dart:async';
 
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Company.dart';
 
 class LoginPageController{
@@ -17,8 +19,32 @@ class LoginPageController{
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final Firestore firestore = Firestore.instance;
 
-
-  Future<String> signInWithGoogle() async{
+  Future<void> login(BuildContext context) async{
+    String result = await this._signInWithGoogle();
+    if(result != null){
+      Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+    }else{
+      showDialog(
+        context: context, 
+        barrierDismissible: false, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(phrases['connectionError']),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(phrases['closeButton']),//'FECHAR'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      );
+      print('Deu Ruim');
+    }
+  }
+  Future<String> _signInWithGoogle() async{
     try{
       final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -48,11 +74,12 @@ class LoginPageController{
         Map<String,dynamic> json = company.toJson();
       
         await this.firestore.collection("companies").document(user.email).setData(json);
-      }else{
-        Map<String, dynamic> json = doc.data; 
-        company = Company.fromJson(json);
-        print(company.email);
       }
+      // }else{
+      //   Map<String, dynamic> json = doc.data; 
+      //   company = Company.fromJson(json);
+      //   print(company.email);
+      // }
 
       return 'signInWithGoogle succeeded: $user';
     }catch(e){

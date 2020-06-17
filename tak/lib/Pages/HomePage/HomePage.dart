@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Nav.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 
 class HomePage extends StatefulWidget {

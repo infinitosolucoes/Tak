@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Controllers/InvoicePage/InvoicePageController.dart';
 import 'package:tak/Objects/Sale.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 import 'package:printing/printing.dart';
 
 class InvoicePage extends StatefulWidget {

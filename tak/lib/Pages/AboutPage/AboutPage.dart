@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Controllers/AboutPage/AboutPageController.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 class AboutPage extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Controllers/AddItemPage/Controllers.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 
 class AddItemPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Controllers/ItemsPage/ItemsPageController.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 import 'package:tak/Objects/Item.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

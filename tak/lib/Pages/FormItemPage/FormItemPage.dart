@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tak/Controllers/FormItemPage/FormItemPageController.dart';
-import 'package:tak/Functions/Validators.dart' as Validators;
+import 'package:tak/Functions/Validators/Validators.dart' as Validators;
 import 'package:tak/Objects/Item.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 class FormItemPage extends StatefulWidget {
 

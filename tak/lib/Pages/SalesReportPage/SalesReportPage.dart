@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tak/Controllers/SalesReportPage/SalesReportPageController.dart';
-import 'package:tak/Theme/theme.dart';
-import 'package:tak/Functions/MoneyText.dart' as MT;
+import 'package:tak/Theme/Theme.dart';
+import 'package:tak/Functions/Text/MoneyText.dart' as MT;
 
 class SalesReportPage extends StatefulWidget {
   @override

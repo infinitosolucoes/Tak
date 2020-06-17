@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 class ErrorPage extends StatelessWidget {
   @override

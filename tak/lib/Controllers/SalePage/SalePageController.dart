@@ -7,7 +7,7 @@ import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Objects/Company.dart';
 
-import 'package:tak/Functions/RoundPrice.dart' as RoundPrice;
+import 'package:tak/Functions/Text/RoundPrice.dart' as RoundPrice;
 
 class SalePageController {
   final StreamController _streamController = new StreamController.broadcast();

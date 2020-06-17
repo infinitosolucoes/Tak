@@ -6,7 +6,7 @@ import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Sale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tak/Objects/SaleItem.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 class SalesReportPageController{
   final StreamController _streamController = new StreamController.broadcast();
