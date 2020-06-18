@@ -11,6 +11,7 @@ import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Functions/ImagePicker.dart' as IMG;
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Functions/Validators/CNPJ.dart';
+import 'package:tak/Functions/Dialog.dart' as Dialog;
 
 
 class CompanyController{
@@ -34,9 +35,9 @@ class CompanyController{
   // Lista dos estados brasileiros
   static List<String> _fus = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
 
-  Future buttonAction()async {
+  Future buttonAction(BuildContext context)async {
     if(this.editMode){
-      bool flag = await this._submit();
+      bool flag = await this._submit(context);
       this.editMode = !flag;
       
     }else{
@@ -45,23 +46,28 @@ class CompanyController{
      this._streamController.add(this.editMode );
   }
 
-  Future<bool> _submit() async {
+  Future<bool> _submit(BuildContext context) async {
     this._cnpjResult = await cnpjValidator(this._cnpjValue, company.cnpj);
     this._streamController.add(this._cnpjResult);
     
     if(this.formKey.currentState.validate()){
       this.formKey.currentState.save();
-      final user = await FirebaseAuth.instance.currentUser();
+      try{
+        final user = await FirebaseAuth.instance.currentUser();
 
-      this.firestore.collection("companies").document(user.email).updateData(
-        {
-          'cnpj': company.cnpj,
-          'img': company.img,
-          'name': company.name,
-          'email': company.email,
-          'phoneNumber': company.phoneNumber,
-          'address': company.address.toJson(),
-        }).then((_) {print("Salvado com sucesso");});
+        this.firestore.collection("companies").document(user.email).updateData(
+          {
+            'cnpj': company.cnpj,
+            'img': company.img,
+            'name': company.name,
+            'email': company.email,
+            'phoneNumber': company.phoneNumber,
+            'address': company.address.toJson(),
+          }).then((_) {print("Salvado com sucesso");});
+      }catch(e){
+        Dialog.dialog(context, phrases['connectionError']);
+      }
+      
       return true;
     }else{
       this._autovalidate = true;

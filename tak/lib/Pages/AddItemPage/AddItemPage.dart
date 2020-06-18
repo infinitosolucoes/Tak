@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Controllers/AddItemPage/Controllers.dart';
 import 'package:tak/Theme/Theme.dart';
+import 'package:tak/Functions/Text/MoneyText.dart' as MT;
 
 
 class AddItemPage extends StatefulWidget {
@@ -14,9 +16,17 @@ class _AddItemPageState extends State<AddItemPage> {
   final AddItemController _controller = AddItemController();
   final CounterController _counterController = CounterController(); 
 
+  @override
   void initState(){
+    this._controller.initialize();
     super.initState();
-    this._controller.loadItems();
+  }
+
+  @override
+  void dispose(){
+    this._controller.close;
+    this._counterController.close;
+    super.dispose();
   }
 
   @override
@@ -28,7 +38,7 @@ class _AddItemPageState extends State<AddItemPage> {
           appBar: AppBar(
             backgroundColor: primary_color,
             centerTitle: true,
-            title: Text('Adicionar Item', style: app_bar),
+            title: Text(phrases['addItem'], style: app_bar),
           ),
 
           backgroundColor: background_color,
@@ -36,7 +46,7 @@ class _AddItemPageState extends State<AddItemPage> {
           body: ListView.separated(
             itemCount: this._controller.len(),
             itemBuilder: (context, index){
-              Item item = this._controller.getItem(index);
+              final Item item = this._controller.getItem(index);
               return Container(
                 padding: EdgeInsets.only(top: 3, bottom: 3),
                 child: ListTile(
@@ -55,7 +65,7 @@ class _AddItemPageState extends State<AddItemPage> {
                     ),
                   ),
                   title: Text(item.name, style: title_item),
-                  trailing: Text('R\$ ' +  item.price.toStringAsFixed(2).replaceAll('.', ','), style: subtotal_text),
+                  trailing: Text(MT.moneyText(item.price), style: subtotal_text),
                   onTap: (){          
                     this._controller.setItem(index); 
                     this._counterController.reset();
@@ -86,7 +96,7 @@ class _AddItemPageState extends State<AddItemPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text('Informe a Quantidade: ', style: title_item,),
+                  Text(phrases['amountItem'], style: title_item,),
                   SizedBox(height: 15,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +136,7 @@ class _AddItemPageState extends State<AddItemPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7),
                             ),
-                            child: Text('Confirmar', style: button_text,),
+                            child: Text(phrases['confirmButton'], style: button_text,),
                             onPressed: (){
                               this._controller.setAmount(this._counterController.amountView);
                               Navigator.pop(context);
@@ -148,11 +158,6 @@ class _AddItemPageState extends State<AddItemPage> {
     );
   }
 
-  void dispose(){
-    this._controller.close;
-    this._counterController.close;
-    super.dispose();
-  }
 
 
 }

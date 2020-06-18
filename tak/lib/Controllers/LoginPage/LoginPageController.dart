@@ -7,6 +7,7 @@ import 'dart:async';
 
 import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Company.dart';
+import 'package:tak/Functions/Dialog.dart' as Dialog;
 
 class LoginPageController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -24,23 +25,7 @@ class LoginPageController{
     if(result != null){
       Navigator.pushNamedAndRemoveUntil(context,routes['home'], (Route<dynamic> route) => false);
     }else{
-      showDialog(
-        context: context, 
-        barrierDismissible: false, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(phrases['connectionError']),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(phrases['closeButton']),//'FECHAR'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        }
-      );
+      Dialog.dialog(context, phrases['connectionError']);
       print('Deu Ruim');
     }
   }

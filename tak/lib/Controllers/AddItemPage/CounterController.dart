@@ -7,7 +7,7 @@ class CounterController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  int amountView = 0;
+  int amountView = 1;
 
   void increaseAmount(){
     this.amountView++;
@@ -15,15 +15,15 @@ class CounterController{
   }
 
   void decrementAmount(){
-    if(this.amountView > 0){
+    if(this.amountView > 1){
       this.amountView--;
       this._streamController.add(this.amountView);
     }
   }
 
   void reset(){
-    if(this.amountView != 0){
-      this.amountView = 0;
+    if(this.amountView != 1){
+      this.amountView = 1;
     }
   }
 }

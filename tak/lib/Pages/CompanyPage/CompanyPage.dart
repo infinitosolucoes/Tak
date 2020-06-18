@@ -39,7 +39,7 @@ class _CompanyPageState extends State<CompanyPage>{
             actions: <Widget>[
               IconButton(
                 icon: Icon(this._controller.icon, color: background_color, size: 30,),
-                onPressed: this._controller.buttonAction,
+                onPressed: () async {await this._controller.buttonAction(context);},
               ),
               SizedBox(width: (width * 0.04),)
             ],

@@ -3,6 +3,8 @@ import 'package:tak/Controllers/SalePage/Controllers.dart';
 import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Theme/Theme.dart';
 import 'package:tak/Functions/Text/MoneyText.dart' as MT;
+import 'package:tak/Dict/Dictionary.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SalePage extends StatefulWidget {
@@ -16,7 +18,21 @@ class _SalePageState extends State<SalePage> {
   final MethodPaymentController _methodController = MethodPaymentController();
 
   @override
+  void initState(){
+    this._controller.createItem();
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    this._controller.close;
+    this._methodController.close;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Tmanho da tela
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     
@@ -27,7 +43,7 @@ class _SalePageState extends State<SalePage> {
             appBar: AppBar(
               backgroundColor: primary_color,
               centerTitle: true,
-              title: Text('Nova Venda', style: app_bar),
+              title: Text(phrases['newSale'], style: app_bar),
             ),
             backgroundColor: background_color,
 
@@ -55,13 +71,11 @@ class _SalePageState extends State<SalePage> {
                   subtitle: Container(
                     padding: EdgeInsets.only(top: 5),
                     child: Text('${item.amount.toString()} x ${MT.moneyText(item.item.price)}', style: subtitle_item ),
-                    //child: Text(item.amount.toString() + ' x R\$ '+ item.item.price.toString().replaceAll('.',','), style: subtitle_item ),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(MT.moneyText(item.calculateTotal()), style: subtotal_text),
-                      //Text('R\$ ' + (item.calculateTotal()).toStringAsFixed(2).replaceAll('.', ','), style: subtotal_text),
                       IconButton(
                         icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
                         onPressed: (){this._controller.decrementTotal(index);},
@@ -82,9 +96,8 @@ class _SalePageState extends State<SalePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text('Total: ', style: sale_title),
+                        Text(phrases['total'], style: sale_title),
                         Text(MT.moneyText(this._controller.getTotal()), style: total_text)
-                        //Text('R\$ '+ this._controller.getTotal().toStringAsFixed(2).replaceAll('.', ','), style: total_text)
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -94,14 +107,12 @@ class _SalePageState extends State<SalePage> {
                         Expanded(
                           child: SizedBox(
                             height: 50,
-                            child:RaisedButton(
+                            // Botão para adicionar novos Itens
+                            child: RaisedButton(
                               color: primary_color,
                               shape: shape,
-                              child: Text('Adicionar', style: button_text),
-                              onPressed: () async {
-                                var newSaleItem =  await Navigator.pushNamed(context, '/newSale/addItem');
-                                this._controller.incrementTotal(newSaleItem);
-                              },
+                              child: Text(phrases['addButton'], style: button_text),
+                              onPressed: () async {await this._controller.add(context);},
                             ),
                           )
                         ),
@@ -111,10 +122,11 @@ class _SalePageState extends State<SalePage> {
                         Expanded(
                           child: SizedBox(
                             height: 50,
+                            // Botão para continuar o processo de venda
                             child: RaisedButton(
                               color: success_color,
                               shape: shape,
-                              child: Text('Continuar', style: button_text),
+                              child: Text(phrases['continueButton'], style: button_text),
                               onPressed: this.showMethodPayment,
                             ),
                           ),
@@ -145,7 +157,7 @@ class _SalePageState extends State<SalePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   RadioListTile(
-                    title: const Text('Dinheiro', style: title_item,),
+                    title: Text(phrases['money'], style: title_item,),
                     groupValue: this._methodController.getMethod(),
                     value: 1,
                     onChanged: (int value){
@@ -153,7 +165,7 @@ class _SalePageState extends State<SalePage> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('Cartão de Débito', style: title_item,),
+                    title: Text(phrases['debitCard'], style: title_item,),
                     groupValue: this._methodController.getMethod(),
                     value: 2,
                     onChanged: (int value){
@@ -161,7 +173,7 @@ class _SalePageState extends State<SalePage> {
                     },
                   ),
                   RadioListTile(
-                    title: const Text('Cartão de Crédito', style: title_item,),
+                    title: Text(phrases['creditCard'], style: title_item,),
                     groupValue: this._methodController.getMethod(),
                     value: 3,
                     onChanged: (int value){
@@ -178,12 +190,10 @@ class _SalePageState extends State<SalePage> {
                             child: RaisedButton(
                               color: success_color,
                               shape: shape,
-                              child: Text('Finalizar', style: button_text),
+                              child: Text(phrases['finalizeButton'], style: button_text),
                               onPressed: (){
                                 this._controller.setMethod(this._methodController.getMethod());
-                                if(this._controller.invoice()){
-                                  Navigator.pushNamed(context, '/invoice', arguments: this._controller.newSale);
-                                }
+                                this._controller.invoice(context);
                               },
                             ),
                           )
@@ -200,10 +210,5 @@ class _SalePageState extends State<SalePage> {
     );
   }
 
-  @override
-  void dispose(){
-    this._controller.close;
-    this._methodController.close;
-    super.dispose();
-  }
+
 }

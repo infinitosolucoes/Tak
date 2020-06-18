@@ -5,9 +5,10 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tak/Dict/Dictionary.dart';
+import 'package:tak/Functions/List/GetItems.dart';
+import 'package:tak/Functions/Convert/Convert.dart' as Convert;
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Item.dart';
-import 'package:tak/Functions/Convert/Convert.dart' as Convert;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
@@ -29,10 +30,9 @@ class ItemsPageController{
     content: Text(phrases['deleteSuccess']),
   );
 
+  // Carrega os itens vindos do BD
   Future initialize() async {
-    final user = await FirebaseAuth.instance.currentUser();
-    DocumentSnapshot doc = await this._firestore.collection("companies").document(user.email).get();
-    this._items = Convert.jsonToListItems(doc.data['items']);
+    this._items = await loadItems(this._firestore);
     this._streamController.add(this._items);
   }
 
