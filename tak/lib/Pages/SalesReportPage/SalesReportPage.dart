@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tak/Controllers/SalesReportPage/SalesReportPageController.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Theme/Theme.dart';
 import 'package:tak/Functions/Text/MoneyText.dart' as MT;
 
@@ -33,7 +34,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
           appBar: AppBar(
             backgroundColor: primary_color,
             centerTitle: true,
-            title: Text('Relatórios', style: app_bar),
+            title: Text(phrases['report'], style: app_bar),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(50),
               child: Row(
@@ -61,17 +62,17 @@ class _SalesReportPageState extends State<SalesReportPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Total de vendas', style: title_item,),
+                Text(phrases['salesTotal'], style: title_item,),
                 Text(this._controller.len.toString(), style: results,),
                 
                 SizedBox(height: 20,),
 
-                Text('Faturamento Total', style: title_item,),
+                Text(phrases['totalBilling'], style: title_item,),
                 Text(MT.moneyText(this._controller.amount), style: results),
 
                 SizedBox(height: 30,),
 
-                Text('Meios de Pagamento', style: title_item,),
+                Text(phrases['methodPayment'], style: title_item,),
                 SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +89,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                       width: 4,
                     ),
                     Text(
-                      'Dinheiro',
+                      phrases['money'],
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
@@ -106,7 +107,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                       width: 4,
                     ),
                     Text(
-                      'Cartão de Débito',
+                      phrases['debitCard'],
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                    
@@ -128,7 +129,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                       width: 4,
                     ),
                     Text(
-                      'Cartão de Crédito',
+                      phrases['creditCard'],
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     )
                   ],
@@ -137,7 +138,7 @@ class _SalesReportPageState extends State<SalesReportPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: (this._controller.isEmpty)? [
-                    Text('Não existem dados :(', style: TextStyle(color: primary_color, fontSize: 25))
+                    Text(phrases['readDataError'], style: TextStyle(color: primary_color, fontSize: 25))
                   ]: [
                     Container(
                       child: PieChart(
@@ -153,13 +154,13 @@ class _SalesReportPageState extends State<SalesReportPage> {
                   ],
                 ),
                 SizedBox(height: 30,),
-                Text('Os mais vendidos', style: title_item,),
+                Text(phrases['bestSellers'], style: title_item,),
                 SizedBox(height: 15,),
                 Column(
                   children: <Widget>[
                     Container(
                       child: (this._controller.isEmpty)? 
-                        Text('Não existem dados :(', style: TextStyle(color: primary_color, fontSize: 25))
+                        Text(phrases['readDataError'], style: TextStyle(color: primary_color, fontSize: 25))
                         : Table(
                           border: TableBorder(
                             horizontalInside: BorderSide(

@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:tak/Functions/List/GetSales.dart' as Sales;
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Functions/Text/MoneyText.dart' as MT;
+import 'package:tak/Functions/Convert/Convert.dart' as Convert;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -46,19 +49,12 @@ class InvoicePageController{
      this._myInterstitial.load();
   }
   
-  showAd(){
-    
-      
-     
-   //   this._streamController.add(this._myInterstitial);
-      this._myInterstitial.show();
-    
-    
+  _showAd(){
+    this._myInterstitial.show();
   }
 
   disposeAd(){
     this._myInterstitial?.dispose();
-    
   }
 
   set sale(Sale sale){
@@ -66,13 +62,21 @@ class InvoicePageController{
     this._streamController.add(this._sale);
   }
 
-  Future<bool> finalizeSale() async {
+  Future<void> finalizeSale(BuildContext context) async {
+    this._showAd();
+    if(await this._finalizeSale()){
+      Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
+    }
+  }
+
+  Future<bool> _finalizeSale() async {
     try{ 
       
       final user = await FirebaseAuth.instance.currentUser();
-      company.sales.insert(0, this._sale);
-      this._firestore.collection("companies").document(user.email).updateData({'sales': company.convertListSaleToJson()}).then((_) {print("Salvado com sucesso");});
-      this._streamController.add(company);
+     
+      List<Sale> sales = await Sales.loadSales(this._firestore);
+      sales.insert(0, this._sale);
+      this._firestore.collection("companies").document(user.email).updateData({'sales': Convert.convertListSaleToJson(sales)}).then((_) {print("Salvado com sucesso");});
       
       print(this._sale.toString());
       return true;

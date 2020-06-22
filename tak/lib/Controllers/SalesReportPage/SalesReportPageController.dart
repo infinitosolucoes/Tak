@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tak/Functions/List/GetSales.dart' as Sales;
 import 'package:tak/Functions/MergeSort.dart';
-import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Sale.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:tak/Objects/SaleItem.dart';
@@ -15,6 +16,8 @@ class SalesReportPageController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
+  final Firestore _firestore = Firestore.instance;
+
   List<Sale> _list;
 
   Map _states = {
@@ -22,14 +25,15 @@ class SalesReportPageController{
     'index': 0
   };
 
-  void getListByDate(){
-    if(company.sales.length != 0){
+  Future<void> getListByDate() async {
+    List<Sale> sales = await Sales.loadSales(this._firestore);
+    if(sales.length != 0){
       DateTime date = new DateTime.now();
       int index;
       switch(this._states['index']){
         // Vendas no dia
         case 0:
-          for(index = 0; (index < company.sales.length) && (date.difference(DateTime.parse(company.sales[index].date)).inDays == 0); index++){}
+          for(index = 0; (index < sales.length) && (date.difference(DateTime.parse(sales[index].date)).inDays == 0); index++){}
           break;
         
         // Vendas na semana
@@ -37,12 +41,12 @@ class SalesReportPageController{
          // index = -1;
           int difference = date.weekday - 1;                // Vejo a quantidade de dias necessárias para retornar para segunda-feira (valor = 1)
           date = date.subtract(Duration(days: difference));
-          for(index = 0; (index < company.sales.length) && (date.difference(DateTime.parse(company.sales[index].date)).inDays <= 0) && (date.difference(DateTime.parse(company.sales[index].date)).inDays >= -6); index++){}
+          for(index = 0; (index < sales.length) && (date.difference(DateTime.parse(sales[index].date)).inDays <= 0) && (date.difference(DateTime.parse(sales[index].date)).inDays >= -6); index++){}
           break;
 
         // Vendas no mês
         case 2:
-          for(index = 0; (index < company.sales.length) && (date.month == DateTime.parse(company.sales[index].date).month); index++){}
+          for(index = 0; (index < sales.length) && (date.month == DateTime.parse(sales[index].date).month); index++){}
           break;
 
         // Vendas no trimestre
@@ -53,17 +57,17 @@ class SalesReportPageController{
           }else if((7 >= date.month) || (date.month <= 9)){ referenceMonth = 7;
           }else{                                            referenceMonth = 10;}
 
-          for(index = 0; (index < company.sales.length) && ((DateTime.parse(company.sales[index].date).month - referenceMonth) >= 0) && ((DateTime.parse(company.sales[index].date).month - referenceMonth) <= 2); index++){}
+          for(index = 0; (index < sales.length) && ((DateTime.parse(sales[index].date).month - referenceMonth) >= 0) && ((DateTime.parse(sales[index].date).month - referenceMonth) <= 2); index++){}
           break;
 
         // Vendas totais
         case 4:
-          index = company.sales.length;
+          index = sales.length;
           break;
       }
       
       
-      this._list = company.sales.sublist(0, index);
+      this._list = sales.sublist(0, index);
       
     }else{
       this._list = [];

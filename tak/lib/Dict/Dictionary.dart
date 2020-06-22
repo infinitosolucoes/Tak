@@ -7,7 +7,13 @@ const phrases = {
     'addItem': 'Adicionar Item',
     'newSale': 'Nova Venda',
     'help': 'Ajuda',
+    'invoice': 'Recibo',
+    'report': 'Relatórios',
     'version': 'Versão:',
+    'bestSellers': 'Os mais vendidos',
+    'methodPayment': 'Meios de Pagamento',
+    'salesTotal': 'Total de vendas',
+    'totalBilling': 'Faturamento Total',
 
     'amountItem': 'Informe a Quantidade:',
     'total': 'Total: ',
@@ -39,6 +45,7 @@ const phrases = {
     
     'connectionError': 'Não foi possível fazer o Login: Erro de Conexão',
     'dataError': 'Complete os dados para prosseguir',
+    'readDataError': 'Não existem dados :(',
     'itemLength': 'Precisa de pelo menos 1 (um) item no carrinho',
 
     'licenseAbout': '© 2020 - Ricardo de Monteiro e Tavares, sob a licença BSD 3-Clause',

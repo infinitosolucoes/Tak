@@ -23,7 +23,7 @@ class SalePageController {
   Sale _newSale;
   
   Future<void> createItem() async {
-    List<Sale> sales = await Sales.loadItems(this._firestore);
+    List<Sale> sales = await Sales.loadSales(this._firestore);
     this._newSale = new Sale(
       id: (sales.length+1).toString(),
       total: 0.00,
