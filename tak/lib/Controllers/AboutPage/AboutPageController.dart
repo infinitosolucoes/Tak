@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:tak/Dict/Dictionary.dart';
+import 'package:tak/Functions/Dialog.dart' as Dialog;
 
 class AboutPageController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -24,5 +27,9 @@ class AboutPageController{
     this._packageInfo = info;
     this._streamController.add(this._packageInfo);
    
+  }
+
+  Future<void> showLicense(BuildContext context) async {
+    Dialog.dialog(context, phrases['licenseTitle'], phrases['license']);
   }
 }
