@@ -1,6 +1,4 @@
 import 'package:tak/Objects/Address.dart';
-import 'package:tak/Objects/Item.dart';
-import 'package:tak/Objects/Sale.dart';
 
 class Company{
   String cnpj;

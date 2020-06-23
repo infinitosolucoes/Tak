@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tak/Functions/List/GetItems.dart';
 import 'package:tak/Objects/Item.dart';
@@ -15,14 +14,13 @@ class AddItemController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  final Firestore _firestore = Firestore.instance;
 
   List<Item> _items;
   SaleItem _new = new SaleItem(amount: 0, item: null);
 
   // Carrega os itens vindos do BD
   Future<void> initialize() async {
-    this._items = await loadItems(this._firestore);
+    this._items = await loadItems();
     this._streamController.add(this._items);
   }
 

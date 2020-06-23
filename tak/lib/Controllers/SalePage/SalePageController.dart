@@ -88,7 +88,7 @@ class SalePageController {
     }
   }
 
-  Future<void> invoice(BuildContext context) {
+  Future<void> invoice(BuildContext context) async {
     if(this._newSale.items.length > 0){
       Navigator.pushNamed(context, routes['invoice'], arguments: this._newSale);
     }else{

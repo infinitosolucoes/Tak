@@ -4,7 +4,6 @@ import 'package:tak/Objects/SaleItem.dart';
 import 'package:tak/Theme/Theme.dart';
 import 'package:tak/Functions/Text/MoneyText.dart' as MT;
 import 'package:tak/Dict/Dictionary.dart';
-import 'package:tak/Dict/Dictionary.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class SalePage extends StatefulWidget {

@@ -32,7 +32,7 @@ class ItemsPageController{
 
   // Carrega os itens vindos do BD
   Future initialize() async {
-    this._items = await loadItems(this._firestore);
+    this._items = await loadItems();
     this._streamController.add(this._items);
   }
 
