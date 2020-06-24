@@ -1,6 +1,6 @@
 #Tak
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE),
-![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)]
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
 !["Logo do Aplicativo"](https://raw.githubusercontent.com/ricardoMonteiroTavares/Tak/master/tak/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 ##Sobre
