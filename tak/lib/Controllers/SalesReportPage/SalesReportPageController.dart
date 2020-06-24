@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tak/Functions/List/GetSales.dart' as Sales;
 import 'package:tak/Functions/MergeSort.dart';
@@ -16,9 +15,7 @@ class SalesReportPageController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  final Firestore _firestore = Firestore.instance;
-
-  List<Sale> _list;
+  List<Sale> _list = [];
 
   Map _states = {
     'phrases': ['Hoje', 'Semana', 'Mês', 'Trimestre', 'Tudo'],
@@ -26,7 +23,7 @@ class SalesReportPageController{
   };
 
   Future<void> getListByDate() async {
-    List<Sale> sales = await Sales.loadSales(this._firestore);
+    List<Sale> sales = await Sales.loadSales();
     if(sales.length != 0){
       DateTime date = new DateTime.now();
       int index;

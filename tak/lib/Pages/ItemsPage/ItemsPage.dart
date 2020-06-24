@@ -16,6 +16,13 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage>{
   final ItemsPageController _controller = ItemsPageController();
 
+  @override
+  void initState(){
+    this._controller.initialize();
+    super.initState();
+  }
+
+  @override
   void dispose(){
     this._controller.close;
     super.dispose();

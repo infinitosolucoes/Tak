@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Sale.dart';
@@ -19,18 +18,17 @@ class SalePageController {
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream. Obs.: Deve ser chamado na função dispose da SalePage
 
-  final Firestore _firestore = Firestore.instance;
-  Sale _newSale;
   
-  Future<void> createItem() async {
-    List<Sale> sales = await Sales.loadSales(this._firestore);
-    this._newSale = new Sale(
-      id: (sales.length+1).toString(),
+  Sale _newSale = new Sale(
       total: 0.00,
       methodPayment: 1,
       items: new List<SaleItem>(),
       date: DateTime.now().toString().split(' ')[0]
     );
+  
+  Future<void> createItem() async {
+    List<Sale> sales = await Sales.loadSales();
+    this._newSale.id = (sales.length+1).toString();
     this._streamController.add(this._newSale);
   }
   

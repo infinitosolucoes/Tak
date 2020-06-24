@@ -7,5 +7,5 @@ Future<List<Item>> loadItems() async {
   final Firestore firestore = Firestore.instance;
   final user = await FirebaseAuth.instance.currentUser();
   DocumentSnapshot doc = await firestore.collection("companies").document(user.email).get();
-  return Convert.jsonToListItems(doc.data['items']);
+  return Convert.jsonToListItems(doc.data);
 }

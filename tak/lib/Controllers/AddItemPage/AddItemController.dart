@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:tak/Functions/List/GetItems.dart';
+import 'package:tak/Functions/List/GetItems.dart' as Items;
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Objects/SaleItem.dart';
 
@@ -15,12 +15,12 @@ class AddItemController{
   Future get close => _streamController.close();              // Fechamento da Stream
 
 
-  List<Item> _items;
+  List<Item> _items = [];
   SaleItem _new = new SaleItem(amount: 0, item: null);
 
   // Carrega os itens vindos do BD
   Future<void> initialize() async {
-    this._items = await loadItems();
+    this._items = await Items.loadItems();
     this._streamController.add(this._items);
   }
 

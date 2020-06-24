@@ -38,8 +38,9 @@ class _HelpPageState extends State<HelpPage> {
                 );
 
                 await FlutterEmailSender.send(email);
+              }else{
+                Navigator.pushNamed(context, helpRoutes[index].page);
               }
-              Navigator.pushNamed(context, helpRoutes[index].page);
             },
           );
         }, 

@@ -9,10 +9,12 @@ void dialog(BuildContext context, String phrase, [String title]){
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        content: Text(phrase),
+        content: SingleChildScrollView(
+          child: Text(phrase),
+        ),
         actions: <Widget>[
           FlatButton(
-            child: Text(phrases['closeButton']),//'FECHAR'),
+            child: Text(phrases['closeButton']),
             onPressed: () {
               Navigator.of(context).pop();
             },

@@ -74,7 +74,7 @@ class InvoicePageController{
       
       final user = await FirebaseAuth.instance.currentUser();
      
-      List<Sale> sales = await Sales.loadSales(this._firestore);
+      List<Sale> sales = await Sales.loadSales();
       sales.insert(0, this._sale);
       this._firestore.collection("companies").document(user.email).updateData({'sales': Convert.convertListSaleToJson(sales)}).then((_) {print("Salvado com sucesso");});
       

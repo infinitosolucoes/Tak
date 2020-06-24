@@ -30,6 +30,6 @@ class AboutPageController{
   }
 
   Future<void> showLicense(BuildContext context) async {
-    Dialog.dialog(context, phrases['licenseTitle'], phrases['license']);
+    Dialog.dialog(context, phrases['license'],  phrases['licenseTitle']);
   }
 }

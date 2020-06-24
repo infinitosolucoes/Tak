@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tak/Dict/Dictionary.dart';
-import 'package:tak/Functions/List/GetItems.dart';
+import 'package:tak/Functions/List/GetItems.dart' as Items;
 import 'package:tak/Functions/Convert/Convert.dart' as Convert;
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Item.dart';
@@ -20,19 +20,19 @@ class ItemsPageController{
   Future get close => _streamController.close();              // Fechamento da Stream
 
   final Firestore _firestore = Firestore.instance;
-  List<Item> _items;
+  List<Item> _items = [];
 
   Item getItem(int index) => this._items[index];
 
   int len() => this._items.length;
-
+  
   SnackBar _snackbar = SnackBar(
     content: Text(phrases['deleteSuccess']),
   );
 
   // Carrega os itens vindos do BD
   Future initialize() async {
-    this._items = await loadItems();
+    this._items = await Items.loadItems();
     this._streamController.add(this._items);
   }
 
