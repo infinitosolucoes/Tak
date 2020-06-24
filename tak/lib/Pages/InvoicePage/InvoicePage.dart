@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Controllers/InvoicePage/InvoicePageController.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Sale.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 import 'package:printing/printing.dart';
 
 class InvoicePage extends StatefulWidget {
@@ -38,7 +39,7 @@ class _InvoicePageState extends State<InvoicePage> {
       appBar: AppBar(
         backgroundColor: primary_color,
         centerTitle: true,
-        title: Text('Recibo', style: app_bar),
+        title: Text(phrases['invoice'], style: app_bar),
 
         actions: <Widget>[
 
@@ -47,10 +48,7 @@ class _InvoicePageState extends State<InvoicePage> {
             child: IconButton(
               icon: Icon(Icons.save, color: background_color),
               onPressed: () async {
-                this._controller.showAd();
-                if(await this._controller.finalizeSale()){
-                  Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
-                }
+                this._controller.finalizeSale(context);
               },
             ),
           ),

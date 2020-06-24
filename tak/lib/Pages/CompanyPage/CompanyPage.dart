@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tak/Controllers/CompanyPage/CompanyController.dart';
-import 'package:tak/Functions/Validators.dart' as Validators;
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Dict/Dictionary.dart';
+import 'package:tak/Functions/Validators/Validators.dart' as Validators;
+import 'package:tak/Theme/Theme.dart';
 
 
 class CompanyPage extends StatefulWidget {
@@ -38,16 +39,7 @@ class _CompanyPageState extends State<CompanyPage>{
             actions: <Widget>[
               IconButton(
                 icon: Icon(this._controller.icon, color: background_color, size: 30,),
-                onPressed: ()async{
-                  if(this._controller.editMode){
-                    bool flag = await this._controller.submit();
-                    if(flag){
-                      this._controller.editMode = false;
-                    }
-                  }else{
-                    this._controller.editMode = true;
-                  }
-                }
+                onPressed: () async {await this._controller.buttonAction(context);},
               ),
               SizedBox(width: (width * 0.04),)
             ],
@@ -62,6 +54,8 @@ class _CompanyPageState extends State<CompanyPage>{
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+
+                  // Foto de Perfil
                   Material(
                     shape: CircleBorder(
                       side: BorderSide(color: primary_color, width: 4)
@@ -85,11 +79,12 @@ class _CompanyPageState extends State<CompanyPage>{
 
                   SizedBox(height: 8,),
 
+                  // Campo de Nome Fantasia
                   TextFormField(
                     enabled: this._controller.editMode,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.account, size: 30, color: decoration_color),
-                      labelText: 'Nome Fantasia',
+                      labelText: phrases['fancyNameField'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.name,
@@ -99,12 +94,13 @@ class _CompanyPageState extends State<CompanyPage>{
                     },
                   ),
 
+                  // Campo CNPJ
                   TextFormField(
                     enabled: this._controller.editMode,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.badgeAccountHorizontalOutline, size: 30, color: decoration_color),
-                      labelText: 'CNPJ',
+                      labelText: phrases['cnpjField'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.cnpj,
@@ -114,12 +110,13 @@ class _CompanyPageState extends State<CompanyPage>{
                     validator: (String value){ return this._controller.cnpjResult;},  
                   ),
 
+                  // Campo Número de Telefone
                   TextFormField(
                     enabled: this._controller.editMode,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       icon: Icon(MdiIcons.phone, size: 30, color: decoration_color),
-                      labelText: 'Número de Telefone',
+                      labelText: phrases['numberField'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.phoneNumber,
@@ -130,16 +127,17 @@ class _CompanyPageState extends State<CompanyPage>{
 
 
                   SizedBox(height: 20,),
-                  Text('Endereço', style: title_item),
+                  Text(phrases['address'], style: title_item),
 
                   Row(
                     children: <Widget>[
                       Flexible(
                         flex: 3,
+                        // Campo de Rua
                         child: TextFormField(
                           enabled: this._controller.editMode,
                           decoration: InputDecoration(
-                            labelText: 'Rua',
+                            labelText: phrases['locationField'],
                             errorStyle: TextStyle(color: danger_color),
                           ),
                           initialValue: this._controller.location,
@@ -154,10 +152,11 @@ class _CompanyPageState extends State<CompanyPage>{
                       ),
                       Flexible(
                         flex: 1,
+                        // Campo de número da casa
                         child: TextFormField(
                           enabled: this._controller.editMode,
                           decoration: InputDecoration(
-                            labelText: 'Número',
+                            labelText: phrases['houseNumberField'],
                             errorStyle: TextStyle(color: danger_color),
                           ),
                           initialValue: this._controller.houseNumber,
@@ -170,10 +169,11 @@ class _CompanyPageState extends State<CompanyPage>{
                     ],
                   ),
 
+                  // Campo de Bairro
                   TextFormField(
                     enabled: this._controller.editMode,
                     decoration: InputDecoration(
-                      labelText: 'Bairro',
+                      labelText: phrases['districtNumberField'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.district,
@@ -188,10 +188,11 @@ class _CompanyPageState extends State<CompanyPage>{
                     children: <Widget>[
                       Flexible(
                         flex: 4,
+                        // Campo de Município
                         child: TextFormField(
                           enabled: this._controller.editMode,
                           decoration: InputDecoration(
-                            labelText: 'Município',
+                            labelText: phrases['cityField'],
                             errorStyle: TextStyle(color: danger_color),
                           ),
                           initialValue: this._controller.city,
@@ -206,6 +207,7 @@ class _CompanyPageState extends State<CompanyPage>{
                       ),
                       Flexible(
                         flex: 1,
+                        // Campo de Estado Federativo do Brasil 
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
                             hint:Text(this._controller.fu),
@@ -235,15 +237,12 @@ class _CompanyPageState extends State<CompanyPage>{
                     Expanded(
                       child: SizedBox(
                         height: 50,
+                        // Botão para deletar o usuário
                         child: RaisedButton(
                           shape: shape,
-                          child: Text('Deletar', style: button_text),
+                          child: Text(phrases['deleteButton'], style: button_text),
                           color: danger_color,
-                          onPressed: () async{
-                            await this._controller.deleteCompany().whenComplete((){
-                              Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
-                            });
-                          },
+                          onPressed: () async {await this._controller.deleteCompany(context);},
                         )
                       )
                     ),
@@ -253,16 +252,12 @@ class _CompanyPageState extends State<CompanyPage>{
                     Expanded(
                       child: SizedBox(
                         height: 50,
+                        // Botão para fazer o LogOut 
                         child: RaisedButton(
                           shape: shape,
                           child: Text('Sair', style: button_text),
                           color: primary_color,
-                          onPressed: () async {
-                            await this._controller.signOut().whenComplete((){
-                              Navigator.pushNamedAndRemoveUntil(context,'/login', (Route<dynamic> route) => false);
-                            });
-                            
-                          },
+                          onPressed: () async {await this._controller.signOut(context);},
                         )
                       )
                     )

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:tak/Controllers/FormItemPage/FormItemPageController.dart';
-import 'package:tak/Functions/Validators.dart' as Validators;
+import 'package:tak/Dict/Dictionary.dart';
+import 'package:tak/Functions/Validators/Validators.dart' as Validators;
 import 'package:tak/Objects/Item.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 class FormItemPage extends StatefulWidget {
 
@@ -22,10 +23,7 @@ class _FormItemPageState extends State<FormItemPage> {
 
   @override
   void initState(){
-    if(widget.itemEdit != null){
-      this._controller.item = widget.itemEdit;
-      this._controller.appBarText = 'Editar Item';
-    }
+    this._controller.initialize(widget.itemEdit);
     super.initState();
   }
   @override
@@ -36,7 +34,7 @@ class _FormItemPageState extends State<FormItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     
     return StreamBuilder(
       stream: this._controller.output,
@@ -47,16 +45,13 @@ class _FormItemPageState extends State<FormItemPage> {
             centerTitle: true,
             title: Text(this._controller.appBarText, style: app_bar),
             actions: <Widget>[
+
+              // Botão de Salvar o Item
               IconButton(
                 icon: Icon(MdiIcons.contentSave, color: background_color, size: 30,),
-                onPressed: (){
-                  bool flag = this._controller.submit();
-                  if(flag){
-                    Navigator.pop(context, this._controller.newItem);
-                  }
-                }
+                onPressed: () async {await this._controller.submit(context);}
               ),
-              SizedBox(width: (width * 0.04),)
+              SizedBox(width: 10,)
             ],
           ),
           backgroundColor: background_color,
@@ -69,7 +64,7 @@ class _FormItemPageState extends State<FormItemPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                  
-                 
+                 // Ícone do Item
                   Material(
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.all(Radius.circular(20.0)) 
@@ -79,7 +74,7 @@ class _FormItemPageState extends State<FormItemPage> {
                     child: Ink.image(
                       image: this._controller.image,
                       fit: BoxFit.cover,
-                      width: width,
+                      width: 150.0,
                       height: 150.0,
                       child: InkWell(
                         onTap: this._controller.setImage,
@@ -87,9 +82,10 @@ class _FormItemPageState extends State<FormItemPage> {
                     ),
                   ),
                   
+                  // Nome do item
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Nome',
+                      labelText: phrases['name'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     initialValue: this._controller.name,
@@ -102,40 +98,34 @@ class _FormItemPageState extends State<FormItemPage> {
                   ),
                 
                 
-              
+                  // Código de Barras do Item
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Código de Barras',
+                      labelText: phrases['barcode'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     maxLength: 13,
                     keyboardType: TextInputType.phone,
                     initialValue: this._controller.id,
                     validator: (String value){
-                      return Validators.ean13Validator(value,(widget.itemEdit != null)? widget.itemEdit.id : '');
+                      return this._controller.ean13Result;
                     },
+                    onChanged: (String value){this._controller.ean13Value = value;},
                     onSaved: (String value){
                       this._controller.id = value;
                     },
                   ),
                          
-
-                  
-                  
-
+                  // Preço do Item
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Preço',
+                      labelText: phrases['price'],
                       errorStyle: TextStyle(color: danger_color),
                     ),
                     keyboardType: TextInputType.phone,
                     initialValue: this._controller.getPrice(),
                     validator: Validators.priceValidator,
-                    onSaved: (String value){
-                      value = value.replaceAll(',', '.');
-                      double price = double.parse(value);
-                      this._controller.price = price;
-                    },
+                    onSaved: this._controller.savePrice,
                   ),
                 ],
               )

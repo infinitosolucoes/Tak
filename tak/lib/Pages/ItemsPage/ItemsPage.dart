@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Controllers/ItemsPage/ItemsPageController.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Dict/Dictionary.dart';
+import 'package:tak/Functions/Text/MoneyText.dart' as MT;
+import 'package:tak/Theme/Theme.dart';
 import 'package:tak/Objects/Item.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -14,6 +16,13 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage>{
   final ItemsPageController _controller = ItemsPageController();
 
+  @override
+  void initState(){
+    this._controller.initialize();
+    super.initState();
+  }
+
+  @override
   void dispose(){
     this._controller.close;
     super.dispose();
@@ -23,6 +32,7 @@ class _ItemsPageState extends State<ItemsPage>{
     // Tamanho da Tela
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return StreamBuilder(
       stream: this._controller.output,
       builder: (context, snapshot){
@@ -30,21 +40,18 @@ class _ItemsPageState extends State<ItemsPage>{
           appBar: AppBar(
             backgroundColor: primary_color,
             centerTitle: true,
-            title: Text('Itens', style: app_bar),
+            title: Text(phrases['items'], style: app_bar),
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.add, color: background_color, size: 30),
-                onPressed: () async{
-                  final item = await Navigator.pushNamed(context, '/listItems/createItem', arguments: null);
-                  if(item != null){
-                    this._controller.addItem(item);
-                  }
-                },
+                onPressed: () async{await this._controller.add(context);},
               ),
               SizedBox(width: (width * 0.04),)
             ],
           ),
+
           backgroundColor: background_color,
+
           body: ListView.separated(
             itemCount:  this._controller.len(),
             separatorBuilder: (context, index) => divider,
@@ -68,29 +75,21 @@ class _ItemsPageState extends State<ItemsPage>{
                 title: Text(item.name, style: title_item),
                 subtitle: Container(
                   padding: EdgeInsets.only(top: 5),
-                  child: Text('R\$ ' + item.price.toStringAsFixed(2).replaceAll('.',','), style: subtitle_item),
+                  child: Text(MT.moneyText(item.price), style: subtitle_item),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    // Botão para editar o item
                     IconButton(
                       icon: Icon(MdiIcons.pencil, size: (height*0.05), color: decoration_color),
-                      onPressed: ()async{
-                        final editItem = await Navigator.pushNamed(context, '/listItems/createItem', arguments: item);
-                        if(editItem != null){
-                          this._controller.setItem(index,editItem);
-                        }
-                      },
+                      onPressed: () async{await this._controller.edit(context, index, item);},
                     ),
                    
+                    // Botão para deletar o item
                     IconButton(
                       icon: Icon(MdiIcons.closeCircleOutline, size: (height*0.05), color: danger_color),
-                      onPressed: () async {
-                      	bool flag = await this._controller.removeItem(index);
-                        if(flag){
-                          Scaffold.of(context).showSnackBar(this._controller.snackbar);
-                        }
-                      },
+                      onPressed: () async {await this._controller.delete(context, index);},
                     )
                   ],
                 )
@@ -98,17 +97,6 @@ class _ItemsPageState extends State<ItemsPage>{
             },
 
           ),
-          // floatingActionButton: FloatingActionButton(
-          //   backgroundColor: primary_color,
-          //   child: Icon(Icons.add, size: (height*0.06)),
-          //   onPressed: () async{
-          //     final item = await Navigator.pushNamed(context, '/listItems/createItem');
-          //     if(item != null){
-          //       this._controller.addItem(item);
-          //     }
-              
-          //   }
-          // )
         );
       }
     ); 

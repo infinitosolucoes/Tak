@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:tak/Objects/Company.dart';
+import 'package:tak/Functions/List/GetSales.dart' as Sales;
 import 'package:tak/Objects/Sale.dart';
 
 class InvoiceListPageController{
@@ -10,7 +10,8 @@ class InvoiceListPageController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  List<Sale> _sales;
+
+  List<Sale> _sales = [];
 
   List<Sale> get sales => this._sales;
 
@@ -20,8 +21,9 @@ class InvoiceListPageController{
 
   String title(int index) => '${this._sales[index].id} - ${this._sales[index].date}';
 
-  void initialize(){
-    this._sales = company.sales.reversed.toList();
+  void initialize() async{
+   
+    this._sales = await Sales.loadSales();
     this._streamController.add(this._sales);
   }
 }

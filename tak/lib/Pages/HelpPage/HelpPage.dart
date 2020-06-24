@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Nav.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 class HelpPage extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _HelpPageState extends State<HelpPage> {
       appBar: AppBar(
             backgroundColor: primary_color,
             centerTitle: true,
-            title: Text('Ajuda', style: app_bar),
+            title: Text(phrases['help'], style: app_bar),
           ),
       backgroundColor: background_color,
 
@@ -32,13 +33,14 @@ class _HelpPageState extends State<HelpPage> {
               if(index == 0){
                 final Email email = Email(
                   isHTML: false,
-                  subject: 'Tak - Contato de suporte',
-                  recipients: ['ricardotavares@id.uff.br'],   
+                  subject: phrases['titleSuportEmail'],
+                  recipients: [phrases['email']],   
                 );
 
                 await FlutterEmailSender.send(email);
+              }else{
+                Navigator.pushNamed(context, helpRoutes[index].page);
               }
-              Navigator.pushNamed(context, helpRoutes[index].page);
             },
           );
         }, 

@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
-
-// Paleta de Cores
-const Color background_color = Color(0xFFFEFEFE);
-const Color primary_color = Color(0xFF359FF4);
-const Color danger_color = Color(0xFFF44236);
-const Color success_color = Color(0xFF00CC66);
-const Color decoration_color = Color(0xFF9D9D9D);
-
-// Forma de botões
-RoundedRectangleBorder shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(7));
-
-Divider divider =  Divider(height: 1, color: decoration_color);
+import 'Color.dart';
 
 // Estilização de fontes
   // Home
@@ -34,3 +23,11 @@ Divider divider =  Divider(height: 1, color: decoration_color);
 
   // Textos página de Relatório
   const TextStyle results = TextStyle(fontFamily: 'Open Sans',fontSize: 35, fontWeight: FontWeight.bold, color: primary_color);
+
+  // Textos para a página de Login
+  const TextStyle companyLogo = TextStyle(fontFamily: 'Merienda One',fontSize: 80,color: background_color);
+  const TextStyle catchphrase =  TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color);
+
+  // Textos para a página de Sobre
+  const TextStyle companyLogoAbout = TextStyle(fontFamily: 'Merienda One',fontSize: 120,color: background_color);
+  const TextStyle descriptionAbout = TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color);

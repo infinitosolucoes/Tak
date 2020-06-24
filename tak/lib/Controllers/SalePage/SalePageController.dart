@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Sale.dart';
 import 'package:tak/Objects/SaleItem.dart';
-import 'package:tak/Objects/Company.dart';
 
-import 'package:tak/Functions/RoundPrice.dart' as RoundPrice;
+import 'package:tak/Functions/Text/RoundPrice.dart' as RoundPrice;
+import 'package:tak/Functions/List/GetSales.dart' as Sales;
+import 'package:tak/Functions/Dialog.dart' as Dialog;
 
 class SalePageController {
   final StreamController _streamController = new StreamController.broadcast();
@@ -16,17 +18,28 @@ class SalePageController {
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream. Obs.: Deve ser chamado na função dispose da SalePage
 
+  
   Sale _newSale = new Sale(
-    id: (company.sales.length+1).toString(),
-    total: 0.00,
-    methodPayment: 1,
-    items: new List<SaleItem>(),
-    date: DateTime.now().toString().split(' ')[0]
-  );
+      total: 0.00,
+      methodPayment: 1,
+      items: new List<SaleItem>(),
+      date: DateTime.now().toString().split(' ')[0]
+    );
+  
+  Future<void> createItem() async {
+    List<Sale> sales = await Sales.loadSales();
+    this._newSale.id = (sales.length+1).toString();
+    this._streamController.add(this._newSale);
+  }
   
   Sale get newSale => this._newSale;
 
-  void incrementTotal(SaleItem saleItem){
+  Future<void> add(BuildContext context) async {
+    var newSaleItem =  await Navigator.pushNamed(context, routes['addItem']);
+    this._incrementTotal(newSaleItem);
+  }
+
+  void _incrementTotal(SaleItem saleItem){
     try{
       double value = RoundPrice.roundPrice((this._newSale.total + saleItem.calculateTotal()));
      
@@ -73,6 +86,12 @@ class SalePageController {
     }
   }
 
-  bool invoice() => (this._newSale.items.length > 0)? true : false;
+  Future<void> invoice(BuildContext context) async {
+    if(this._newSale.items.length > 0){
+      Navigator.pushNamed(context, routes['invoice'], arguments: this._newSale);
+    }else{
+      Dialog.dialog(context,phrases['itemLength']);
+    }
+  }
 
 }

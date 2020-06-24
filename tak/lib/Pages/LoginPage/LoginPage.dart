@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tak/Controllers/LoginPage/LoginPageController.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
+import 'package:tak/Dict/Dictionary.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,13 +11,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final LoginPageController _controller = new LoginPageController();
 
-  // @override
-  // void initState(){
-  //   this._controller.initPackageInfo();
-  //   super.initState();
-  // }
-
-
   @override
   void dispose(){
     this._controller.close;
@@ -25,7 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    final double height = MediaQuery.of(context).size.height;
+
     return StreamBuilder(
       stream: this._controller.output,
       builder: (context, snapshot){
@@ -34,51 +29,20 @@ class _LoginPageState extends State<LoginPage> {
           body: Container(
             padding: EdgeInsets.all(20),
             child: Center(
-            
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Tak', style: TextStyle(fontFamily: 'Merienda One',fontSize: 80,color: background_color)),
-                  Text('O seu melhor ajudante ;)', style: TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color)),
+                  Text(phrases['companyLogo'], style: companyLogo),
+                  Text(phrases['catchphrase'], style: catchphrase),
                   
                   SizedBox(height: (height * 0.25)),
-                  
                   
                   FlatButton(
                     color: background_color,
                     textColor: primary_color,
-                    child: Text('LOGIN COM O GOOGLE'),
-                    onPressed: () async{
-
-                      String result = await this._controller.signInWithGoogle();
-                      if(result != null){
-                        Navigator.pushNamedAndRemoveUntil(context,'/', (Route<dynamic> route) => false);
-                      }else{
-                        
-                        showDialog(
-                          context: context, 
-                          barrierDismissible: false, 
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                            
-                              content: Text('Não foi possível fazer o Login: Erro de Conexão'),
-                                    
-                              
-                              actions: <Widget>[
-                                FlatButton(
-                                  child: Text('FECHAR'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          }
-                        );
-                        print('Deu Ruim');
-                      }
-                    },
+                    child: Text(phrases['loginButton']),
+                    onPressed: () async{await this._controller.login(context);},
                   )
                 ],
               )

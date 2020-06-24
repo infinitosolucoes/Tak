@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tak/Functions/List/GetItems.dart' as Items;
 import 'package:tak/Objects/Item.dart';
 import 'package:tak/Objects/SaleItem.dart';
-import 'package:tak/Objects/Company.dart';
 
 class AddItemController{
   final StreamController _streamController = new StreamController.broadcast();
@@ -14,12 +14,13 @@ class AddItemController{
   Stream get output => _streamController.stream;              // Saída de dados do Controller
   Future get close => _streamController.close();              // Fechamento da Stream
 
-  List<Item> _items = new List<Item>();
+
+  List<Item> _items = [];
   SaleItem _new = new SaleItem(amount: 0, item: null);
 
   // Carrega os itens vindos do BD
-  void loadItems(){
-    this._items = company.items;
+  Future<void> initialize() async {
+    this._items = await Items.loadItems();
     this._streamController.add(this._items);
   }
 

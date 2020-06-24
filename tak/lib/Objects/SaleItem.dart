@@ -1,5 +1,5 @@
 import 'package:tak/Objects/Item.dart';
-import 'package:tak/Functions/MoneyText.dart' as MT;
+import 'package:tak/Functions/Text/MoneyText.dart' as MT;
 
 class SaleItem{
   Item item;

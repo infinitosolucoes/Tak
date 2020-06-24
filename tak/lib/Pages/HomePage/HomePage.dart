@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Objects/Company.dart';
 import 'package:tak/Objects/Nav.dart';
-import 'package:tak/Theme/theme.dart';
+import 'package:tak/Theme/Theme.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -14,15 +15,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // Tamanho da Tela
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: background_color,
       appBar: AppBar(
         backgroundColor: primary_color,
         centerTitle: true,
-        title: Text("Tak", style: home_app_bar,),
+        title: Text(phrases['companyLogo'], style: home_app_bar,),
       ),
       body: GridView.count(
         crossAxisCount: 2,
@@ -58,12 +59,12 @@ class _HomePageState extends State<HomePage> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                      
-                      content: Text('Complete os dados para prosseguir'),
+                      content: Text(phrases['dataError']),
                             
                       
                       actions: <Widget>[
                         FlatButton(
-                          child: Text('FECHAR'),
+                          child: Text(phrases['closeButton']),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },

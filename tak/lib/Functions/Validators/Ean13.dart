@@ -1,13 +1,14 @@
-import 'package:tak/Objects/Company.dart';
+import 'package:tak/Functions/List/GetItems.dart';
+import 'package:tak/Objects/Item.dart';
 
 // Função que verifica se o Código de Barras, padrão EAN-13, é válido
-String ean13Validator(String value, String before){
+Future<String> ean13Validator(String value, String before) async {
 
   if(value.length < 13){ 
     return 'Precisa de 13 Dígitos'; 
   }else if(value == ('0'*13)){ 
     return 'Código Inválido'; 
-  }else if(_ean13Exists(value) && (value != before)){
+  }else if((await _ean13Exists(value)) && (value != before)){
     return 'Código já cadastrado';
   }
 
@@ -51,10 +52,12 @@ String ean13Validator(String value, String before){
 }
 
 // Função que verifica se o código informado já existe no sistema
-bool _ean13Exists(String value){
+Future<bool> _ean13Exists(String value) async {
+  
+  List<Item> items = await loadItems();
   List<bool> ean13Codes = List.generate(
-    company.items.length, 
-    (int index) => (value == company.items[index].id)? true: false
+    items.length, 
+    (int index) => (value == items[index].id)? true: false
   );
 
   if(ean13Codes.contains(true)){return true;}
