@@ -26,7 +26,8 @@ import 'Color.dart';
 
   // Textos para a página de Login
   const TextStyle companyLogo = TextStyle(fontFamily: 'Merienda One',fontSize: 80,color: background_color);
-  const TextStyle catchphrase =  TextStyle(fontFamily: 'Open Sans', fontSize: 18, color: background_color);
+  const TextStyle catchphrase =  TextStyle(fontFamily: 'Open Sans', fontSize: 16, color: background_color);
+  const TextStyle catchphraseBold =  TextStyle(fontFamily: 'Open Sans', fontSize: 16, color: background_color, fontWeight: FontWeight.bold);
 
   // Textos para a página de Sobre
   const TextStyle companyLogoAbout = TextStyle(fontFamily: 'Merienda One',fontSize: 120,color: background_color);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tak/Controllers/LoginPage/LoginPageController.dart';
 import 'package:tak/Theme/Theme.dart';
 import 'package:tak/Dict/Dictionary.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -43,7 +44,32 @@ class _LoginPageState extends State<LoginPage> {
                     textColor: primary_color,
                     child: Text(phrases['loginButton']),
                     onPressed: () async{await this._controller.login(context);},
+                  ),
+                  Text('Ao fazer o login, aceitará os nossos ', style: catchphrase),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      
+                      InkWell(
+                        child: Text(phrases['terms'], style: catchphraseBold),
+                        onTap: () async {
+                          if(await canLaunch(phrases['termsLink'])){
+                            await launch(phrases['termsLink']);
+                          }
+                        },
+                      ),
+                      Text(' e ', style: catchphrase),
+                      InkWell(
+                        child: Text(phrases['privacy'], style: catchphraseBold),
+                        onTap: () async {
+                          if(await canLaunch(phrases['privacyLink'])){
+                            await launch(phrases['privacyLink']);
+                          }
+                        },
+                      ),
+                    ],
                   )
+                 // Text('Termos de Uso e ')
                 ],
               )
             ),

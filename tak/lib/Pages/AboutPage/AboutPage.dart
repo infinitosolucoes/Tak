@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tak/Controllers/AboutPage/AboutPageController.dart';
 import 'package:tak/Dict/Dictionary.dart';
 import 'package:tak/Theme/Theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -38,7 +39,7 @@ class _AboutPageState extends State<AboutPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(phrases['companyLogo'], style: companyLogoAbout),
-                Text('${phrases['companyLogo']} ${this._controller.packageInfo.version}', style: descriptionAbout),
+                Text('${phrases['version']} ${this._controller.packageInfo.version}', style: descriptionAbout),
                 
                 SizedBox(height: 50),
                 
@@ -50,7 +51,29 @@ class _AboutPageState extends State<AboutPage> {
                   textColor: primary_color,
                   child: Text(phrases['licenseButton']),
                   onPressed: () async{await this._controller.showLicense(context);},
-                )
+                ),
+                SizedBox(height: 8),
+                FlatButton(
+                  color: background_color,
+                  textColor: primary_color,
+                  child: Text(phrases['terms'].toUpperCase()),
+                  onPressed: () async {
+                    if(await canLaunch(phrases['termsLink'])){
+                      await launch(phrases['termsLink']);
+                    }
+                  },
+                ),
+                SizedBox(height: 8),
+                FlatButton(
+                  color: background_color,
+                  textColor: primary_color,
+                  child: Text(phrases['privacy'].toUpperCase()),
+                  onPressed: () async{
+                    if(await canLaunch(phrases['privacyLink'])){
+                      await launch(phrases['privacyLink']);
+                    }
+                  },
+                ),
               ],
             ),
           )
