@@ -4,7 +4,7 @@
 
 !["Logo do Aplicativo"](https://raw.githubusercontent.com/ricardoMonteiroTavares/Tak/master/tak/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
-[!["Disponível em"](https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-br-black.png =286x84)](https://www.amazon.com.br/Ricardo-de-Monteiro-Tak/dp/B08BWBSYN1/ref=sr_1_2?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=tak&qid=1593399837&s=mobile-apps&sr=1-2)
+[!["Disponível em"](https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-br-black.png)](https://www.amazon.com.br/Ricardo-de-Monteiro-Tak/dp/B08BWBSYN1/ref=sr_1_2?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=tak&qid=1593399837&s=mobile-apps&sr=1-2)
 
 ## Sobre
 É um aplicativo android de PDV (Ponto de Venda) voltado para Microempreendedor Individual (MEI). 
